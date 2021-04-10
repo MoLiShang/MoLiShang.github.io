@@ -1,250 +1,194 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i0.hdslb.com/bfs/face/eec4d8864d1842bcae83cbe4f31016ffbd7bdb54.jpg">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i0.hdslb.com/bfs/face/eec4d8864d1842bcae83cbe4f31016ffbd7bdb54.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-04-10 12:10:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-<meta name="generator" content="Hexo 5.4.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://i0.hdslb.com/bfs/face/eec4d8864d1842bcae83cbe4f31016ffbd7bdb54.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2021/04/07/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/" title="文章标题">文章标题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-07T11:04:19.000Z" title="发表于 2021-04-07 19:04:19">2021-04-07</time></span></div><div class="content">111111111111111111111111
+</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2021/04/07/hello-world/" title="Hello World">Hello World</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-04-07T10:57:31.623Z" title="发表于 2021-04-07 18:57:31">2021-04-07</time></span></div><div class="content">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-文章标题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/04/07/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/" class="article-date">
-  <time class="dt-published" datetime="2021-04-07T11:04:19.000Z" itemprop="datePublished">2021-04-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/07/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/">文章标题</a>
-    </h1>
-  
+More info: Writing
+Run server1$ hexo server
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>111111111111111111111111<br><img src="/static/images/1.jpg" alt="Image text"></p>
+More info: Server
+Generate static files1$ hexo generate
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/07/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/" data-id="ckn7cgse90000pkwbefz0794x" data-title="文章标题" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
+More info: Generating
+Deploy to remote sites1$ hexo deploy
 
+More info: Deployment
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/10/15/nginx.conf%E8%AF%A6%E8%A7%A3/" title="nginx.conf详解">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx.conf详解"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/10/15/nginx.conf%E8%AF%A6%E8%A7%A3/" title="nginx.conf详解">nginx.conf详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-10-15T02:31:00.000Z" title="发表于 2020-10-15 10:31:00">2020-10-15</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">| nginx.conf配置：  nginx.conf是里面最重要的一个配置，因为我们经常会用到它，并且要熟练掌握它的配置。nginx.conf里面分为这么几个配置块，分别是events、http、server、upstream、location，当然还有最初的关于user的配置关于worker_processes的配置等。#定义Nginx运行的用户和用户组user nginx nginx;//默认为user nobody;#nginx进程数，一般建议设置为CPU总核数worker_processes 8;#全局错误日志定义类型 [ debug |info | notice |  warn | error | crit ]error_log  /var/log/nginx/error.log info;#默认是这样的的，但其实可以info的写成info_log,#进程文件pid /var/run/nginx.pid; 进程文件显示nginx运行的PID#一个nginx进程打开的最多文件描述符数目，理论值应该是最多打开文件数（系统的值ulimit -n）与nginx进程数相除，但是ngi ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/10/03/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" title="nginx服务器配置">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx服务器配置"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/10/03/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" title="nginx服务器配置">nginx服务器配置</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-10-03T12:29:00.000Z" title="发表于 2020-10-03 20:29:00">2020-10-03</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">由于上次安装nginx服务器，因此顺便看了下nginx服务器的一些配置，也顺便弥补一下我的nginx方面的一些不足吧，由于上次组建了nginx服务器，因此这次就不写如何下载了，直接讲一些更细节的东西吧，如下面的是nginx服务器编译之后的目录结构：接下来就对里面每一个东西进行一次讲解吧：|– CHANGES：这不是一个目录，而是一个文件，这个文件是官方给的专门用来描述nginx每一次更新迭代的改变的文件，里面可|–以看到nginx每一次更新改变了什么。|– CHANGES.ru:这也是一个文件，这个文件看不出什么来，编码有点问题，但是看起来应该还是和CHANGES文件一个样的。|– LICENSE:这是证书文件，具体用来干什么不太清楚大概就是用来认证用的，具体配置用不上|– README：这是阅读文件，一般用来写一些操作指南什么的，不过nginx里只写了个nginx官网|– auto：这里存放的应该是nginx的一些编译文件，比如说gcc什么的编译文件，这里的文件一般配置也用不到，暂时也不用动|– conf：这里存放着nginx所有配置文件，是及其重要的文件夹。|   |– fastc ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/09/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAnginx%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="自定义搭建一个nginx服务器">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="自定义搭建一个nginx服务器"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/09/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAnginx%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="自定义搭建一个nginx服务器">自定义搭建一个nginx服务器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-09-28T15:12:00.000Z" title="发表于 2020-09-28 23:12:00">2020-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">前两天做系统迁移，因此需要在服务器上部署一个nginx服务器用来存放前端服务器文件，而根据要求需要自定义安装nginx服务器，如果使用yum install nginx进行安装，有关nginx服务器的配置文件无法受自己的掌控，因此必须要自定义搭建。自定义搭建服务器的步骤如下：1、从官网下载nginx的压缩包到指定位置，一般会在/root文件夹下创建tools文件夹，用来存放所有需要用到的压缩包，然后再创建一个文件夹server用来存放服务器的所有文件，如下图所示：
+现在需要下载nginx服务器的压缩包，而这需要使用wget命令，而有些时候并没有在centos预装wget命令，如下图所示：
+如果没有预装的话，需要使用yum命令去安装（yum只是centos系统的软件包管理器，如果是其他的话应该也有对应的软件包管理器，比如ubuntu的apt，以及rpm等。）具体命令是yum install wget（有时候没有权限，需要使用sudo权限才能下载），下载过程如下图所示：    
+nginx服务器的官方地址是：http://nginx.org/download/nginx-1.18.0.ta ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/08/20/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83%E7%9A%84%E9%97%AE%E9%A2%98/" title="数组和对象与字符串进行比较的问题">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数组和对象与字符串进行比较的问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/20/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83%E7%9A%84%E9%97%AE%E9%A2%98/" title="数组和对象与字符串进行比较的问题">数组和对象与字符串进行比较的问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-20T08:21:00.000Z" title="发表于 2020-08-20 16:21:00">2020-08-20</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">今天碰到个这个题目：
+var  a=[1,2,3];
+var b=[1,2,3];
+var  c=&quot;1,2,3&quot;
+var d=&#123;a:1&#125;
+var e=&#39;&#123;a:1&#125;&#39;
+console.log(a==b,a==c,b==c)
+console.log(d==e)
 
+结果：false true true false而结果是a不等于b，a等于c，b也等于c，搞了半天没搞懂，后来才知道，js是弱类型语言，obj与obj之间是比较地址，其他的大部分会转成字符串，而数组可以看作是一个特殊的obj，即键值为固定数值的对象，因此他们比较时候地址不相同，会打印false，而d不等于e是因为需要转格式toString，我进行了下面的测试：
+var obj=&#123;&#125;
+var str=&#39;[object Object]&#39;
+console.log(obj.toString(),str)
+console.log(obj.toString()==str)
+结果：[object Object] [object Obj ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/08/18/vuex%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%A8%A1%E5%BC%8F/" title="vuex状态管理模式">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vuex状态管理模式"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/18/vuex%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%A8%A1%E5%BC%8F/" title="vuex状态管理模式">vuex状态管理模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-18T03:51:00.000Z" title="发表于 2020-08-18 11:51:00">2020-08-18</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式，这是官方的解释，但其实个人感觉它的功能类似与Bus，也就是数据总线的功能，它把一些公共的数据都抽出来，做成一个单独类，然后将这些数据称之为状态，其实大概就是这样了，vuex其实还是挺简单的，需要引用插件的话，需要先使用
+npm install vuex --save
 
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/04/07/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2021-04-07T10:57:31.623Z" itemprop="datePublished">2021-04-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/07/hello-world/">Hello World</a>
-    </h1>
-  
+安装vuex，并且在main.js使用它，即
+import Vue from &#39;vue&#39;
+import Vuex from &#39;vuex&#39;
+Vue.use(Vuex)
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+这样才可以使用，不过vuex依赖promise，因此需要引入es6-promise（这个我没引入过，也没问题，大概是我的浏览器支持promsie，因此不需要吧。）Vuex主要有Sate、Mutation和Action三个核心概念，其中state状态，其实就是数据了，由于state的状态都是响应式的，因此读取状态的最好办法就是在computed（计算属性）中返回某个状态，而一个组件需要取多个状态的时候，可以使用mapState来帮助生成计算属性（少写点代码），而这 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/06/28/npm-WARN-babel-loader@7.1.5-requires-a-peer-of-babel-core@6-but-none-is-installed.-You-must-install-peer-dependencies-yourself./" title="npm WARN babel-loader@7.1.5 requires a peer of babel-core@6 but none is installed. You must install peer dependencies yourself.">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="npm WARN babel-loader@7.1.5 requires a peer of babel-core@6 but none is installed. You must install peer dependencies yourself."></a></div><div class="recent-post-info"><a class="article-title" href="/2020/06/28/npm-WARN-babel-loader@7.1.5-requires-a-peer-of-babel-core@6-but-none-is-installed.-You-must-install-peer-dependencies-yourself./" title="npm WARN babel-loader@7.1.5 requires a peer of babel-core@6 but none is installed. You must install peer dependencies yourself.">npm WARN babel-loader@7.1.5 requires a peer of babel-core@6 but none is installed. You must install peer dependencies yourself.</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-28T01:19:00.000Z" title="发表于 2020-06-28 09:19:00">2020-06-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%94%99%E9%A2%98%E9%9B%86/">错题集</a></span></div><div class="content">在安装插件或者进行其他动作的过程中，总是会遇到该错误
+npm WARN babel-loader@7.1.5 requires a peer of babel-core@6 but none is installed. You must install peer dependencies yourself.
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/07/hello-world/" data-id="ckn7c8avh0000kkwb40q549ep" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2021/04/07/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/">文章标题</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/07/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+而这个错误说明插件的版本不匹配，这时候就需要我们去更新其中一个版本了。而更新的指令是，    npm install bebel-core@6 –save-dev而有时安装的插件又版本不适配，因此需要不断适配。
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/06/16/Bootstrap-Collapse%E7%BB%84%E4%BB%B6%EF%BC%88%E6%89%8B%E9%A3%8E%E7%90%B4%E6%95%88%E6%9E%9C%EF%BC%89-fa-html%E5%9B%BE%E6%A0%87%E5%AD%97%E4%BD%93%E5%BA%93/" title="Bootstrap Collapse组件（手风琴效果） fa-html图标字体库">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Bootstrap Collapse组件（手风琴效果） fa-html图标字体库"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/06/16/Bootstrap-Collapse%E7%BB%84%E4%BB%B6%EF%BC%88%E6%89%8B%E9%A3%8E%E7%90%B4%E6%95%88%E6%9E%9C%EF%BC%89-fa-html%E5%9B%BE%E6%A0%87%E5%AD%97%E4%BD%93%E5%BA%93/" title="Bootstrap Collapse组件（手风琴效果） fa-html图标字体库">Bootstrap Collapse组件（手风琴效果） fa-html图标字体库</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-16T08:56:00.000Z" title="发表于 2020-06-16 16:56:00">2020-06-16</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="content">Bootstrap有很多实用的组件，例如现在提到的Collapse组件就是其中之一，Collapse组件是用来点击下拉显示的，与dropdown有所不同的是，dropdown的dropdown-menu不占位置，或者说是悬浮在网页上的，并不会造成网页样式的变化，而collapse组件则会产生该变化。emmmmm…现在想一下collapse的用法，其中最主要的是点击下拉显示文字的样式，先贴一段代码：
+            &lt;div class=&quot;navbar-toggler align-items-center&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#zhuye&quot;&gt;
+            &lt;i class=&quot;fa fa-home&quot;&gt;&lt;/i&gt;
+            &lt;span class=&quot;nav-label&quot;&gt;主页&lt;/span&gt;
+            &lt;i class=&quot; ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/06/15/Bootstrap%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E4%B8%8A%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E7%9A%84%E6%80%BB%E7%BB%93/" title="Bootstrap学习之路上一些错误代码的总结">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Bootstrap学习之路上一些错误代码的总结"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/06/15/Bootstrap%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E4%B8%8A%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E7%9A%84%E6%80%BB%E7%BB%93/" title="Bootstrap学习之路上一些错误代码的总结">Bootstrap学习之路上一些错误代码的总结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-15T09:07:00.000Z" title="发表于 2020-06-15 17:07:00">2020-06-15</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%94%99%E9%A2%98%E9%9B%86/">错题集</a></span></div><div class="content">在下拉菜单那里，一直没办法有分割线，明明设置了class=”divider”却还是不显示，最后发现是因为我看的教程是中文网中文文档的3.3.7，而使用的是最新的bootstrap4，而bootstrap对于分割线的类进行了更改，从divider改成了dropdown-divider，所以必须要修改为divider才可以生效
+还有就是disable禁用好像也没有禁用的鼠标箭头转换，然后发现是bootstrap4换了箭头。。这些都说明，文档还是看对应版本的好，虽然英文看着累，但是坑少。。
+</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i0.hdslb.com/bfs/face/eec4d8864d1842bcae83cbe4f31016ffbd7bdb54.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2021/04/07/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/" title="文章标题">文章标题</a><time datetime="2021-04-07T11:04:19.000Z" title="发表于 2021-04-07 19:04:19">2021-04-07</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/04/07/hello-world/" title="Hello World">Hello World</a><time datetime="2021-04-07T10:57:31.623Z" title="发表于 2021-04-07 18:57:31">2021-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/10/15/nginx.conf%E8%AF%A6%E8%A7%A3/" title="nginx.conf详解"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx.conf详解"/></a><div class="content"><a class="title" href="/2020/10/15/nginx.conf%E8%AF%A6%E8%A7%A3/" title="nginx.conf详解">nginx.conf详解</a><time datetime="2020-10-15T02:31:00.000Z" title="发表于 2020-10-15 10:31:00">2020-10-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/10/03/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" title="nginx服务器配置"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx服务器配置"/></a><div class="content"><a class="title" href="/2020/10/03/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" title="nginx服务器配置">nginx服务器配置</a><time datetime="2020-10-03T12:29:00.000Z" title="发表于 2020-10-03 20:29:00">2020-10-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/09/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAnginx%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="自定义搭建一个nginx服务器"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="自定义搭建一个nginx服务器"/></a><div class="content"><a class="title" href="/2020/09/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAnginx%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="自定义搭建一个nginx服务器">自定义搭建一个nginx服务器</a><time datetime="2020-09-28T15:12:00.000Z" title="发表于 2020-09-28 23:12:00">2020-09-28</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%A4%A9%E5%91%BD%E9%A3%8E%E6%B5%81/"><span class="card-category-list-name">天命风流</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%96%87%E7%AB%A0/"><span class="card-category-list-name">文章</span><span class="card-category-list-count">37</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%94%99%E9%A2%98%E9%9B%86/"><span class="card-category-list-name">错题集</span><span class="card-category-list-count">3</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Ajax/" style="font-size: 1.1em; color: #999">Ajax</a> <a href="/tags/Android/" style="font-size: 1.17em; color: #999c9f">Android</a> <a href="/tags/Bootstrap/" style="font-size: 1.23em; color: #999ea6">Bootstrap</a> <a href="/tags/Git/" style="font-size: 1.1em; color: #999">Git</a> <a href="/tags/HTML5/" style="font-size: 1.1em; color: #999">HTML5</a> <a href="/tags/Node-js/" style="font-size: 1.1em; color: #999">Node.js</a> <a href="/tags/PHP/" style="font-size: 1.5em; color: #99a9bf">PHP</a> <a href="/tags/jQuery/" style="font-size: 1.1em; color: #999">jQuery</a> <a href="/tags/js/" style="font-size: 1.1em; color: #999">js</a> <a href="/tags/nginx/" style="font-size: 1.23em; color: #999ea6">nginx</a> <a href="/tags/vue/" style="font-size: 1.23em; color: #999ea6">vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.43em; color: #99a6b9">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/" style="font-size: 1.23em; color: #999ea6">前端学习</a> <a href="/tags/%E5%9B%BE%E6%A0%87%E5%AD%97%E4%BD%93%E5%BA%93/" style="font-size: 1.1em; color: #999">图标字体库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.37em; color: #99a4b2">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF/" style="font-size: 1.23em; color: #999ea6">服务器端</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 1.3em; color: #99a1ac">随笔</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/04/"><span class="card-archive-list-date">四月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/10/"><span class="card-archive-list-date">十月 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/09/"><span class="card-archive-list-date">九月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/08/"><span class="card-archive-list-date">八月 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">六月 2020</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/05/"><span class="card-archive-list-date">五月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/04/"><span class="card-archive-list-date">四月 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/03/"><span class="card-archive-list-date">三月 2020</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">43</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-04-10T04:10:43.975Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By John Doe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
