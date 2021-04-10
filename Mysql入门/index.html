@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mysql入门 | 夜初尘的博客</title><meta name="keywords" content="PHP"><meta name="author" content="夜初尘"><meta name="copyright" content="夜初尘"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Mysql是学习的重点，这次先写一下mysql的操作，为php操作mysql做个准备.... 首先，mysql具有五个基本单位，从大到小分别为：数据库服务器、数据库、数据表、数据字段、数据行，数据库服务器就是指用来运行数据库服务的电脑，也可能是多台电脑一起配合来进行存储或者计算，一个服务器里面可以有多个服务器用来存放不同种类的数据，比如装备数据库，物品数据库等等，而一个数据库就像一个excel表格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql入门">
+<meta property="og:url" content="http://www.yechuchen.cn/Mysql%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="夜初尘的博客">
+<meta property="og:description" content="Mysql是学习的重点，这次先写一下mysql的操作，为php操作mysql做个准备.... 首先，mysql具有五个基本单位，从大到小分别为：数据库服务器、数据库、数据表、数据字段、数据行，数据库服务器就是指用来运行数据库服务的电脑，也可能是多台电脑一起配合来进行存储或者计算，一个服务器里面可以有多个服务器用来存放不同种类的数据，比如装备数据库，物品数据库等等，而一个数据库就像一个excel表格">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2018-07-26T15:27:00.000Z">
+<meta property="article:modified_time" content="2021-04-10T03:52:21.000Z">
+<meta property="article:author" content="夜初尘">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="http://www.yechuchen.cn/Mysql%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-04-10 11:52:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">夜初尘的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Mysql入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-07-26T15:27:00.000Z" title="发表于 2018-07-26 23:27:00">2018-07-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-10T03:52:21.000Z" title="更新于 2021-04-10 11:52:21">2021-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Mysql入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><pre><code>Mysql是学习的重点，这次先写一下mysql的操作，为php操作mysql做个准备....
+首先，mysql具有五个基本单位，从大到小分别为：数据库服务器、数据库、数据表、数据字段、数据行，数据库服务器就是指用来运行数据库服务的电脑，也可能是多台电脑一起配合来进行存储或者计算，一个服务器里面可以有多个服务器用来存放不同种类的数据，比如装备数据库，物品数据库等等，而一个数据库就像一个excel表格一样，由多个数据表构成，而一个数据表又可以按照横竖划分为数据行和数据列（也叫数据字段），其中数据列划分该列应该存储什么样格式的数据，数据行是真正的数据，每一行都要遵照列的划分去存入数据。
+  SQL是操作数据库的核心，所以要学会用SQL语句操作数据库，语句按照功能可以分为三种：
+1.数据库定义语言语句：可以定义不同的数据库、数据表、数据段、数据行以及索引。常用关键字有create、drop、alter。
+2.数据库操作语言语句：添加、删除、更新和查询数据库记录，并检查数据库的完整性。常用关键字有insert、delete、update、select。
+3.数据库控制语言语句：控制不同的数据段直接的许可以及访问级别的语句。主要关键字有grant、revoke。
+可以在命令行里面控制数据库：
+1.连接数据库：
+&lt;code lang=&quot;mysql&quot;&gt;mysql -h localhost -u root -p,其中h表示host，u表示user，p表示password&lt;/code&gt;，其实如果进入了mysql命令行的话，就不需要mysql -h了。
+2.创建数据库：CREATE DATABASE+数据库名，如果已经存在这个数据库就会报错
+&lt;code lang=&quot;mysql&quot;&gt;CREATE DATABASE UID&lt;/code&gt;
+3.查看数据库：SHOW DATABASE，可以查看当前服务器的所有数据库
+&lt;code lang=&quot;mysql&quot;&gt;SHOW DATABASE&lt;/code&gt;
+4.选中数据库：USE+数据库名，这样你就可以进入数据库中，使用该数据库。
+&lt;code lang=&quot;mysql&quot;&gt;USE UID&lt;/code&gt;
+5.查看数据库中的表：SHOW TABLES
+6.删除数据库：DROP DATABASE+数据库名，数据库删除之后，数据库里面的所有东西也会被删除，所以要做好备份。
+&lt;b&gt;Mysql数据表操作&lt;/b&gt;:
+7.创建表：CREATE TABLE+表名（字段名1 字段类型1（字段长度），...，字段名n 字段类型n（字段长度），字段类型有int，float，char（字符），varchar（字符串）
+&lt;code lang=&quot;mysql&quot;&gt;
+CREATE TABLE STUDENT(
+    UID int(8),
+    USERNAME varchar(10),
+    USERAGE int(3)
+    USERBORTH date
+);
+&lt;/code&gt;
+8.查看表字段结构信息：desc+表名，可以查看表的结构。
+9.查看表的创建SQL语句，查看表创建语句：SHOW CREATE TABLE+表明 \G;其中\G表示使记录可以按照字段竖着排列，对于内容比较长的记录更易于显示，在创建SQL语句中，除了可以看到表定义以外，还可以看到表的engine(存储引擎）、charset（字符集）等信息。
+10.删除表：DROP TABLE+表名：删除表，表和数据都会丢失。
+11.指定表引擎和字符集：在创建表的最后，我们常用MylSAM或者lnnoDB引擎。在指定引擎时，我们可以使用：ENGINE=lnnoDB；在指定表默认字符集时我们可以使用：DEFAULT CHARSET=utf8。
+&lt;b&gt;Mysql数据字段操作（操作列）&lt;/b&gt;：
+12.修改表字段类型：alter table+表名+modify+字段名+varchar(20);如：
+&lt;code lang=&quot;mysql&quot;&gt;alter table user modify username varchar(20)&lt;/code&gt;，表示将user表的username字段改成varchar类型。
+13.增加表字段：alter table+表名+add column+字段名+类型；如：
+&lt;code lang=&quot;mysql&quot;&gt;alter table user add column age int(3)&lt;/code&gt;;表示将user表增加一列age字段，字段类型为整形，但是这种增加字段会将字段添加在最后一列。
+14.增加字段时控制字段顺序：其实就是加一个关键字，AFTER就是了，如：alter table user add column age int(3) after username；表示将age字段添加在username字段之后，字段类型为int型，长度为3.
+15.删除表字段：alter table+表名+drop column+字段+类型，如：alter table user drop column age；表示将user表的age字段删除。
+16.表字段改名：alter table+表名 change+字段原名+字段新名+字段新类型，如：alter table user change email em varchar（20）；表示在user表中将字段中的email字段改成长度为20的varchar类型的字段，并且新的字段名为em。
+17.修改表字段排列顺序：在前面所学的增加和修改语句中，最后都可以加一个可选项first|after，如：alter table user modify em varchar(60) first，这样就把em字段移动到了所有字段的最前面了。
+18.修改表名：alter table+旧表名+rename+新表名，如：alter table user rename new_user，表示将表名由user改成new_user。
+&lt;b&gt;Mysql数据类型&lt;/b&gt;
+Mysql数据类型：Mysql数据类型分为五种类型，分别是：数值类型、字符串类型、日期时间类型、复合类型、空间类型，而每个数据类型又可以详细划分：
+1.数值类型，数值类型其实可以分为两种整形和浮点型，其中整形按照字节长短可以划分为tinyint(1byte)、smallint(2byte)、mediumint(3byte)、int(4byte)、bigint(8byte)，浮点型也可以分为三种，分别是float(m,d)(4byte)、double(m,d)(8byte)、decimal(m,d)，其中decimal叫做定点数，是存储为字符串的浮点数，如果是存在金额、钱精度较高的浮点存储，建议使用decimal这个类型。
+2.字符类型，字符类型有很多种类型，比如CHAR(定长字符串)、VARCHAR(变长字符串)、TINYBLOB(不超过255个字符的二进制字符串)、BLOB(二进制形式的长文本数据)、TEXT(长文本数据)、MEDIUMBLOB(二进制形式的中等长度文本数据)、MEDUIUMTEXT(中等长度文本数据)、LONGBLOB(二进制形式的极大文本数据)、LONGTEXT(极大文本数据)、VARBINARY(M)(值的长度+1的字节)、BINARY(M)(允许长度0-M个字节的定长字节符串)。其中CHAR类型用于定长字符串，并且必须在圆括号内用一个大小修饰符来定义。比长度大的值将被截短，而比长度小的值将会用空格填补。VARCHAR把这个大小视作值的大小，长度不足的情况下就用空格补足。而VARCHAR类型把他视为最大值并且只是用存储字符串实际需要的长度。text和blob类型对于字段长度要求255个的情况下对于大型数据用于存储文本块或图像、声音等二进制数据类型。但是text和blob在分类和比较上存在区别，blob区分大小写，而text不区分。但是大小写修饰符却不用于他们的子类型。
+3.时间类型有date(3byte)(格式：2018-07-25)、time(3byte)(格式：11:00:00)、datetime(8byte)(格式：2018-07-25 11:00:00)、timestamp(4byte)(自动存储记录修改的时间)，year(1byte)(年份)。一般大家都喜欢用int来存储时间，插入时插入的unix时间戳，也可以用date函数，再将unix时间戳转成人们可识别的时间。
+4.复合类型有集合类型(set)和枚举类型(enum),但是一个enum类型只允许从一个集合取得一个值；而set类型允许从一个集合中取得任意多个值。enum因为只允许在集合中取得一个值，有点类似于单选项，它可以从集合中取得一个值或者是null值，除此之外的输入会在这个字段中插入一个空字符串，如果插入值的大小写和集合中不匹配则会转化和集合中一致，enum类型在系统内部可以存储为数字，并且从1开始用数字坐索引。一个ENUM类型最多可以包含2^16个元素，其中一个元素被MySQL保留，用来存储错误信息，这个错误值用索引0或者一个空字符串表示。MySQL认为enum类型集合中出现的值是合法输入，初次之外其他任何输入都将失效。这说明通过搜索包含空字符串或者对应数字为0的行就可以很容易地找到错误记录的位置。与enum类型相同的是，任何试图在set类型字段中插入非预定义的值都会使MySQL插入一个字符串。如果插入一个既有合法元素又有非法元素的记录，MySQL会保留合法的元素，除去非法的元素，而且它还去除了重复的元素，如果要从set类型字段中找出非法的记录只需查找包含空字符串或二进制为0的行。
+    到这里，所有的字符类型就全讲完了。不过还有一些字符类型的属性需要掌握一下，UNSIGNED(无符号)主要用于整型和浮点类型，使用无符号。即，没有前面的负号-(符号)。ZEROFILL(0填充)可以用来真补输出的值。使用这个修饰符可以阻止MySQL数据库存储赋值。default属性确保在没有任何值可用的情况下，赋予某个常量值，这个值必须是常量，因为MySQL不允许插入或者表达式值。此外，此属性无法用于BLOB或TEXT列。not null属性，如果将一个列定义为not null，将不允许向该列插入null值，一般在重要情况下始终使用not null属性，因为它提供了一个基本验证，确保已经向查询传递了所有必要的值。null属性，当列被指定为null属性时，该列可以表示为空，而不论行中其他列是否已经被填充，一般默认的属性都是NULL，而如果时其他属性则需要在创建语句的后面声明一下。
+&lt;b&gt;字符集&lt;/b&gt;
+字符集就是对每种语言常用字符进行的不同的编码，常见编码如ASCII，GBK，unicode，utf-8，实际上我们一般使用gbk_chinese_ci(简体中文，不区分大小写),utf8_general_ci(Unicode,不区分大小写)。
+&lt;b&gt;Mysql表引擎&lt;/b&gt;
+基于表的特点可以使用不同的引擎以达到最好的性能，以下是几种引擎：
+MyISAM 常用。读取效率很高的引擎，表锁(表级锁，加锁会锁住整个表),支持全文索引，操作速度快，常用于读取多的业务，对于这个引擎，mysql数据库只会缓存索引，而数据文件的缓存由操作系统本身来完成。
+lnnoDB 常用。写入、支持事务处理，行锁设计，支持外键，即默认情况下读取操作是不加锁的，是为了处理巨大数据量时的最大性能设计。事务即是同时操作多个数据，若其中一个数据操作失败，可回滚到操作前，常用于银行等系统中。
+Archive 不常用。归档引擎，压缩比高达1:10，用于数据归档。
+NDB 不常用。主要在MySQL集群服务器中使用。
+&lt;b&gt;索引&lt;/b&gt;
+索引有四种：基本索引、唯一索引、主键索引、全文索引。
+添加基本索引：alter table+表 add index(字段)，为表的字段添加基本索引
+添加唯一索引：alter table+表 add UNIQUE(字段)，为表的字段添加唯一索引
+添加主键索引：alter table+表 add PRIMARY KEY(字段)，为表的字段添加主键索引
+添加全局索引：alter table+表 add FULLTEXT(字段)，为表的字段添加全局索引
+创建表时也可以声明索引，代码如下：
+&lt;code lang=&quot;mysql&quot;&gt;
+CREATE TABLE test (
+     id INT NOT NULL , 
+     username VARCHAR(20) NOT NULL , 
+     password INT NOT NULL , 
+     content INT NOT NULL , 
+     PRIMARY KEY (id), 
+     INDEX pw (password), 
+     UNIQUE (username),
+     FULLTEXT (content)
+ ) ENGINE = InnoDB;
+&lt;/code&gt;
+&lt;h1&gt;DCL语句&lt;/h1&gt;
+&lt;b&gt;创建库用户&lt;/b&gt;
+添加权限
+基本语法：grant 权限 on 库.表 to &#39;用户&#39;@&#39;主机&#39; identified by &#39;密码&#39;
+&lt;code lang=&quot;mysql&quot;&gt;grant [all]select,insert on test.* to &#39;root&#39;@&#39;localhost&#39; identified by &#39;&#39;
+说明:给予root用户在test库里的所有表的select操作和insert操作的权限
+删除权限
+基本语法：revoke 权限 on 库.表/[..] from &#39;用户&#39;@&#39;主机&#39; identified by &#39;密码&#39;
+&lt;code lang=&quot;mysql&quot;&gt;revoke select,insert on test.* from &#39;root&#39;@&#39;localhost&#39; identified by &#39;&#39;&lt;/code&gt;
+说明：删除root用户在test库里所有表的select操作和insert操作的权限
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">夜初尘</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.yechuchen.cn/Mysql%E5%85%A5%E9%97%A8/">http://www.yechuchen.cn/Mysql%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.yechuchen.cn" target="_blank">夜初尘的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/PHP/">PHP</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/Mysql%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Mysql增删改查</div></div></a></div><div class="next-post pull-right"><a href="/PHP%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PHP错误处理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/Mysql增删改查/" title="Mysql增删改查"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-28</div><div class="title">Mysql增删改查</div></div></a></div><div><a href="/PHP基础，日历表单控件/" title="PHP基础，日历表单控件"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-17</div><div class="title">PHP基础，日历表单控件</div></div></a></div><div><a href="/PHP基础，时间函数库/" title="PHP基础，时间函数库"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-17</div><div class="title">PHP基础，时间函数库</div></div></a></div><div><a href="/PHP图像处理/" title="PHP图像处理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-21</div><div class="title">PHP图像处理</div></div></a></div><div><a href="/PHP错误处理/" title="PHP错误处理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-22</div><div class="title">PHP错误处理</div></div></a></div><div><a href="/php文件上传/" title="php文件上传"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-12</div><div class="title">php文件上传</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">夜初尘</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MoLiShang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/MoLiShang" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">这是夜初尘的博客</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/window%E7%94%A8wsl%E5%AE%89%E8%A3%85centos/" title="window用wsl安装centos"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="window用wsl安装centos"/></a><div class="content"><a class="title" href="/window%E7%94%A8wsl%E5%AE%89%E8%A3%85centos/" title="window用wsl安装centos">window用wsl安装centos</a><time datetime="2021-01-08T08:53:00.000Z" title="发表于 2021-01-08 16:53:00">2021-01-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/linux%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BAmysql%E6%9C%8D%E5%8A%A1/" title="linux自定义搭建mysql服务"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux自定义搭建mysql服务"/></a><div class="content"><a class="title" href="/linux%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BAmysql%E6%9C%8D%E5%8A%A1/" title="linux自定义搭建mysql服务">linux自定义搭建mysql服务</a><time datetime="2020-10-20T00:40:00.000Z" title="发表于 2020-10-20 08:40:00">2020-10-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 夜初尘</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

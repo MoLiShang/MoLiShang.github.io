@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HTML5的使用 | 夜初尘的博客</title><meta name="keywords" content="前端,HTML5"><meta name="author" content="夜初尘"><meta name="copyright" content="夜初尘"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="HTML5对于HTML4，新增了一些组件，比如video组件、audio组件、拖放组件以及画布组件等等。1）video和audio组件  在之前的浏览器中，都是用的FLASH来进行视频播放，而有了html5之后，；便可以直接使用html5进行视频播放了。 &lt;video id&#x3D;&quot;video1&quot; controls&#x3D;&#39;controls&#39; autoplay&#x3D;&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5的使用">
+<meta property="og:url" content="http://www.yechuchen.cn/HTML5%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="夜初尘的博客">
+<meta property="og:description" content="HTML5对于HTML4，新增了一些组件，比如video组件、audio组件、拖放组件以及画布组件等等。1）video和audio组件  在之前的浏览器中，都是用的FLASH来进行视频播放，而有了html5之后，；便可以直接使用html5进行视频播放了。 &lt;video id&#x3D;&quot;video1&quot; controls&#x3D;&#39;controls&#39; autoplay&#x3D;&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2020-06-11T00:53:00.000Z">
+<meta property="article:modified_time" content="2021-04-10T03:52:21.000Z">
+<meta property="article:author" content="夜初尘">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="HTML5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="http://www.yechuchen.cn/HTML5%E7%9A%84%E4%BD%BF%E7%94%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-04-10 11:52:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">夜初尘的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HTML5的使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-06-11T00:53:00.000Z" title="发表于 2020-06-11 08:53:00">2020-06-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-10T03:52:21.000Z" title="更新于 2021-04-10 11:52:21">2021-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HTML5的使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>HTML5对于HTML4，新增了一些组件，比如video组件、audio组件、拖放组件以及画布组件等等。<br>1）video和audio组件<br>  在之前的浏览器中，都是用的FLASH来进行视频播放，而有了html5之后，；便可以直接使用html5进行视频播放了。</p>
+<pre><code>&lt;video id=&quot;video1&quot; controls=&#39;controls&#39; autoplay=&quot;autoplay&quot; loop=&quot;loop&quot; preload=&quot;auto&quot;&gt;
+    &lt;source src=&quot;src/video/v1.mp4&quot; type=&#39;video/mp4&#39;/&gt;
+&lt;/video&gt;
+</code></pre>
+<p>   其中source标签可以不用，把src直接写在video标签上，当然，如我上面的写法时，可以有多个source标签放在里面，不过video只会显示第一个可以识别的样式，video有很多属性可以用来操作视频，例如autoplay、controls、loop、preload等<br>   autio标签和video标签大致相同，就不介绍了。<br>2）拖放<br>  拖放是H5标准的组成部分，使对象被抓取之后可以拖到另一个位置。而如果想要拖放，必须让元素允许拖放，draggable属性便是用来允许元素拖放的<br>  在拖动时，主要分为三个部分，拖动开始，拖动，放置，而这三个部分都给了一个处理函数<br>  首先，拖动开始的处理函数是ondragstart(event)，通过event可以判断获取当前拖动的元素的各种属性<br>  然后拖动之后，决定要把元素放在哪里便是由ondrageover(event)来进行操作，<br>  拖动过程中，会不断进行防止，这时使用ondrop(event)函数，来处理drop事件<br>3)H5还有一个最主要的区别就是可以用canvas在网页上进行图形绘制，如果想要在网页上进行图形绘制，需要在html上放置一个canvas标签，然后使用javascript对其进行绘制即可。<br>  现贴上一部分绘制线段的代码：</p>
+<pre><code>var cxt=$(&#39;#mycanvas&#39;)[0].getContext(&#39;2d&#39;);
+cxt.moveTo(20,20);
+cxt.lineTo(20,30);
+cxt.lineTo(30,40);
+cxt.strokeStyle=&#39;#FF0000&#39;;
+cxt.stroke();
+cxt.beginPath();
+cxt.moveTo(100,50);
+cxt.lineTo(150,150);
+cxt.strokeStyle=&quot;#111FFF&quot;;
+cxt.lineWidth=&quot;5&quot;;
+cxt.stroke();
+cxt.beginPath();
+var grd=cxt.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,&quot;red&quot;);
+grd.addColorStop(1,&quot;white&quot;);
+cxt.arc(50,50,50,0,2*Math.PI);
+cxt.lineWidth=&quot;1&quot;;
+cxt.fillStyle=grd;
+cxt.fill();
+cxt.stroke();
+</code></pre>
+<p>其中moveTO是移动到某个位置，lineTo是画线到某个位置,fillStyle设置填充的样式，fill进行填充，stroke开始画线，beginPath重新开始一条路径，arc绘制弧线，linewidth设置线的宽度</p>
+<p>4)H5支持svg格式，SVG格式是指的可伸缩矢量图形，这是一种定义用于网格的基于矢量的图形，它是运用的XMl格式来定义图形的，<br>与其他图像格式相比，SVG可以通过文本编辑器来进行创建和修改，并且其是可伸缩的。</p>
+<p>5)H5提供了两种客户端存储数据的方法：localstorage和sessionstorage，其中localstorage是没有时间限制的数据存储，sessionstorage是针对一个session的数据存储。</p>
+<pre><code>localStorage.lastname=&quot;Smith&quot;;
+document.write(localStorage.lastname);
+localStorage.lastname=&quot;AAA&quot;;
+document.write(localStorage.lastname);
+console.log(localStorage);
+sessionStorage.lastname=&quot;Smith&quot;;
+document.write(sessionStorage.lastname);
+</code></pre>
+<p>这些storage的使用方法和普通的storage一样，sessionstorage在用户关闭浏览器之后会被删除，而localstorage则会被永久保存。</p>
+<p>6)H5应用程序缓存，通过创建cache manifest文件，可以对网页进行缓存。</p>
+<pre><code>CACHE MANIFEST
+# 2012-02-21 v1.0.0
+/theme.css
+/logo.gif
+/main.js
+
+NETWORK:
+login.asp
+
+FALLBACK:
+/html5/ /404.html
+</code></pre>
+<p>其中CACHE MANIFEST列出了离线缓存的清单，NETWORK列出了需要联网的文件，FALLBACK列出了无法连接互联网时的替代规则<br>7）web worker是后台独立运行的javascript，不会影响页面性能<br>8）H5服务器发送事件允许网页获得来自服务器的更新(server-sent event)<br>首先要判断浏览器是否支持，因此使用typeof(EventSource)!==”undefined”对其进行判断，然后才是获取服务器的更新</p>
+<pre><code>var source=new EventSource(&quot;demo_sse.php&quot;);
+source.onmessage=function(event)
+&#123;
+  document.getElementById(&quot;result&quot;).innerHTML+=event.data + &quot;&lt;br /&gt;&quot;;
+&#125;;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">夜初尘</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.yechuchen.cn/HTML5%E7%9A%84%E4%BD%BF%E7%94%A8/">http://www.yechuchen.cn/HTML5%E7%9A%84%E4%BD%BF%E7%94%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.yechuchen.cn" target="_blank">夜初尘的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/HTML5/">HTML5</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/jQuery%E7%9A%84%E4%BD%BF%E7%94%A8/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">jQuery的使用</div></div></a></div><div class="next-post pull-right"><a href="/Vue.js%E7%9A%84%E4%BD%BF%E7%94%A8/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vue.js的使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/-原生Ajax的使用/" title="原生Ajax的使用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-09</div><div class="title">原生Ajax的使用</div></div></a></div><div><a href="/Bootstrap-Collapse组件（手风琴效果）-fa-html图标字体库/" title="Bootstrap Collapse组件（手风琴效果） fa-html图标字体库"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Bootstrap Collapse组件（手风琴效果） fa-html图标字体库</div></div></a></div><div><a href="/Bootstrap学习之路上一些错误代码的总结/" title="Bootstrap学习之路上一些错误代码的总结"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-15</div><div class="title">Bootstrap学习之路上一些错误代码的总结</div></div></a></div><div><a href="/Bootstrap的使用/" title="Bootstrap的使用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-12</div><div class="title">Bootstrap的使用</div></div></a></div><div><a href="/Vue.js的使用/" title="Vue.js的使用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-09</div><div class="title">Vue.js的使用</div></div></a></div><div><a href="/jQuery的使用/" title="jQuery的使用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-12</div><div class="title">jQuery的使用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">夜初尘</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MoLiShang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/MoLiShang" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">这是夜初尘的博客</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/window%E7%94%A8wsl%E5%AE%89%E8%A3%85centos/" title="window用wsl安装centos"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="window用wsl安装centos"/></a><div class="content"><a class="title" href="/window%E7%94%A8wsl%E5%AE%89%E8%A3%85centos/" title="window用wsl安装centos">window用wsl安装centos</a><time datetime="2021-01-08T08:53:00.000Z" title="发表于 2021-01-08 16:53:00">2021-01-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/linux%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BAmysql%E6%9C%8D%E5%8A%A1/" title="linux自定义搭建mysql服务"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux自定义搭建mysql服务"/></a><div class="content"><a class="title" href="/linux%E8%87%AA%E5%AE%9A%E4%B9%89%E6%90%AD%E5%BB%BAmysql%E6%9C%8D%E5%8A%A1/" title="linux自定义搭建mysql服务">linux自定义搭建mysql服务</a><time datetime="2020-10-20T00:40:00.000Z" title="发表于 2020-10-20 08:40:00">2020-10-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 夜初尘</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
