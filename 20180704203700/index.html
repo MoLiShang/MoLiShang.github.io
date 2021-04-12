@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据结构课设--自由选择题目的变更 | 夜初尘的博客</title><meta name="keywords" content="数据结构"><meta name="author" content="夜初尘"><meta name="copyright" content="夜初尘"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="emmm..... 自由选择什么的最扎心了，因为我是一个重度的选择困难症患者.... 首先我选择的是图的遍历 题目：图的遍历 功能：实现图的深度优先，广度优先遍历算法，并输出原图结构及遍历结果。 实现要求： （1）建立图的邻接矩阵或邻接表； （2）实现图的遍历算法。 看起来很简单，所以我飞快地写了一段代码...就是创建图的邻接矩阵的算法了。代码如下： &lt;code lang&#x3D;&quot;c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构课设--自由选择题目的变更">
+<meta property="og:url" content="http://www.yechuchen.cn/20180704203700/index.html">
+<meta property="og:site_name" content="夜初尘的博客">
+<meta property="og:description" content="emmm..... 自由选择什么的最扎心了，因为我是一个重度的选择困难症患者.... 首先我选择的是图的遍历 题目：图的遍历 功能：实现图的深度优先，广度优先遍历算法，并输出原图结构及遍历结果。 实现要求： （1）建立图的邻接矩阵或邻接表； （2）实现图的遍历算法。 看起来很简单，所以我飞快地写了一段代码...就是创建图的邻接矩阵的算法了。代码如下： &lt;code lang&#x3D;&quot;c++">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2018-07-04T12:37:00.000Z">
+<meta property="article:modified_time" content="2021-04-10T03:52:21.000Z">
+<meta property="article:author" content="夜初尘">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="http://www.yechuchen.cn/20180704203700/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-04-10 11:52:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">夜初尘的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据结构课设--自由选择题目的变更</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-07-04T12:37:00.000Z" title="发表于 2018-07-04 20:37:00">2018-07-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-10T03:52:21.000Z" title="更新于 2021-04-10 11:52:21">2021-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据结构课设--自由选择题目的变更"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><pre><code>emmm.....
+自由选择什么的最扎心了，因为我是一个重度的选择困难症患者....
+首先我选择的是图的遍历
+题目：图的遍历
+功能：实现图的深度优先，广度优先遍历算法，并输出原图结构及遍历结果。
+实现要求：
+（1）建立图的邻接矩阵或邻接表；
+（2）实现图的遍历算法。
+看起来很简单，所以我飞快地写了一段代码...就是创建图的邻接矩阵的算法了。代码如下：
+&lt;code lang=&quot;c++&quot;&gt;
+void CreateMap(Map &amp;x) &#123;
+    cout &lt;&lt; &quot;请输入顶点个数&quot; &lt;&lt; endl;
+    cin &gt;&gt; x.length;
+    cout &lt;&lt; &quot;请依次输入顶点&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; x.length; i++) &#123;
+        cin &gt;&gt; x.vec[i];
+        x.tag[i] = false;
+    &#125;
+    cout &lt;&lt; &quot;请输入两个顶点间的距离：如a b 1&quot; &lt;&lt; endl;
+    char a, b;
+    int c;
+    for (int i = 0; i &lt; x.length; i++) &#123;
+        for (int j = 0; j &lt; x.length; j++) &#123;
+            if (i == j) &#123;
+                x.rel[i][j] = 0;
+            &#125;
+            else &#123;
+                x.rel[i][j] = -1; //先假设所有边都是未连接的，则边长度为无限，用-1代表
+            &#125;
+        &#125;
+    &#125;
+    //如果两个顶点都存在，则将该输入数值放到关系数组里，否则提示关系不存在
+    while (cin &gt;&gt; a &gt;&gt; b &gt;&gt; c) &#123;
+        if (a == &#39;#&#39;&amp;&amp;b == &#39;#&#39;) break;
+        if (findvec(x, a) &amp;&amp; findvec(x, b)) &#123; //如果能找到两条边，则把关系存起来
+            for (int i = 0; i &lt; x.length; i++) &#123;
+                if (x.vec[i] == a) &#123;
+                    for (int j = 0; j &lt; x.length; j++) &#123;
+                        if (x.vec[j] == b) &#123;
+                             x.rel[i][j] = c;  //将关系加入数组里
+                        &#125;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        else &#123;
+            cout &lt;&lt; &quot;顶点不存在&quot; &lt;&lt; endl;
+        &#125;
+    &#125;
+&#125;//图创建完成
+&lt;/code&gt;
+但是问题来了，我突然发现我不知道深度遍历和广度遍历到底要输出啥....于是....迫不得已放弃了.....然后我选择了导游图....题目是这样的：
+公园的导游图
+问题描述：：给出一张某公园的导游图，游客通过终端询问可知：
+从某一景点到另一景点的最短路径。游客从公园大门进入，选一条最佳路线，使游客可以不重复地游览各景点，最后回到出口（出口就在入口旁边）。
+实现要求：
+初步完成总体设计，搭好框架，确定人机对话的界面，确定函数个数；
+完成要求：建立一个文件，包括5个景点情况，能完成遍历功能；
+进一步要求：进一步扩充景点数目，画出景点图，有兴趣的同学可以自己扩充系统功能。
+乍一看好像还行，emmmm...只要输出一条最佳路线，然后我又开始写....用贪心从最短的路径里选一条不会重复走过景点的...代码如下：
+&lt;code lang=&quot;c++&quot;&gt;
+int dfs(Map &amp;x,char start,int road=0) &#123;
+    int min=MAX,vec_next;
+    if (isCheck(x)) &#123;
+        return road;
+    &#125;
+    for (int i = 0; i &lt; x.length; i++) &#123;
+        if (x.vec[i] == start) &#123;
+            x.tag[i] = true;
+            for (int j = 0; j &lt; x.length; j++) &#123;
+                if (x.rel[i][j] !=-1&amp;&amp;x.rel[i][j]!=0&amp;&amp;!x.tag[j]) &#123; //如果当前路径的下一个路径未被标记，且存在路径，则将其入队    
+
+                    if (min &lt; x.rel[i][j]) &#123;
+                        min = min;
+                    &#125;
+                    else &#123;
+                        min = x.rel[i][j];
+                        vec_next = j;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    x.tag[vec_next] = true;
+    road += min;
+    cout &lt;&lt; start &lt;&lt; &quot;——&gt;&quot; &lt;&lt; x.vec[vec_next]&lt;&lt;&quot; &quot;;
+    dfs(x, x.vec[vec_next], road);
+&#125;
+&lt;/code&gt;
+emmmm....后来发现我想的太简单了...它居然还要一个人机交互界面！！！这玩意儿我没搞过呀....所以不得不浅浅的学了一波c++的MFC编程以及相关的函数什么的。
+于是我学到了这两个函数：
+&lt;code lang=&quot;c++&quot;&gt;
+        CString str;
+    Count.GetWindowTextW(str);
+    COUNT.SetWindowTextW(str);
+&lt;/code&gt;
+首先，我创建的MFC是基于对话框的，而不是基于多个文档的，其次，我用了一些控件：Button、Edit control、Static Text这三个，然后发现如果从Edit control中输入的数值是CString类型的，如果要将其变成int型的话，需要使用函数__ttoi()，然后我们需要用函数去获取窗口里的值，所以这个方法就是GetWindowTextW();
+然后我们还要将其显示到另一个窗口，所以就需要用到SetWindowTextW()方法了；最后有一个小问题就是你需要修改一下Static Text的ID，否则无法给它绑定变量，虽然我也不知道为什么，但是这样做就对了....
+接着，我又发现问题了，因为我又回去看了一遍题目.....突然发现出口在入口旁边！！！所以，上面那个代码没用了....但是一时我又没有想到该去怎么写那个算法，所以不得已...放弃了，时间不是很多了，所以我只好选一个简单的，最后我选了一个拓扑排序，这个比较简单。
+&lt;b&gt;拓扑排序&lt;/b&gt;
+接下来就是拓扑排序的内容了:
+图的算法实现
+问题描述：图的存储结构的建立和拓扑排序算法。
+实现要求：
+（1）建立图的邻接矩阵或邻接表；
+（2）实现拓扑排序算法。
+之所以选拓扑排序是有原因的，因为构建图的邻接矩阵的算法我之前已经做了，所以复制一下，根据需求再改一下就可以了。
+接下来就是拓扑排序的算法了，拓扑排序就是将入度为0的顶点放入队列，但是其实我感觉我的理解也没错，那就是如果没有边指向这个顶点，或者所有指向这个顶点的边的出发顶点都已经被放入队列里了，可以将这个顶点放入队列，这个应该就是算法的实现了。接下来还有一个要考虑的，就是回路的情况，对存放所有节点的数组进行遍历，如果剩下所有的顶点都有边指向这个顶点，或者所有的顶点都是有的指向这个顶点的边的顶点没有放入队列里，那么就是有回路存在了，将有回路存在的情况输出，并将剩下的还未放入队列的顶点输出，证明回路在这些顶点中产生。所以要创建一个函数来判断是否所有的顶点都已经放入队列，在没有所有的顶点都放入队列的情况下就是行拓扑排序。判断是否所有顶点都已入队的函数如下：
+&lt;code lang=&quot;c++&quot;&gt;
+bool isCheck(Map &amp;x) &#123; //如果全部的标记都为真，则说明所有顶点都已经被遍历
+    for (int i = 0; i &lt; x.length; i++) &#123;
+        if (!x.tag[i]) return false;
+    &#125;
+    return true;
+&#125;
+还要一个函数用来判断是否所有存在回路。代码如下：
+&lt;code lang=&quot;c++&quot;&gt;
+bool isNot(Map &amp;x,int y) &#123; //该函数用来判断当前顶点是否有指针指向它,如果有一个指针指向它，则返回假，否则返回真
+    for (int i = 0; i &lt; x.length; i++) &#123;
+        if (i == y) continue;
+        if (x.rel[i][y] &gt; 0&amp;&amp;!x.tag[i]) &#123;
+            return false;
+        &#125;
+    &#125;
+    return true;
+&#125;
+&lt;/code&gt;
+接下来就是拓扑排序的函数的代码了：
+&lt;code lang=&quot;c++&quot;&gt;
+void DAG(Map &amp;x) &#123; //找出节点没有线指向它的
+    queue&lt;char&gt; p;
+    while (!isCheck(x)) &#123;
+        int tag=false;
+        for (int i = 0; i &lt; x.length; i++) &#123; //遍历顶点表，如果在剩下的顶点中全部的顶点都有指针指向它，则直接结束执行，并输出
+            if (x.tag[i] == false &amp;&amp; isNot(x, i)) &#123;  //如果有一个顶点是没有指针指向它的，则将tag改为真
+                tag = true;
+            &#125;
+        &#125;
+        if (!tag) &#123;
+            cout &lt;&lt; &quot;剩下的顶点无法进行拓扑排序&quot; &lt;&lt; endl;
+            cout &lt;&lt; &quot;剩下的顶点是 &quot;;
+            for (int i = 0; i &lt; x.length; i++) &#123;
+                if (!x.tag[i]) &#123;
+                    cout &lt;&lt; x.vec[i] &lt;&lt; &quot; &quot;;
+                &#125;
+            &#125;
+            cout &lt;&lt; endl;
+            return;
+        &#125;
+        for (int i = 0; i &lt; x.length; i++) &#123; //遍历整个顶点表，挑出没有指针指向它的顶点
+            if (isNot(x, i)) &#123; //如果没有指向当前顶点的指针，并且该顶点没有被标记，则将其放入队列
+                p.push(x.vec[i]);
+                x.tag[i] = true;
+            &#125;
+        &#125;
+    &#125;
+    while (!p.empty()) &#123;
+        cout &lt;&lt; p.front() &lt;&lt; &quot; &quot;;
+        p.pop();
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+&lt;/code&gt;
+emmmm....以上就是我做的自由选择的题目了，这个故事告诉我们，一定要好好看题目！！！！不过也还好，写了这么多代码，至少还是加深了对函数的理解和应用，至少个人还是比较满意的。
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">夜初尘</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.yechuchen.cn/20180704203700/">http://www.yechuchen.cn/20180704203700/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.yechuchen.cn" target="_blank">夜初尘的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/20180709225900/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">php文件系统</div></div></a></div><div class="next-post pull-right"><a href="/20180704194800/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据结构课设--集合的交、并、差运算</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/20180518174500/" title="二叉树的深度"><img class="cover" src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g6/M00/0B/00/ChMkKmBamS-IdsvVABQVFnzWDOwAAL-UACX_LYAFBUu002.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-18</div><div class="title">二叉树的深度</div></div></a></div><div><a href="/20180704194800/" title="数据结构课设--集合的交、并、差运算"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-07-04</div><div class="title">数据结构课设--集合的交、并、差运算</div></div></a></div><div><a href="/20180605221800/" title="查找及排序"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-06-05</div><div class="title">查找及排序</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">夜初尘</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MoLiShang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/MoLiShang" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">这是夜初尘的博客</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/20210412171907/" title="axios下载文件"><img src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g6/M00/0B/00/ChMkKmBamS-IdsvVABQVFnzWDOwAAL-UACX_LYAFBUu002.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios下载文件"/></a><div class="content"><a class="title" href="/20210412171907/" title="axios下载文件">axios下载文件</a><time datetime="2021-04-12T09:19:07.000Z" title="发表于 2021-04-12 17:19:07">2021-04-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/20210412143342/" title="网站跨域问题"><img src="https://desk-fd.zol-img.com.cn/t_s960x600c5/g6/M00/0B/00/ChMkKmBamS-IdsvVABQVFnzWDOwAAL-UACX_LYAFBUu002.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网站跨域问题"/></a><div class="content"><a class="title" href="/20210412143342/" title="网站跨域问题">网站跨域问题</a><time datetime="2021-04-12T06:33:42.000Z" title="发表于 2021-04-12 14:33:42">2021-04-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By 夜初尘</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="">赣ICP备20003001号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
