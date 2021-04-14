@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>axios下载文件</title>
+      <link href="article/20210412171907/"/>
+      <url>article/20210412171907/</url>
+      
+        <content type="html"><![CDATA[<h1 id="axios文件下载文件"><a href="#axios文件下载文件" class="headerlink" title="axios文件下载文件"></a>axios文件下载文件</h1><h2 id="POST方式"><a href="#POST方式" class="headerlink" title="POST方式"></a>POST方式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">request</span><br><span class="line">    .post(</span><br><span class="line">        api.UpdateAnnexInfo, <span class="comment">//url链接</span></span><br><span class="line">        qs.stringify(&#123; <span class="attr">annexNo</span>: annex.annexNo, &#125;),<span class="comment">//参数</span></span><br><span class="line">        &#123;   <span class="attr">responseType</span>: <span class="string">&quot;arraybuffer&quot;</span>, &#125; <span class="comment">//文件流格式，必须要设置的</span></span><br><span class="line">    )</span><br><span class="line">    .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (res.byteLength != <span class="number">0</span>) &#123; <span class="comment">//判断是否有文件</span></span><br><span class="line">            <span class="keyword">var</span> blob = <span class="keyword">new</span> Blob([res], &#123;  <span class="comment">//这里的res是传过来的文件，有可能是res，或者是res.data等，根据自己后端传过来的值而自己适应</span></span><br><span class="line">            type: <span class="string">&quot;multipart/form-data&quot;</span>, <span class="comment">//允许多种文件形式存在</span></span><br><span class="line">        &#125;);</span><br><span class="line">            <span class="keyword">var</span> downloadElement = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>); <span class="comment">//创建一个临时的dom</span></span><br><span class="line">            <span class="keyword">var</span> href = <span class="built_in">window</span>.URL.createObjectURL(blob); <span class="comment">//创建下载的链接</span></span><br><span class="line">            downloadElement.href = href;</span><br><span class="line">            downloadElement.download = annex.annexName; <span class="comment">//下载后文件名</span></span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(downloadElement);</span><br><span class="line">            downloadElement.click(); <span class="comment">//点击下载</span></span><br><span class="line">            <span class="built_in">document</span>.body.removeChild(downloadElement); <span class="comment">//下载完成移除元素</span></span><br><span class="line">            <span class="built_in">window</span>.URL.revokeObjectURL(href); <span class="comment">//释放掉blob对象</span></span><br><span class="line">            annex.downloadCnt++; <span class="comment">//文件下载数量加1</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网站跨域问题</title>
+      <link href="article/20210412143342/"/>
+      <url>article/20210412143342/</url>
+      
+        <content type="html"><![CDATA[<h1 id="网站报错"><a href="#网站报错" class="headerlink" title="网站报错"></a>网站报错</h1><p>当发生跨域问题时，会出现如下错误：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access to XMLHttpRequest at &#39;http:&#x2F;&#x2F;192.168.1.100:8123&#x2F;portal&#x2F;notice&#x2F;updateAnnexInfo&#39; from origin &#39;http:&#x2F;&#x2F;localhost:3000&#39; has been blocked by CORS policy: Response to preflight request doesn&#39;t pass access control check: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource.</span><br></pre></td></tr></table></figure><h1 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h1><p>网站和其他源的资源的交互式被<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy">同源策略</a>保护的，而对于两个URL的protocol、port和host都相同，则这两个URL是同源，否则不是同源，会被同源策略保护而报上面的错误。</p><h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="Vue项目"><a href="#Vue项目" class="headerlink" title="Vue项目"></a>Vue项目</h2><h3 id="开发环境跨域解决"><a href="#开发环境跨域解决" class="headerlink" title="开发环境跨域解决"></a>开发环境跨域解决</h3><p>如果要在生产环境中解决跨域问题，需要在<strong>Vue.config.js</strong>中进行如下配置：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">    proxy: &#123;</span><br><span class="line">        <span class="comment">// 配置跨域</span></span><br><span class="line">        <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">            target: <span class="string">&#x27;http://192.168.1.100:8123/portal&#x27;</span>,</span><br><span class="line">            ws: <span class="literal">true</span>,</span><br><span class="line">            changOrigin: <span class="literal">true</span>,</span><br><span class="line">            pathRewrite: &#123;</span><br><span class="line">                <span class="string">&#x27;^/api&#x27;</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure><h3 id="生产环境跨域解决"><a href="#生产环境跨域解决" class="headerlink" title="生产环境跨域解决"></a>生产环境跨域解决</h3><p>该配置需要在服务器上解决，我用的是nginx服务器，因此只有nginx服务器的解决方案：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80; #监听端口</span><br><span class="line"></span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">          root   html;#文件根目录</span><br><span class="line">          index  index.html index.htm;#默认起始页</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    location &#x2F;api &#123;</span><br><span class="line">proxy_pass http:&#x2F;&#x2F;192.168.1.100:8123&#x2F;portal; &#x2F;&#x2F;配置代理的路径</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面是最基础的服务器跨域设置，该配置其实就是使用nginx进行了代理配置。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> 错题集 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一些有用的链接</title>
+      <link href="article/20210412084458/"/>
+      <url>article/20210412084458/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Idea历史版本官网链接"><a href="#Idea历史版本官网链接" class="headerlink" title="Idea历史版本官网链接"></a>Idea历史版本官网链接</h1><p><a href="https://www.jetbrains.com/idea/download/other.html">https://www.jetbrains.com/idea/download/other.html</a></p><h1 id="Idea破解网站"><a href="#Idea破解网站" class="headerlink" title="Idea破解网站"></a>Idea破解网站</h1><p><a href="https://zhile.io/">https://zhile.io/</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Markdown学习笔记</title>
+      <link href="article/20210411141934/"/>
+      <url>article/20210411141934/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;新博客需要用Markdown语言来进行书写，刚好md文件一般都是用来写文档的，见猎心喜之下，顺便学一下Markdown到底应该怎么写，而不是像之前一样，连格式都不知道是怎么样的，就瞎写了。Markdown的教程网上有很多，而我是基于<a href="https://www.runoob.com/markdown/">菜鸟教程</a>这个网站来进行学习的，再加上如果有什么特别的东西需要书写，就单独搜索，因此这个页面可能大部分要和菜鸟教程里的一致~~</p><h1 id="Markdown标题"><a href="#Markdown标题" class="headerlink" title="Markdown标题"></a>Markdown标题</h1><h2 id="和—符号"><a href="#和—符号" class="headerlink" title="===和—符号"></a>===和—符号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 一级标题</span><br><span class="line">&#x3D;&#x3D;&#x3D;</span><br><span class="line">二级标题</span><br><span class="line">---</span><br></pre></td></tr></table></figure><p>在文本后面加上===则是一级标题，在文本后面加上—则是二级标题</p><h2 id="符号"><a href="#符号" class="headerlink" title="#符号"></a>#符号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;#符号是最经常使用的标题符号了吧应该，使用方式是在文本前面加上#符号，也可以表示标题，一级标题对应一个#号，二级对应两个，最多六个，也就是最多六级标题。<br><strong>注意：#符号后面一定至少有空格</strong></p><h1 id="段落样式"><a href="#段落样式" class="headerlink" title="段落样式"></a>段落样式</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;Markdown没有特殊样式，因此直接编写文字就可以了，但是我们看的时候总是习惯有段落的样式，因此还是需要设置一些东西的。</p><h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;首行缩进，在教程中是没有这玩意儿的，如果要缩进的话，可以按Tab键，但是这样会更改段落样式，因此我不太喜欢</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><br></pre></td></tr></table></figure><p>如果要首行缩进而不改变样式的话，我觉得还是使用&amp;nbsp好。</p><h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*斜体文本*</span><br><span class="line">_斜体文本_</span><br><span class="line">**粗体文本**</span><br><span class="line">__粗体文本__</span><br><span class="line">***粗斜体文本***</span><br><span class="line">___粗斜体文本___</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;根据教程，<em>和_符号都能设置字体，一个</em>是斜体，两个是粗体，三个是粗斜体</p><h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><hr><p>如上所示就是分分隔线了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* * *</span><br><span class="line">- - -</span><br><span class="line">_ _ _</span><br></pre></td></tr></table></figure><p>如上代码都可以用来做分隔线的代码，只要是三个以上的<em>或-或_就可以了，理论上来说空格不空格是无所谓的，不过建议每一个符号中间有一个空格，这样就不会产生字体上的歧义了（</em>**符号是斜体）</p><h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h2><p><del>删除线</del><br>这是一段<del>删除线</del>啊<br>如果要在文字上加上删除线，只需要在对应的文字两端加上~~即可了。如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~~删除线~~ &#x2F;&#x2F;这样的</span><br><span class="line">这是一段~~删除线~~啊 &#x2F;&#x2F;段中也可以加</span><br></pre></td></tr></table></figure><h2 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h2><p><u>下划线</u><br>下划线是通过html的u标签来实现的，代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;u&gt;下划线&lt;&#x2F;u&gt;</span><br></pre></td></tr></table></figure><h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[^要注明的文本]</span><br><span class="line">[^要注明的文本]: 这是一个脚注</span><br></pre></td></tr></table></figure><p>教程里是这样写的，但是好像因为Markdown没有规范，所以每个用的都不太一样，这个没办法作为常规写法，我没有写出效果来，所以没办法显示了。</p><h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><ul><li>第一项</li></ul><ul><li>第二项</li></ul><ul><li>第三项<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 第一项</span><br><span class="line">+ 第二项</span><br><span class="line">- 第三项</span><br></pre></td></tr></table></figure>这是无序列表<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2></li></ul><ol><li>第一项</li><li>第二项</li><li>第三项<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 第一项</span><br><span class="line">2. 第二项</span><br><span class="line">3.第三项</span><br></pre></td></tr></table></figure>这是有序列表，不过样式感觉不太对的样子<h2 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h2></li><li>第一项:<ul><li>第一项第一个元素</li><li>第一项第二个元素</li></ul></li></ol><ul><li>第二项<ul><li>第二项第一个元素<br>第二项第二个元素<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 第一项:</span><br><span class="line">+ 第一项第一个元素</span><br><span class="line">+ 第一项第二个元素</span><br><span class="line">+ 第二项</span><br><span class="line">- 第二项第一个元素</span><br><span class="line">- 第二项第二个元素</span><br></pre></td></tr></table></figure>这是列表嵌套的写法，只需要在上一层列表后推后四格，就可以了，如果还要下一层列表的话就加上列表符号<h1 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h1><h2 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h2><blockquote><p> 区块引用<br>区块内容</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 区块引用</span><br><span class="line">区块内容</span><br></pre></td></tr></table></figure>这是区块的引用写法，写出来之后便独立成了一个区块，有特殊的用法。<h2 id="区块嵌套"><a href="#区块嵌套" class="headerlink" title="区块嵌套"></a>区块嵌套</h2><blockquote><p>第一层区块</p><blockquote><p>第二层区块</p></blockquote></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 第一层区块</span><br><span class="line">&gt;&gt; 第二层区块</span><br></pre></td></tr></table></figure>这是区块嵌套的写法，但是我不太清楚，或者说感觉不到有什么地方需要用到区块的，因此到时候有用处再说吧。<h2 id="区块中使用列表"><a href="#区块中使用列表" class="headerlink" title="区块中使用列表"></a>区块中使用列表</h2><blockquote><ul><li>第一项</li><li>第二项</li></ul></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; + 第一项</span><br><span class="line">&gt; + 第二项</span><br></pre></td></tr></table></figure>这样就可以在区块中使用列表了，在列表中使用区块也是同理的。<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="符号-1"><a href="#符号-1" class="headerlink" title="`符号"></a>`符号</h2>如果是一个函数或者片段的代码可以使用`符号将其包裹起来，如<code>npm run dev</code><br><code>pirnt(1) print(2) print(3)</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#96;</span><br><span class="line">pirnt(1)</span><br><span class="line">print(2)</span><br><span class="line">print(3)</span><br><span class="line">&#96;</span><br></pre></td></tr></table></figure>在使用一个`符号的时候，可以看到，会将所有的代码都变成一行，失去了原本的格式。<h2 id="符号-2"><a href="#符号-2" class="headerlink" title="```符号"></a>```符号</h2>为了解决`的缺陷，在显示多行代码的时候可以使用```来包裹代码，这样就不会失去之前的样式了。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pirnt(1)</span><br><span class="line">print(2)</span><br><span class="line">print(3)</span><br></pre></td></tr></table></figure><h2 id="Tab键"><a href="#Tab键" class="headerlink" title="Tab键"></a>Tab键</h2>还有一种方法也可以来区分区块，那就是Tab制表符，在代码前使用Tab或者四个空格，都可以用来显示代码<br>print(123);<br>不过就像上面的一样，这个感觉不太稳定，因此不推荐使用。</li></ul></li></ul><h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><h2 id="简易写法"><a href="#简易写法" class="headerlink" title="简易写法"></a>简易写法</h2><p><a href="http://www.baidu.com/">链接1</a><br><code>[链接1](http://www.baidu.com)</code><br>链接的建议写法如上所示，有时()可以换成&lt;&gt;。</p><h2 id="拆分写法"><a href="#拆分写法" class="headerlink" title="拆分写法"></a>拆分写法</h2><p>为了书写简便美观，大家都习惯性将所有的链接放在一块，因此可以使用拆分写法<br><a href="http://www.baidu.com/">链接2</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[链接2]</span><br><span class="line"></span><br><span class="line">[链接2]: http:&#x2F;&#x2F;www.baidu.com</span><br></pre></td></tr></table></figure><p><strong>注意：在两者之间一定要有换行，或者说下面的链接赋值一定要换行，距离上面要有一行以上，否则不生效</strong></p><h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><p>图片的写法和链接其实是差不多的，但是又有些小小的差别，这两者不能弄混，要不然就不会生效的。</p><h2 id="简易写法-1"><a href="#简易写法-1" class="headerlink" title="简易写法"></a>简易写法</h2><p><img src="http://static.runoob.com/images/runoob-logo.png" alt="图片1"><br><code>![图片1](http://static.runoob.com/images/runoob-logo.png)</code><br>图片的写法在前面有个感叹号</p><h2 id="拆分写法-1"><a href="#拆分写法-1" class="headerlink" title="拆分写法"></a>拆分写法</h2><p><img src="http://static.runoob.com/images/runoob-logo.png" alt="图片2"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![图片2]</span><br><span class="line"></span><br><span class="line">[图片2]: http:&#x2F;&#x2F;static.runoob.com&#x2F;images&#x2F;runoob-logo.png</span><br></pre></td></tr></table></figure><p><strong>这里是在引用的地方加感叹号，而不是在赋值的地方加感叹号</strong></p><h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><h2 id="Markdown表格"><a href="#Markdown表格" class="headerlink" title="Markdown表格"></a>Markdown表格</h2><table><thead><tr><th>姓名</th><th>年龄</th></tr></thead><tbody><tr><td>张三</td><td>12</td></tr><tr><td>李四</td><td>13</td></tr></tbody></table><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|姓名|年龄|</span><br><span class="line">|---|---|</span><br><span class="line">|张三|12|</span><br><span class="line">|李四|13|</span><br></pre></td></tr></table></figure><p>使用|来进行表格的分隔，使用-来分隔表头和其他行</p><h2 id="左对齐"><a href="#左对齐" class="headerlink" title="左对齐"></a>左对齐</h2><p>:- 设置内容和标题栏居左对齐。</p><table><thead><tr><th align="left">姓名</th><th align="left">年龄</th></tr></thead><tbody><tr><td align="left">张三</td><td align="left">12</td></tr><tr><td align="left">李四</td><td align="left">13</td></tr></tbody></table><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|姓名|年龄|</span><br><span class="line">| :--- | :--- |</span><br><span class="line">| 张三 | 12 |</span><br><span class="line">| 李四 | 13 |</span><br></pre></td></tr></table></figure><h2 id="右对齐"><a href="#右对齐" class="headerlink" title="右对齐"></a>右对齐</h2><p>-: 设置内容和标题栏居右对齐。</p><table><thead><tr><th align="right">姓名</th><th align="right">年龄</th></tr></thead><tbody><tr><td align="right">张三</td><td align="right">12</td></tr><tr><td align="right">李四</td><td align="right">13</td></tr></tbody></table><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 姓名 | 年龄 |</span><br><span class="line">| --: | --: |</span><br><span class="line">| 张三 | 12 |</span><br><span class="line">| 李四 | 13 |</span><br></pre></td></tr></table></figure><h2 id="居中对齐"><a href="#居中对齐" class="headerlink" title="居中对齐"></a>居中对齐</h2><p>:-: 设置内容和标题栏居中对齐。</p><table><thead><tr><th align="center">姓名</th><th align="center">年龄</th></tr></thead><tbody><tr><td align="center">张三</td><td align="center">12</td></tr><tr><td align="center">李四</td><td align="center">13</td></tr></tbody></table><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 姓名 | 年龄 |</span><br><span class="line">| :--: | :--: |</span><br><span class="line">| 张三 | 12 |</span><br><span class="line">| 李四 | 13 |</span><br></pre></td></tr></table></figure><p><strong>表格必须要与其他内容空两行（上面空一行、下面空一行）</strong></p><h1 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h1><h2 id="支持html元素"><a href="#支持html元素" class="headerlink" title="支持html元素"></a>支持html元素</h2><p>不在Markdown涵盖范围之内的标签，都可以在文档里面使用HTML撰写。<br>目前支持的HTML元素有:</p><blockquote><ul><li><code>&lt;kbd&gt;</code></li><li><code>&lt;b&gt;</code></li><li><code>&lt;i&gt;</code></li><li><code>&lt;em&gt;</code></li><li><code>&lt;sup&gt;</code></li><li><code>&lt;sub&gt;</code></li><li><code>&lt;br&gt;</code></li></ul></blockquote><p>等。</p><h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><p>Markdown 使用了很多特殊符号来表示特定的意义，如果需要显示特定的符号则需要使用转义字符，Markdown 使用反斜杠转义特殊字符：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**文本加粗** </span><br><span class="line">\*\* 正常显示星号 \*\*</span><br></pre></td></tr></table></figure><h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>当你需要在编辑器中插入数学公式时，可以使用两个美元符 $$ 包裹 TeX 或 LaTeX 格式的数学公式来实现。提交后，问答和文章页会根据需要加载 Mathjax 对数学公式进行渲染。<br>这个暂且没有接触到，就不仔细写了。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>typecho转hexo</title>
+      <link href="article/20210410202943/"/>
+      <url>article/20210410202943/</url>
+      
+        <content type="html"><![CDATA[<pre><code>    人生的意义可能就在于折腾吧，从wordpress转到了typecho，跌跌撞撞的又从typecho又转到了hexo。至于为什么要转hexo呢，一是因为喜欢折腾，二是刚好在学SEO的时候突然想到了这玩意儿，那就顺便玩玩咯，不过u1s1，弄完之后，再加上个主题，发现hexo的确很棒，感觉之后也不用换了。而且因为要用markdown写博客的话，又学到了markdown文件该怎么写比较好，可以说是一举三得？？（虽说我博客本来更新的就少2333~）</code></pre><h1 id="Typecho转hexo"><a href="#Typecho转hexo" class="headerlink" title="Typecho转hexo"></a>Typecho转hexo</h1><h2 id="github-pages制作"><a href="#github-pages制作" class="headerlink" title="github pages制作"></a>github pages制作</h2><h3 id="注册github账号"><a href="#注册github账号" class="headerlink" title="注册github账号"></a>注册github账号</h3><p>首先进入 <a href="https://github.com/">github官网</a>，并且注册一个账号</p><h3 id="新建一个仓库"><a href="#新建一个仓库" class="headerlink" title="新建一个仓库"></a>新建一个仓库</h3><p>新建一个仓库，这个仓库的名字必须叫username.github.io才可以，做完这个之后，其实就等于有了一个网站了，使用username.github.io就可以访问自己的网站了，新建的网站会显示hello world。而仓库的master目录<br>可以看作网站根目录，因此如果想弄其他页面也可以的。</p><h2 id="hexo网站搭建"><a href="#hexo网站搭建" class="headerlink" title="hexo网站搭建"></a>hexo网站搭建</h2><p>hexo网站搭建主要是在自己电脑中搭建一个hexo网站，并且将hexo网站格式的代码进行编译之后，生成html格式的代码，然后将其推送到github的repository中。</p><h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>因为Hexo是基于node.js的，所以必须要先在自己电脑上安装node.js，进入<a href="https://nodejs.org/en/download/">nodejs官网</a>下载页面，如果是windows的话，很简单，点点点就好了，如果是linux的话。。你都用linux了，装个这个岂不是很简单~~<br>然后通过<code>node -v</code>测试nodejs是否安装成功了,并且通过<code>npm -v</code>来测试npm是否安装成功了。</p><h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>新建一个专门用来存放hexo的文件夹，然后在命令行模式下，使用命令<br><code>npm install hexo-cli -g</code><br>来下载hexo网站源代码，然后使用命令<br><code>hexo init blog </code><br>命令来初始化hexo博客系统，这样其实就等于安装好了一个博客了，只需要通过命令<code>hexo server</code>来启动服务就可以在本地看到了，启动成功后，在浏览器输入网址<a href="http://localhost:4000/%E5%B0%B1%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AE%E5%8D%9A%E5%AE%A2%E4%BA%86">http://localhost:4000/就可以访问博客了</a><br>不过这个博客是最初始的博客，样式什么都没有，文章什么的也没有</p><h2 id="推送到github上"><a href="#推送到github上" class="headerlink" title="推送到github上"></a>推送到github上</h2><h3 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h3><p>在hexo目录下找到_config.yml文件，找到deploy的字样，并且设置好自己的站点，因为github时不时会有被墙的可能性，因此还在gitee部署了一个目录用来存放项目文件,<br>下面是__config.yml文件：</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span></span><br><span class="line">      <span class="attr">github:</span> <span class="string">git@github.com:xxx/xxx.github.io.git,master</span></span><br><span class="line">      <span class="attr">gitee:</span>  <span class="string">git@gitee.com:xxx/xxx.git,master</span></span><br></pre></td></tr></table></figure><h3 id="部署到github上"><a href="#部署到github上" class="headerlink" title="部署到github上"></a>部署到github上</h3><p>安装hexo专用的git部署插件，使用命令<code>npm install hexo-deployer-git --save</code>，命令安装好git部署插件使用命令 <code>hexo generate</code>，生成网站代码，使用命令<code>hexo deploy</code>部署到github上，我们也可以将命令结合起来，<code>hexo g -d</code>，这样就可以生成并且推送hexo代码了。</p><h3 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h3><p>一般来说，肯定会看username.github.io不爽，想要换个域名，github可以让我们自定义域名。首先，买一个域名，并且在服务商那里进行域名解析配置，将域名解析到github那边。这里有两种方法一种是解析到域名，一种是解析到ip，我这里是解析到域名的。<br><img src="/imgs/2021/04/1.png" alt="域名解析"></p><h1 id="Hexo配置"><a href="#Hexo配置" class="headerlink" title="Hexo配置"></a>Hexo配置</h1><h2 id="Hexo配置主题"><a href="#Hexo配置主题" class="headerlink" title="Hexo配置主题"></a>Hexo配置主题</h2><h3 id="ButterFly主题"><a href="#ButterFly主题" class="headerlink" title="ButterFly主题"></a>ButterFly主题</h3><p>ButterFly主题是我第一个使用的主题，感觉很不错，如果有其他主题，可能还会添加到这里吧。这里就写一下ButterFly主题吧。<br>&nbsp;&nbsp;&nbsp;&nbsp;进入<a href="https://butterfly.js.org/">ButterFly主题官网</a>,这里有很详细的文档及其各种说明</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>window用wsl安装centos</title>
+      <link href="article/20210108165300/"/>
+      <url>article/20210108165300/</url>
+      
+        <content type="html"><![CDATA[<p>云服务器性能不够，装个PHP都卡死，但是又不想开虚拟机，因为虚拟机图形界面的话，也会很卡，不过前几天看到可以用wsl在windows下面安装一个linux系统，而且还可以优化一下没用的cmd。。因此特意学了一下如何配置wsl。该文章是基于下面的文章来写的：<br>    <a href="https://blog.csdn.net/u012814856/article/details/100529849">Windows Terminal 初探(一)：Settings 里面的 profiles.json 该怎么配置</a><br>    <a href="https://zhuanlan.zhihu.com/p/137595941">Windows Terminal 完美配置 PowerShell 7.1</a><br>    <a href="https://0xffff.one/d/716">Win10 系统下的 Windows Terminal + WSL 配置指南</a><br>    <a href="https://sspai.com/post/61634">想安装更多 Linux 发行版？LxRunOffline 让 WSL 更好用</a><br>下面就写一下我是怎么安装的吧。<br>首先，需要将windos下的勾选到适用于linux的windows子系统，把wsl功能给打开，让windows放开这两项功能，可以用代码方式，用管理员打开cmd，然后输入下面命令：</p><pre><code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestartdism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code></pre><p>然后重启就可以开启功能了。也可以直接在控制面板上打开，如下图所示：<br><img src="/imgs/2653562838.png" alt="5"></p><p>也要重启电脑才能打开该功能。接下来就需要安装wsl了<br>由于我对界面美感其实没太大要求，只要能装centos就行，因此无需安装windows terminal powershell 7，只需要在微软商店上安装windows terminal就可以了，而且个人感觉比powershell 7好看点（上述软件都试过），这个没难度，就不细讲了。<br>接下来是需要安装LxRunOffline，只有这个软件才能让我安装centos系统，微软商店里的免费系统只有ubuntu，因此不想用。<br>安装LxRunOffline的时候有两种方式：</p><pre><code>scoop 安装：scoop bucket add extrasscoop install lxrunofflinechoco 安装choco install lxrunoffline</code></pre><p>亲测的话，windows下面是默认没有scoop和choco的，因此还需要自己安装scoop或者choco，不过我试过scoop，发现后面有个报错，而且我无法解决，因此就不推荐这个了，推荐choco。<br>下载安装choco的话，只需要运行下面的代码（百度找到的。。）：</p><pre><code>Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-ObjectSystem.Net.WebClient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))</code></pre><p>这个代码是可以正常下载的（如果不能的话，开一下VPN试试，scoop就是卡在类似的步骤，一直无法解决被我弃了),运行完这个代码之后就可以使用choco安装了。<br>  安装完lxrunoffline之后，就可以使用它安装centos了，要先下载镜像文件：<br><a href="https://github.com/CentOS/sig-cloud-instance-images/blob/CentOS-7.8.2003-x86_64/docker/centos-7.8.2003-x86_64-docker.tar.xz">centos-7.8.2003-x86_64-docker.tar.xz</a><br>下载好了之后要记住这个镜像存放的位置。。还有就是这个镜像是docker镜像和普通的centos是不同的<br>然后运行<br>  <code>LxRunOffline install -n CentOS -d D:\linux\centos -f D:\softbackup\centos-7.8.2003-x86_64-docker.tar.xz -s</code><br>，这里的执行的命令意思是，将位于D:\softbackup\的 centos-7.8.2003-x86_64-docker.tar.xz镜像以 WSL 形式安装到 目录D:\linux\centos里面，并且创建桌面快捷方式。<br>到这里，centos就算是安装结束了，win+r输入wt就可以使用windows terminal，然后输入wsl就可以进入centos系统了，由于我这只有一个centos系统不需要切换，因此就无法写怎么指定系统了，不过上面的文章有对应方法，需要的可以自己去试一试。还有就是terminal的颜色等配置，上面的文章也有相应的。<br>[ps]后面找了一下，可以使用</p><pre><code> LxRunOffline  run  -n centos</code></pre><p>来指定运行需要的系统，相应的文章是<a href="https://www.cnblogs.com/lyqf365/p/10100162.html">windows 10 WSL 安装 Centos</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux自定义搭建mysql服务</title>
+      <link href="article/20201020084000/"/>
+      <url>article/20201020084000/</url>
+      
+        <content type="html"><![CDATA[<p>本来想要搭建lnmp环境的，忽然发现自定义搭建的话，得处理很多问题，特别是mysql，因此开了三个不同的章节专门讲php、nginx、mysql的安装，然后顺带能够熟悉各种命令了。其实mysql也可以单独拆开来用的，因此会自定义安装也可以方便以后的安装了，本文用的是mysql-8.0.21-linux-glibc2.12-x86_64.tar，这个文件属于二进制文件，和源码文件是不一样的，因此和网上有些教程不一样，不需要使用.configure和make命令，进行编译。接下来还是讲一下如何搭建好了。<br>1、下载mysql二进制包，我这里下载的是mysql8.0.21的包：</p><pre><code>https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.21-linux-glibc2.12-x86_64.tar</code></pre><p>然后放到自己存放下载文件的文件夹，我这里是/root/tools文件夹（没有tools文件夹就新建一个）<br>2、解压二进制文件，需使用下列命令：（这里第一次解压之后会出现三个压缩文件，但只有一个是主要文件，因此还要对那个文件进行解压</p><pre><code>tar -xvf mysql-8.0.21-linux-glibc2.12-x86_64.tartar -xvJf mysql-8.0.21-linux-glibc2.12-x86_64.tar.xz   </code></pre><p><strong>TIPS：大多数人使用tar命令的时候都是-zxvf的，但是其中的-z是用于解压zip文件（或者gzip），因此这里不需要-z，而-x是表示解压文件，-v会在处理完之后列出已处理的文件，-f代表将解压后的文件放在当前文件夹下，下面就是解压后的的mysql目录结构了：</strong><br><img src="/imgs/442204574.png" alt="mysql01.png"></p><p><strong>TIPS：在mysql5.7及以上版本的二进制文件没有了my.cnf，一般的设置都集成在mysql.server里面了，但是如果需要更方便快捷的进行配置的话，最好还是使用my.cnf比较好。</strong></p><p>解压之后的目录结构如下所示：<br>|–    LICENSE    //证书文件，不用管它<br>|–    README    //阅读文件，不用管它<br>|–    bin    //二进制文件，存放可执行文件，如mysql、mysqld等<br>|–    docs   //文档目录，不用管它<br>|–    include    //<br>|–    lib    //库目录<br>|–    man    //<br>|–    share    //<br>|–    support-files //<br>2、进行配置，首先要让mysql服务能够启动，其实只要输入命令（不用急着敲这两个命令）</p><pre><code>./bin/mysqld --initialize --basedir=/root/server/mysql/ --datadir=/root/data/mysql/ --user=root </code></pre><p>先初始化，然后输入</p><pre><code>./bin/mysqld --basedir=/root/server/mysql/ --datadir=/root/data/mysql/ --user=root </code></pre><p>就可以启动服务了，但是中间有可能会报错：<br><img src="/imgs/3051751375.png" alt="mysql02.png"><br>这里是少了个库，因此需要使用命令 yum install libaio numactl -y 把库装上就可以了<br>但是这样的话不够方便，而且对于之后的操作可能会出现BUG，因此这里创建一个my.cnf放在/etc目录下，用来简化一些步骤：<br><img src="/imgs/3121554398.png" alt="mysql03.png"><br>上面的my.cnf可以看出，配置了basedir，basedir是用来设置服务的基础目录，自然是mysql目录了，还有datadir，是存放数据的目录，这里我在/root下新建了data目录，并新建了mysql目录用来存放mysql数据，还有user配置，用来设置启动用户的。如上配置好之后其实可以很快捷的进行mysql服务的初始化，只要输入如下命令即可：</p><pre><code>./bin/mysqld --initialize &amp;</code></pre><p>初始化过程如下（如果没有ERROR就表示初始化成功了）：<br><img src="/imgs/1692672871.png" alt="mysql04.png"><br>初始化完成之后就可以尝试运行mysql服务了，这里运行如下命令：</p><pre><code>./bin/mysqld &amp;</code></pre><p>TIPS：这里之所以运行起来这么简单是因为在my.cnf里面配置了东西的缘故，要不然又得设置basedir、datadir等数据，命令就太长了，写起来不方便<br>成功运行会出现如下的图样：<br><img src="/imgs/870637910.png" alt="mysql05.png"><br>然后使用ps -ef|grep mysql命令，如果显示有mysqld服务正在运行，即可以算成功了。<br><img src="/imgs/1757462989.png" alt="mysql06.png"><br>然后尝试进入mysql的界面，输入如下命令：</p><pre><code>./bin/mysql</code></pre><p>但是一般会报如下错误：</p><pre><code>./bin/mysql: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory</code></pre><p>这里好像是没有相应的文件，输入以下命令</p><pre><code>find / -name libtinfo*ln -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5</code></pre><p>即可。（如果找到的libtinfo.so.6.1不在/usr/lib64文件夹下，则写其对应的文件夹）<br>改正这个错误之后再输入如下命令，一般会报这个错误</p><pre><code>ERROR 1045 (28000): Access denied for user &#39;root&#39;@&#39;localhost&#39; (using password: NO)</code></pre><p>刚初始化完成可以直接使用命令</p><p>其实这是因为在initialize的时候分配了一个初始密码。<br>    ALTER USER USER() IDENTIFIED BY ‘newpassword’;<br>修改密码<br>但是一般不记得密码的话，就很难受，因此这里就直接写一个忘记mysql密码之后该怎么不凭密码进去，并且修改密码的过程吧，其实很简单，只要在my.cnf里面加入一行</p><pre><code>skip-grant-tables</code></pre><p>就可以了，当然修改了配置之后需要重启一下mysql服务（我这里直接kill掉的）。<br>再输入./bin/mysql命令之后应当是可以进入mysql命令行的，就如下图所示：<br><img src="/imgs/564861187.png" alt="mysql07.png"><br>然后需要修改密码：进入mysql命令行之后，使用</p><pre><code> update mysql.user set  authentication_string=&#39;newpassword&#39; where user=&#39;root&#39;;</code></pre><p>TIPS：如果不行可先使用use mysql;切换数据库，再使用update user set  authentication_string=’newpassword’ where user=’root’;修改密码。<br>命令，就可以修改成功了，然后再输入命令</p><pre><code>flush privileges;</code></pre><p>对mysql权限表进行重洗（重启mysql服务也可以起到相同效果），这样修改密码的步骤就结束了。</p><p>到上面之后大概的东西都差不多了，服务也能起来，也可以进入命令行进行操作了。但是，总是要进入相应文件夹进行操作总是很麻烦，因此还需要进行全局操作<br>3、对mysql服务进行全局设置，让服务能够在全局使用。<br>将bin目录下的mysql复制一份到/usr/bin目录下，即可以在全局进入mysql命令行了，如下图所示：<br><img src="/imgs/2595605056.png" alt="mysql08.png"><br>然后要让mysql服务作为system服务，能够开机自启，并且能够使用systemctl进行操作，</p><pre><code>cp support-files/mysql.server /etc/init.d/mysqld</code></pre><p>首先将suuport-files/mysql.server复制到/etc/init.d/目录下，并改成mysqld（自定义服务一般要放在/etc/init.d/目录下，然后将其设置为系统服务，需要输入如下命令：</p><pre><code>chkconfig --add mysqld</code></pre><p>这样其实就可以成功了，然后输入如下命令：</p><pre><code>systemctl restart mysqld systemctl status mysqld </code></pre><p>如果得到了如下图的话，表示已经将其设置为系统服务了：<br><img src="/imgs/1473512416.png" alt="mysql09.png"><br>到这里，mysql服务的搭建就完成了。</p><p>有时候使用systemctl status mysqld会产生报错：<br>/etc/init.d/mysqld: line 256: my_print_defaults: command not found<br>这个错误根据提示可以发现，是没有找到my_print_defaults命令，只要使用下面的命令将bin目录下的该文件复制到/usr/bin目录下就可以了<br>cp /root/server/mysql/bin/my_print_defaults    /usr/bin</p><p>还有一个错误是<br>Starting MySQL ERROR! Couldn’t find MySQL server (/root/server/mysql/bin/mysqld_safe)<br>这个错误暂时没解决，只能说，现在可以全局使用mysql启动，但是没办法开机自启了。。<br>经我实验，应该是由于SELINUX开了的原因，组织了mysqld启动，最方便的方法就是setenforce 0，这样就可以立即看到效果了，但是只是一次性的，如果要永久设置需要进入/etc/selinux/目录下找到config文件，将SELINUT=enforcing设置为SELINUX=disable，这样就可以了，不过这样好像会不太安全，因此如果要更安全的方法，需要对selinux进行更细致的工作。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux下自定义搭建php环境</title>
+      <link href="article/20201015151000/"/>
+      <url>article/20201015151000/</url>
+      
+        <content type="html"><![CDATA[<p>linux下自定义搭建php的环境，首先在<a href="https://www.php.net/downloads">php官网</a>找到压缩包下载，一般都是用的stable包，这个包比较稳定，BUG少。<br>压缩解压的步骤是必不可少的，这里就不写了，和之前的nginx服务器的基本一致。重要的是接下来的环节：<br>1、设置php configure脚本，命令为</p><pre><code>./configure --prefix=PATH --enable-fpm</code></pre><p>首先，这是对php进行一些配置，配置之后的编译就可以按照我们想要的去编译了，这里的–prefix=PATH是为了给php设置一个存放环境，如果不设置的话，默认情况下是在/usr/local等文件下，–enable-fpm是为了是php成为一个能独立运行的服务。这两个的话，是必备两个命令之一，必须要写上才能行。如果还有其他需求的话，比如和mysql进行连接什么的，就加其他的配置。不过在配置时候可能需要下载libxml2、libxml2-devel、sqlite、sqlite-devel包等，配置完成后如下图所示。<br><img src="/imgs/3322096398.png" alt="php01.png"><br>接下来需要make（如果没有make命令，则yum install make），以及make install。（可以合成为make &amp;&amp; make install)，完成之后如下图所示。<img src="/imgs/1230616020.png" alt="php02.png"><br>接下来就需要配置php的一些配置以让nginx可以转发给php，让php去处理对应的php文件。先启动php-fpm，让php服务运行，但是会报如下错误，这里的错误没有配置文件php-fpm.conf，因此需要一个php-fpm.conf，其实在原本的文件里已经有一个php-fpm.conf.default了，因此我们只需要将php-fpm.conf.default变成php-fpm.conf就可以了。使用（cp php-fpm.conf.default php-fpm.conf）命令即可，对了还有一个文件也需要这样转换那就是<a href="http://www.conf他在etc/php-fpm.d/%E6%96%87%E4%BB%B6%E5%A4%B9%E9%87%8C%E9%9D%A2%EF%BC%8C%E9%9C%80%E8%A6%81%E5%B0%86%E8%BF%99%E4%B8%A4%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E7%94%9F%E6%88%90%E5%8D%B3%E5%8F%AF%E3%80%82">www.conf他在etc/php-fpm.d/文件夹里面，需要将这两个文件夹生成即可。</a><br><img src="/imgs/304682232.png" alt="php03.png"></p><p>同时还需要在<a href="http://www.conf里将user改成启动php-fpm的用户,我这里是用的root用户,因此在启动时候还需要有权限,比如启动时候需要用如下命令/">www.conf里将user改成启动php-fpm的用户，我这里是用的root用户，因此在启动时候还需要有权限，比如启动时候需要用如下命令</a></p><pre><code>./php-fpm -R</code></pre><p>这样php的配置已经做好，可以正常使用了，但是还需要和nginx配合起来。<br>nginx和php的配合是通过fastcgi进行转发来作用点，因此需要在nginx.conf进行如下配置：<br>1、首先要让nginx能识别php文件，设置默认页面：<br><img src="/imgs/3028908236.png" alt="php05.png"><br>代码为：</p><pre><code>location \&#123;      root html;      index index.html index.htm index.php;&#125;</code></pre><p>2、其次让nginx把php文件转发给php-fpm处理，因此需要进行如下设置：<br><img src="/imgs/2068046119.png" alt="php06.png"><br>代码为：</p><pre><code>location ~ \.php?.*$ &#123;        root           html;        fastcgi_pass   127.0.0.1:9000;        fastcgi_index  index.php;    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;        include        fastcgi.conf;    &#125;</code></pre><p>将如上配置配好之后重启php服务和nginx服务重启一下，然后使用命令ps -ef|grep php命令和ps -ef|grep nginx，<br><img src="/imgs/2455233804.png" alt="php07.png"><br>看一下用户是否为设置的启动的用户，如果不是的话，可能会引发如下错误：<br><img src="/imgs/2415716225.png" alt="php08.png"></p><p>当设置完之后，可以使用代码curl localhost/index.php进行查看，如果出现如下图样，则表示已经可以正常转发处理php文件了：<br><img src="/imgs/308595108.png" alt="php09.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nginx.conf详解</title>
+      <link href="article/20201015103100/"/>
+      <url>article/20201015103100/</url>
+      
+        <content type="html"><![CDATA[<p>| nginx.conf配置：<br>  nginx.conf是里面最重要的一个配置，因为我们经常会用到它，并且要熟练掌握它的配置。nginx.conf里面分为这么几个配置块，分别是events、http、server、upstream、location，当然还有最初的关于user的配置关于worker_processes的配置等。<br>#定义Nginx运行的用户和用户组<br>user nginx nginx;//默认为user nobody;<br>#nginx进程数，一般建议设置为CPU总核数<br>worker_processes 8;<br>#全局错误日志定义类型 [ debug |info | notice |  warn | error | crit ]<br>error_log  /var/log/nginx/error.log info;#默认是这样的的，但其实可以info的写成info_log,<br>#进程文件<br>pid /var/run/nginx.pid; 进程文件显示nginx运行的PID<br>#一个nginx进程打开的最多文件描述符数目，理论值应该是最多打开文件数（系统的值ulimit -n）与nginx进程数相除，但是nginx分配请求并不均匀，所以建议与ulimit -n的值保持一致。<br>worker_rlimit_nofile 65535;</p><p>#事件模块<br>event{<br>    #参考事件模型，use [ kqueue | rtsig | epoll | /dev/poll | select | poll ]; epoll模型是Linux 2.6以上版本<br>    内核中的高性能网络I/O模型，如果跑在FreeBSD上面，就用kqueue模型。<br>    use epoll;<br>    #单个进程最大连接数(最大连接数=连接数*进程数）`<br>    worker_connection 65535;<br>}<br>#http服务器<br>http{<br>     include       mime.types; #文件扩展名与文件类型映射表<br>     #include luawaf.conf;<br>        include proxy.conf;<br>        default_type  application/octet-stream;#默认文件类型<br>        server_names_hash_bucket_size 512;#服务器名字的hash表大小<br>        client_header_buffer_size 32k;#上传文件大小限制<br>        large_client_header_buffers 4 32k;#设定请求缓存<br>        client_max_body_size 50m;#设定请求缓存<br>        sendfile   on;#开启高效文件传输模式，sendfile指令指定nginx是否调用sendfile函数来输出文件，对于普通应用设为 on，如果用来进行下载等应用磁盘IO重负载应用，可设置为off，以平衡磁盘与网络I/O处理速度，降低系统的负载。注意：如果图片显示不正常把这个改成off。<br>        autoindex on; #开启目录列表访问，合适下载服务器，默认关闭。<br>        tcp_nopush on;#防止网络阻塞<br>        keepalive_timeout 60;#长连接超时时间，单位是秒<br>        tcp_nodelay on;#防止网络阻塞</p><pre><code>    #FastCGI相关参数是为了改善网站的性能：减少资源占用，提高访问速度。下面参数看字面意思都能理解。    fastcgi_connect_timeout 300;    fastcgi_send_timeout 300;    fastcgi_read_timeout 300;    fastcgi_buffer_size 64k;    fastcgi_buffers 4 64k;    fastcgi_busy_buffers_size 128k;    fastcgi_temp_file_write_size 256k;    fastcgi_intercept_errors on;    gzip on;    gzip_min_length  1k;    gzip_buffers     4 16k;    gzip_http_version 1.1;    gzip_comp_level 2;    gzip_types     text/plain application/javascript application/x-javascript text/javascript text/css application/xml;#压缩类型，默认就已经包含text/html，所以下面就不用再写了，写上去也不会有问题，但是会有一个warn。    gzip_vary on;#增加响应头”Vary: Accept-Encoding”    gzip_proxied   expired no-cache no-store private auth;    gzip_disable   &quot;MSIE [1-6]\.&quot;;    limit_conn_zone $binary_remote_addr zone=perip:10m;    limit_conn_zone $server_name zone=perserver:10m;    server_tokens off;    access_log off;    upstream blog.ha97.com &#123;        #upstream的负载均衡，weight是权重，可以根据机器配置定义权重。weigth参数表示权值，权值越高被分配到的几率越大。        server 192.168.80.121:80 weight=3;        server 192.168.80.122:80 weight=2;        server 192.168.80.123:80 weight=3;    &#125;</code></pre><p>server<br>    {<br>        listen 888;#监听888端口<br>        server_name phpmyadmin;#服务器名字为phpmyadmin<br>        index index.html index.htm index.php;#解析index.html index.html index.php<br>        root  /www/server/phpmyadmin;#服务根目录<br>        #error_page   404   /404.html;#错误页面<br>        include enable-php.conf;#加载允许php解析的文件<br>        location ~ .*.(gif|jpg|jpeg|png|bmp|swf)$   #location负责转发，转发规则为<br>            expires      30d;<br>        }<br>        location ~ .<em>.(js|css)?$<br>        {<br>            expires      12h;<br>        }<br>        location ~ /.<br>        {<br>            deny all;<br>        }<br>        access_log  /www/wwwlogs/access.log;<br>    }<br>    include /www/server/panel/vhost/nginx/</em>.conf;<br>}</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nginx </tag>
+            
+            <tag> 服务器端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nginx服务器配置</title>
+      <link href="article/20201003202900/"/>
+      <url>article/20201003202900/</url>
+      
+        <content type="html"><![CDATA[<p>由于上次安装nginx服务器，因此顺便看了下nginx服务器的一些配置，也顺便弥补一下我的nginx方面的一些不足吧，由于上次组建了nginx服务器，因此这次就不写如何下载了，直接讲一些更细节的东西吧，如下面的是nginx服务器编译之后的目录结构：<br><img src="/imgs/4010901182.png" alt="01.png"><br>接下来就对里面每一个东西进行一次讲解吧：<br>|– CHANGES：这不是一个目录，而是一个文件，这个文件是官方给的专门用来描述nginx每一次更新迭代的改变的文件，里面可<br>|–以看到nginx每一次更新改变了什么。<br>|– CHANGES.ru:这也是一个文件，这个文件看不出什么来，编码有点问题，但是看起来应该还是和CHANGES文件一个样的。<br>|– LICENSE:这是证书文件，具体用来干什么不太清楚大概就是用来认证用的，具体配置用不上<br>|– README：这是阅读文件，一般用来写一些操作指南什么的，不过nginx里只写了个nginx官网<br>|– auto：这里存放的应该是nginx的一些编译文件，比如说gcc什么的编译文件，这里的文件一般配置也用不到，暂时也不用动<br>|– conf：这里存放着nginx所有配置文件，是及其重要的文件夹。<br>|   |– fastcgi_params:这里是存放着fastcgi相关参数的配置文件<br>|   |– fastcgi.conf:和fastcgi_params对比了一下，可以看出fastcgi.conf比fastcgi_params多了一行<br>|   |              fastcgi_params SCRIPT_FILENAME $document_root$fastcgi_script_name;<br>|   |         原本是没有.conf文件的，后来发现很多人在定义SCRIPT_FILENAME时使用了硬编码的方式。如：<br>|   |              fastcgi_params SCRIPT_FILENAME /var/www/foo$fastcgi_script_name<br>|   |         为了规范用法便引入了fastcgi.conf。因此，在nginx.conf文件下，最好使用include fastcgi.conf并可<br>|   |         以把fastcgi_params给注释掉，因为fastcgi.conf里面已经有了关于fastcgi_params的引用了。<br>|   |         现在来说，暂时对fastcgi.conf没有什么需要改动的地方，因此了解这些应该就够了。<br>|   |– koi-utf 这个文件不知有什么作用，网上搜索了一下也没有什么有用的信息<br>|   |– koi-win 这个文件不知有什么作用，网上搜索了一下也没有什么有用的信息<br>|   |– mime.types 该文件用来使服务区对文件类型区分，比如html、css、js等,可以说是一个文件扩展名与文件类型映射<br>|–             表，nginx根据映射关系，设置http请求响应头的Content-type值。<br>|   |– nginx.conf 该文件是nginx服务的配置文件，是nginx配置时最常用也最重要的文件之一，等一下单独开一个单章讲一<br>|–             下nginx配置的<br>|   |– scgi_params 和fastcgi一样用来传递服务器变量的<br>|   |– uwsgi_param 也是用来传递服务器变量的，不同的就是传递的变量差别。<br>|   |– win-utf 这是字符编码映射表，至少从里面的注释上来看是这样的，是windows-1251和utf-8两个字符之间的编码映射<br>|– configure 这是用来设置nginx的文件，这个文件夹只有在nginx未编译之前才会有，是用来设置nginx的一些配置的，比如<br>|–            nginx的日志存放路径，nginx服务目录等，所以需要进行配置，一般来说只需要设置nginx服务器目录就可以<br>|–            了，即运行 ./configure –prefix=/root/server/nginx<br>|– html 服务器目录，即存放前端目录的文件夹，当然一般来说不会存放在这里，但是这里存放了一些默认的html文件<br>|   |– 50x.html 服务器异常时候的html文件<br>|   |– index.html nginx服务器默认文件夹<br>|– sbin nginx服务启动目录<br>|   |– nginx nginx服务启动文件<br>|– logs 服务器日志目录<br>|   |– access.log 服务器访问日志<br>|   |– error.log 服务器访问错误日志</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nginx </tag>
+            
+            <tag> 服务器端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自定义搭建一个nginx服务器</title>
+      <link href="article/20200928231200/"/>
+      <url>article/20200928231200/</url>
+      
+        <content type="html"><![CDATA[<p>前两天做系统迁移，因此需要在服务器上部署一个nginx服务器用来存放前端服务器文件，而根据要求需要自定义安装nginx服务器，如果使用yum install nginx进行安装，有关nginx服务器的配置文件无法受自己的掌控，因此必须要自定义搭建。自定义搭建服务器的步骤如下：<br>1、从官网下载nginx的压缩包到指定位置，一般会在/root文件夹下创建tools文件夹，用来存放所有需要用到的压缩包，然后再创建一个文件夹server用来存放服务器的所有文件，如下图所示：<img src="/imgs/4130938130.png" alt="01.png"></p><p>现在需要下载nginx服务器的压缩包，而这需要使用wget命令，而有些时候并没有在centos预装wget命令，如下图所示：<img src="/imgs/1300862482.png" alt="02.png"></p><p>如果没有预装的话，需要使用yum命令去安装（yum只是centos系统的软件包管理器，如果是其他的话应该也有对应的软件包管理器，比如ubuntu的apt，以及rpm等。）具体命令是yum install wget（有时候没有权限，需要使用sudo权限才能下载），下载过程如下图所示：<img src="/imgs/758615455.png" alt="03.png">    </p><p>nginx服务器的官方地址是：<a href="http://nginx.org/download/nginx-1.18.0.tar.gz%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%BE%93%E5%85%A5wget">http://nginx.org/download/nginx-1.18.0.tar.gz，直接输入wget</a> <a href="http://nginx.org/download/nginx-1.18.0.tar.gz">http://nginx.org/download/nginx-1.18.0.tar.gz</a> 命令就可以下载了，如下图所示：<img src="/imgs/2806850325.png" alt="04.png"><br>而接下来需要对压缩包进行解压，如下图所示：<img src="/imgs/3300176525.png" alt="05.png"><br>而解压之后的nginx包还未经编译，因此需要对其进行编译和配置，首先输入./configure –prefix=/root/server/nginx<br>，之所以要用congifure命令是因为nginx解压之后有个configure的可执行文件，而对这里面的值进行更改就可以修改一些配置，具体的配置网上一搜索就有了，这里我只用了一个最基本的–prefix=PATH，将编译之后的文件解压到指定文件夹下。<img src="/imgs/3796486612.png" alt="06.png"><br>使用./configure –prefix=/root/server/nginx命令时可以发现有的服务器上会报出<br>./configure: error: C compiler cc is not found错误，这个错误是说c编译器没有被发现，因此只需要用yum安装一个c编译器就可以了，具体命令是yum install gcc。<br>./configure: error: the HTTP rewrite module requires the PCRE library错误，这个错误是说没有PCRE library，这个错误需要安装pcre-devel,即pcre开发包（devel在linux上是开发包的意思），具体命令时yum install pcre(如果显示已经安装pcre，则需要安装pcre-devel)<br>./configure: error: the HTTP gzip module requires the zlib library错误，这个错误是说没有zlib library，这个错误需要安装zlib-devel，具体命令是yum install zlib(如果显示已经安装zlib，则需要安装zlib-devel）<br>解决掉这些错误之后，一般就没有其他错误了，如果有一般也只要安装对应的包就可以了。而配置完成之后会有如下图的显示：<br><img src="/imgs/3296615981.png" alt="07.png"></p><p>接下来的代码是，make &amp;&amp; make install（其实也可以做两个命令来用，但是这里我就做一个用了）。<br>有的centos也会发现没有make命令，这里也需要下载一下make命令，具体命令是yum install make。<br>使用make&amp;&amp;make install之后成功安装的代码如下图所示：<br><img src="/imgs/1323335205.png" alt="08.png"></p><p>而进入/root/server目录下会发现已经有了nginx文件夹，这说明已经编译好了nginx。由于是自定义的，需要配置一下才能访问nginx服务器，其实主要是将user配置成开启服务时的用户名就可以了，这里我是直接用的root用户，因此需要将用户名改成root，然后保存退出，重启nginx服务，即可以了。<img src="/imgs/3259044543.png" alt="09.png"><br>由于示例的nginx服务器配置是在docker里面配置的，无法直接通过外网访问，因此只能使用curl命令查看是否配置成功，如下图所示，可以看到Welcome to Nginx！的显示，则表示配置成功了：<img src="/imgs/365957982.png" alt="10.png"><br>接下来将服务器代码进行单独放置，在/root目录下新建一个app文件夹，这里存放所有自己写的代码，我这里就将之前写的代码放在dist里面了。而想要让nginx服务器解析指定目录，其实只需要在nginx的nginx.conf里配置一下就可以了。如下图所示：<img src="/imgs/389010479.png" alt="11.png"><br>既可以正常显示了，正常显示的图片如下所示：<img src="/imgs/3183688132.png" alt="12.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nginx </tag>
+            
+            <tag> 服务器端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数组和对象与字符串进行比较的问题</title>
+      <link href="article/20200820162100/"/>
+      <url>article/20200820162100/</url>
+      
+        <content type="html"><![CDATA[<p>今天碰到个这个题目：</p><pre><code>var  a=[1,2,3];var b=[1,2,3];var  c=&quot;1,2,3&quot;var d=&#123;a:1&#125;var e=&#39;&#123;a:1&#125;&#39;console.log(a==b,a==c,b==c)console.log(d==e)</code></pre><p>结果：false true true false<br>而结果是a不等于b，a等于c，b也等于c，搞了半天没搞懂，后来才知道，js是弱类型语言，obj与obj之间是比较地址，其他的大部分会转成字符串，而数组可以看作是一个特殊的obj，即键值为固定数值的对象，因此他们比较时候地址不相同，会打印false，而d不等于e是因为需要转格式toString，我进行了下面的测试：</p><pre><code>var obj=&#123;&#125;var str=&#39;[object Object]&#39;console.log(obj.toString(),str)console.log(obj.toString()==str)结果：[object Object] [object Object]      true</code></pre><p>   从这里可以看出obj打印成字符串后会显示[object Object]，因此会出错，但是空数组打印出来是空字符串，因此就不会出错</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vuex状态管理模式</title>
+      <link href="article/20200818115100/"/>
+      <url>article/20200818115100/</url>
+      
+        <content type="html"><![CDATA[<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式，这是官方的解释，但其实个人感觉它的功能类似与Bus，也就是数据总线的功能，它把一些公共的数据都抽出来，做成一个单独类，然后将这些数据称之为状态，其实大概就是这样了，vuex其实还是挺简单的，需要引用插件的话，需要先使用</p><pre><code>npm install vuex --save</code></pre><p>安装vuex，并且在main.js使用它，即</p><pre><code>import Vue from &#39;vue&#39;import Vuex from &#39;vuex&#39;Vue.use(Vuex)</code></pre><p>这样才可以使用，不过vuex依赖promise，因此需要引入es6-promise（这个我没引入过，也没问题，大概是我的浏览器支持promsie，因此不需要吧。）<br>Vuex主要有Sate、Mutation和Action三个核心概念，其中state状态，其实就是数据了，由于state的状态都是响应式的，因此读取状态的最好办法就是在computed（计算属性）中返回某个状态，而一个组件需要取多个状态的时候，可以使用mapState来帮助生成计算属性（少写点代码），而这需要引入mapState，引入代码如下所示：<br>    import {mapState} from ‘vuex’<br>引入之后便可以开始取状态了，代码如下：</p><pre><code> ...mapState(&#123;  sidebar: state =&gt; state.app.sidebar,  device: state =&gt; state.app.device,  showSettings: state =&gt; state.settings.showSettings,  needTagsView: state =&gt; state.settings.tagsView,  fixedHeader: state =&gt; state.settings.fixedHeader&#125;),</code></pre><p>这样书写起来简单，快捷了许多</p><p>Mutation是vuex中更改store中的状态的唯一方法，Vuex中的mutation非常类似于事件（或者说方法），大家在mutation里面注册方法，然后需要使用时使用commit调用该方法，和事件总线差不多，只是简化了注册过程，只要将方法写在mutation里面就算注册了，而只要commit就算调用了。以下是关于mutation的方法</p><pre><code>export default &#123;getLastNews(state,[arg...]) &#123;    getNoticeList(1, 1, 8).then((res) =&gt; &#123;        state.LastNews = res.data.result        // console.log(state.LaseNews)    &#125;) &#125;,</code></pre><p>   }<br>这便是最简单的一个mutation了。而需要调用的话，只需要</p><pre><code>store.commit(&#39;getLastNews&#39;,[args...])就可以了</code></pre><p>Action的话，是类似于mutation的对于状态的异步处理，它提交的是mutation，Action可以包含任意异步操作。而我们想使用异步操作状态的时候，可以调用dispatch来分发Action。以下是关于Action的方法</p><pre><code>export default &#123;    getLastNews(context) &#123;        context.commit(&#39;getLastNews&#39;)    &#125;,&#125;</code></pre><p>如果要调用的话，需要<br>    store.dispatch(‘getLastNews’)<br>还剩下一个module，可以将状态分成不同的模块，而每个模块都有自己完整的mutation、action、state等，这样就可以条理清楚的进行状态的管理了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>npm WARN babel-loader@7.1.5 requires a peer of babel-core@6 but none is installed. You must install peer dependencies yourself.</title>
+      <link href="article/20200628091900/"/>
+      <url>article/20200628091900/</url>
+      
+        <content type="html"><![CDATA[<p>在安装插件或者进行其他动作的过程中，总是会遇到该错误</p><pre><code>npm WARN babel-loader@7.1.5 requires a peer of babel-core@6 but none is installed. You must install peer dependencies yourself.</code></pre><p>而这个错误说明插件的版本不匹配，这时候就需要我们去更新其中一个版本了。<br>而更新的指令是，<br>    npm install bebel-core@6 –save-dev<br>而有时安装的插件又版本不适配，因此需要不断适配。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 错题集 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Bootstrap Collapse组件（手风琴效果） fa-html图标字体库</title>
+      <link href="article/20200616165600/"/>
+      <url>article/20200616165600/</url>
+      
+        <content type="html"><![CDATA[<p>Bootstrap有很多实用的组件，例如现在提到的Collapse组件就是其中之一，Collapse组件是用来点击下拉显示的，与dropdown有所不同的是，dropdown的dropdown-menu不占位置，或者说是悬浮在网页上的，并不会造成网页样式的变化，而collapse组件则会产生该变化。emmmmm…现在想一下collapse的用法，其中最主要的是点击下拉显示文字的样式，先贴一段代码：</p><pre><code>            &lt;div class=&quot;navbar-toggler align-items-center&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#zhuye&quot;&gt;            &lt;i class=&quot;fa fa-home&quot;&gt;&lt;/i&gt;            &lt;span class=&quot;nav-label&quot;&gt;主页&lt;/span&gt;            &lt;i class=&quot;fa fa-long-arrow-down arrow&quot;&gt;&lt;/i&gt;        &lt;/div&gt;        &lt;ul class=&quot;nav collapse align-items-center&quot; id=&quot;zhuye&quot; data-parent=&quot;#coll&quot;&gt;            &lt;li&gt;了解MK系统&lt;/li&gt;        &lt;/ul&gt;</code></pre><p>从这可看到，其实这种点击效果大多是用data-toggle=””进行绑定，当里面是collapse时，便是collapse效果了，而data-target(也可以使用href属性，不过data-target效果更好，并且不占用href属性的跳转)指向点击之后要显示出来的组件，而在下面可以使用一个ul列表显示，只要把id设置成和上面target一样即可。这就是最核心的collapse组件效果实现了。而剩下的例如.collapse .nav .nav-toggler等都是用来使其更美观的效果组件。还有就是.fa .fa-home，这是fa-html5图标字体库框架的使用，因为简单就顺便把它也给说了吧，如下是该字体库的官方网址：<br>[fa-html5图标字体库][1]<br>而要使用该框架呢，需要将该插件下载下来，然后将其复制到项目目录下，然后使用link，将其css链接到需要的网页上，如下：</p><pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;path/to/font-awesome/css/font-awesome.min.css&quot;&gt;</code></pre><p>当然，还有链接less的，这里我没用就不做赘述了。<br>接下来只要去官网查找你想要的图标，以及该图标对应的类，然后将该类设置在需要图标的元素上，就可以了，如下：</p><pre><code>  &lt;i class=&quot;fa fa-home&quot;&gt;&lt;/i&gt;</code></pre><p>这样就算大功告成了，到这里对于fa-html5图标字体库的讲解就完了，接下来继续回到collapse组件上，接下来就是实现手风琴了，手风琴其实就是当一个列表打开时，其他的列表都收缩，先贴代码：</p><pre><code>&lt;ul class=&quot;nav flex-column justify-content-start align-items-center&quot; id=&quot;coll&quot;&gt;&lt;li class=&quot;navbar-nav&quot;&gt;    &lt;div class=&quot;user-panel&quot;&gt;        &lt;img src=&quot;https://i1.hdslb.com/bfs/face/eec4d8864d1842bcae83cbe4f31016ffbd7bdb54.jpg@87w_88h_1c_100q.webp&quot;/&gt;        &lt;div class=&quot;pull-left info&quot;&gt;            &lt;p&gt;admin&lt;/p&gt;            &lt;a&gt;&lt;i class=&quot;fa fa-circle text-success&quot;&gt;&lt;/i&gt;在线&lt;/a&gt;            &lt;a&gt;&lt;i class=&quot;fa fa-circle text-success&quot;&gt;&lt;/i&gt;注销&lt;/a&gt;        &lt;/div&gt;    &lt;/div&gt;&lt;/li&gt;&lt;li class=&quot;navbar-nav&quot;&gt;    &lt;div class=&quot;navbar-toggler align-items-center&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#zhuye&quot;&gt;        &lt;i class=&quot;fa fa-home&quot;&gt;&lt;/i&gt;        &lt;span class=&quot;nav-label&quot;&gt;主页&lt;/span&gt;        &lt;i class=&quot;fa fa-long-arrow-down arrow&quot;&gt;&lt;/i&gt;    &lt;/div&gt;    &lt;ul class=&quot;nav collapse align-items-center&quot; id=&quot;zhuye&quot; data-parent=&quot;#coll&quot;&gt;        &lt;li&gt;了解MK系统&lt;/li&gt;    &lt;/ul&gt;&lt;/li&gt;&lt;li class=&quot;navbar-nav&quot;&gt;    &lt;div class=&quot;navbar-toggler align-items-center&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#zhuye1&quot;&gt;        &lt;i class=&quot;fa fa-home&quot;&gt;&lt;/i&gt;        &lt;span class=&quot;nav-label&quot;&gt;主页&lt;/span&gt;        &lt;i class=&quot;fa fa-long-arrow-down arrow&quot;&gt;&lt;/i&gt;    &lt;/div&gt;    &lt;ul class=&quot;nav collapse&quot; id=&quot;zhuye1&quot; data-parent=&quot;#coll&quot;&gt;        &lt;li&gt;1112233&lt;/li&gt;        &lt;li&gt;1112233&lt;/li&gt;    &lt;/ul&gt;&lt;/li&gt;&lt;li class=&quot;navbar-nav&quot;&gt;    &lt;div class=&quot;navbar-toggler align-items-center&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#zhuye2&quot;&gt;        &lt;i class=&quot;fa fa-home&quot;&gt;&lt;/i&gt;        &lt;span class=&quot;nav-label&quot;&gt;主页&lt;/span&gt;        &lt;i class=&quot;fa fa-long-arrow-down arrow&quot;&gt;&lt;/i&gt;    &lt;/div&gt;    &lt;ul class=&quot;nav collapse&quot; id=&quot;zhuye2&quot; data-parent=&quot;#coll&quot;&gt;        &lt;li&gt;1112233&lt;/li&gt;    &lt;/ul&gt;&lt;/li&gt;</code></pre></ul><p>如上面所示，该代码主要是在弹出的列表里加了个data-parent，并指定了一个id=”coll”的组件，不难发现，这刚好就是该组件的父元素，而该父元素的需要弹出的子元素下都写一个data-parent即可有手风琴效果了。<br>  [1]: <a href="https://fontawesome.com/v4.7.0/icon/html5">https://fontawesome.com/v4.7.0/icon/html5</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> Bootstrap </tag>
+            
+            <tag> 图标字体库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Bootstrap学习之路上一些错误代码的总结</title>
+      <link href="article/20200615170700/"/>
+      <url>article/20200615170700/</url>
+      
+        <content type="html"><![CDATA[<p>在下拉菜单那里，一直没办法有分割线，明明设置了class=”divider”却还是不显示，最后发现是因为我看的教程是中文网中文文档的3.3.7，而使用的是最新的bootstrap4，而bootstrap对于分割线的类进行了更改，从divider改成了dropdown-divider，所以必须要修改为divider才可以生效</p><p>还有就是disable禁用好像也没有禁用的鼠标箭头转换，然后发现是bootstrap4换了箭头。。这些都说明，文档还是看对应版本的好，虽然英文看着累，但是坑少。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 错题集 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> Bootstrap </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Bootstrap的使用</title>
+      <link href="article/20200612105500/"/>
+      <url>article/20200612105500/</url>
+      
+        <content type="html"><![CDATA[<p>Bootstrap是一个用于快速开发Web应用程序和网站的前端框架，是基于HTML、CSS、JAVASCRIPT的，其响应式设计让一个网页能在不同端呈现不同的效果。例如如下代码：<br>Bootstrap栅格系统是Bootstrap响应式框架的最出名的一个部分，其中栅格系统用于通过一系列的行<br>    <div class="container"><br>    <div class="row"><br>        <div class="col-sm-4">1234</div><br>        <div class="col-sm-8">456789</div><br>    </div></p></div>其中row类只能放在container中，而col-sm-4其中col表示是列，sm表示是小屏幕平板，4表示占12份当中的四份（bootstrap把一个container分成了12份），其中在小屏幕下这些都是堆叠在一起的。还有一个col-md-offset-*是用来设置列偏移量的。<p>Bootstrap不仅保留了html5的各种排版样式，如h1到h6等，而且也自定义了.h1到.h6等各种排版，在标题内还可以包含small副标签，可以用来标记副标题，还有，可以通过code标签来显示一段代码，通过pre标签来显示一堆代码，但是要注意尖括号标签需要使用转义字符（&amp;lt=&lt;,&amp;gt=&gt;)，例如下列代码：</p><pre><code>&lt;pre&gt;&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;title&amp;gt;栅格系统&amp;lt;/title&amp;gt;&lt;/pre&gt;</code></pre><p>Bootstrap为表格提供了不一样的属性.table类可以赋予其基本的样式-少量的内补和水平方向的分隔线。.table-striped可以给tbody之内每一行增加斑马条纹样式，还有.table-hover .table-condensed等样式，以及.active .succeed .info .warning .danger等不同的状态类。有如下代码所示：</p><pre><code>    &lt;table class=&quot;table-responsive&quot;&gt;    &lt;tbody class=&quot;table&quot;&gt;    &lt;tr&gt;        &lt;td&gt;11&lt;/td&gt;        &lt;td&gt;22&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;33&lt;/td&gt;        &lt;td&gt;44&lt;/td&gt;    &lt;/tr&gt;    &lt;/tbody&gt;&lt;/table&gt;</code></pre><p>Bootstrap为表单提供了一些属性，.from-control类可以使所有子元素的input、textarea、select元素都将被默认设置为100%的宽度，将label元素和前面提到的控件包裹在.form-group中可以获得最好的排列。为form元素添加.form-inline标签可使内容左对齐并且表现为inline-block级别的控件。<br>通过为父元素添加.clearfix可以为元素清除浮动，而.show和.hide更是可以控制隐藏和显示内容</p><p>Bootstrap下拉菜单最主要是通过data-toggle=”dropdown”绑定数据以便下面的菜单进行操作，而下面的菜单应设置为class=”dropdown-menu”才能和上面的data-toggle=”dropdown”来进行,例如下面的代码</p><pre><code> &lt;div class=&quot;dropdown btn-group&quot;&gt;    &lt;button class=&quot;btn btn-primary dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;        DropDown&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;    &lt;/button&gt;    &lt;ul class=&quot;dropdown-menu&quot; &gt;        &lt;li&gt;123&lt;/li&gt;    &lt;/ul&gt;&lt;/div&gt;</code></pre><p>其中，data-toggle=”dropdown”和ul里的class=”dropdown-menu”联合形成了下拉菜单的效果，而其他的例如dropdown是Bootstrap为下拉菜单设置的默认样式，但是dropdown的默认样式会占掉一行的宽度，因此使用btn-group把按钮变成下拉菜单的开关，当然还可把dropdown改成dropup使其上弹。<br>而我们也可以自己调用其下拉按钮，即自定义自己的下拉菜单，其实我们需要的只是点击下拉的效果，而这个可以直接在js用语法实现，bootstrap也为我们提供了对应的函数<br>    $().dropdown(‘toggle’)，该方法所有下拉事件都会在.dropdown-menu的父元素触发，所以我们只需要在dropdown-menu<br>上                                                                                                                                                                                                                                                                                                                                                                                                                                                    例如$(‘.dropdown-toggle’).dropdown()即代表点击data-toogle=”dropdown”所代表的按钮会显示.dropdown-menu所代表的按钮。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> Bootstrap </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>jQuery的使用</title>
+      <link href="article/20200612084900/"/>
+      <url>article/20200612084900/</url>
+      
+        <content type="html"><![CDATA[<p>jQuery是js的一个整合库，因为快速，小巧等众多优点而被广泛使用，现如今变成了大部分人编写javascript的方式。jQuery语法是通过选取html元素，对其执行某些操作。<br>1)jQuery语法，基础语法是$(selector).action()，要特别注意的是为了防止在完全加载之前就运行jQuery代码，因此需要在文档就绪之后才能写jQuery代码，格式是这样的</p><pre><code>$(document).ready(function () &#123;          //开始写jQuery代码&#125;)</code></pre><p>而且可以简化为如下：</p><pre><code>$(function () &#123;          //开始写jQuery代码&#125;)</code></pre><p>2）jQuery选择器主要是通过$()方式来进行选择，如果根据括号里面的内容来进行判断选择元素的类型等。</p><pre><code>$(&quot;p&quot;)/$(&quot;h1&quot;)/$(&quot;.class1&quot;)/$(&quot;#id1&quot;)/$(&quot;p.first&quot;)/$(&quot;ul li:first&quot;)</code></pre><p>3）在jQuery中，绝大多数DOM事件都有一个等效的JQuery方法，<br>例如：</p><pre><code>$(&quot;p&quot;).click(function () &#123;    console.log(&quot;111&quot;);&#125;);</code></pre><p>4）jQuery有一系列方法来改变效果，例如，show、hide、fadeIn、fadeOut、animate等方法<br>下面是一些有关的代码：</p><pre><code>$(function () &#123;</code></pre><p>   $(“.rect”).click(function () {<br>       console.log(“rect click已加载”);<br>       console.log($(this)[0].style);<br>       $(this)[0].style.background=”#000000”;<br>       $(this).hide();<br>        setTimeout(function () {<br>            $(“div”).show();<br>        },3000);<br>   })<br>    //先绘制一个圆<br>    var ctx=$(‘.arc’)[0].getContext(‘2d’);<br>   ctx.arc(150,50,100,0,2*Math.PI);<br>   ctx.lineWidth=”5”;<br>   ctx.stroke();<br>    $(“.arc”).click(function () {<br>       $(‘.arc’).fadeOut();<br>       $(‘.arc’).fadeIn();<br>    })<br>    $(‘.slide’).click(function () {<br>        console.log(‘slide click已加载’,$(this));<br>        console.log([0])<br>        $(‘.slide’).slideDown();<br>        var div=$(“div”);<br>        div.animate({height:’300px’,opacity:’0.4’},”slow”);<br>        div.animate({width:’300px’,opacity:’0.8’},”slow”);<br>        div.animate({height:’100px’,opacity:’0.4’},”slow”);<br>        div.animate({width:’100px’,opacity:’0.8’},”slow”);<br>    });<br>})<br>5）jQuery也可以对html元素进行一系列操作，比如追加，删除，修改等。<br>    $(‘.header’).css(“background”,”red”)<br>        .slideUp(2000)<br>        .slideDown(2000)<br>        .append(“<p class='subh'>header</p>“);<br>    $(‘p’).remove(‘.header’);<br>6）jQuery也可以用来写AJAX，其中有load方法，ajax方法，get/post方法，分别对应了不同的情况，</p><pre><code>    $(&#39;#ajax&#39;).load(&quot;demo.txt&quot;);</code></pre><p>load方法可以直接把获取的值返回给元素。</p><pre><code>    var response=$.ajax(&#123;    url:&quot;demo.txt&quot;,    async:false,    success:function (data) &#123;        console.log(data);    &#125;&#125;);console.log(response)</code></pre><p>ajax方法则是简化了原生的ajax，<br>get方法和post方法则是使用不同的请求类型去 </p><pre><code> $.post(&quot;demo.txt&quot;,&#123;    name:&quot;yechuchen&quot;,    url: &quot;&quot;&#125;,function (data) &#123;    console.log(data)&#125;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> jQuery </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HTML5的使用</title>
+      <link href="article/20200611085300/"/>
+      <url>article/20200611085300/</url>
+      
+        <content type="html"><![CDATA[<p>HTML5对于HTML4，新增了一些组件，比如video组件、audio组件、拖放组件以及画布组件等等。<br>1）video和audio组件<br>  在之前的浏览器中，都是用的FLASH来进行视频播放，而有了html5之后，；便可以直接使用html5进行视频播放了。</p><pre><code>&lt;video id=&quot;video1&quot; controls=&#39;controls&#39; autoplay=&quot;autoplay&quot; loop=&quot;loop&quot; preload=&quot;auto&quot;&gt;    &lt;source src=&quot;src/video/v1.mp4&quot; type=&#39;video/mp4&#39;/&gt;&lt;/video&gt;</code></pre><p>   其中source标签可以不用，把src直接写在video标签上，当然，如我上面的写法时，可以有多个source标签放在里面，不过video只会显示第一个可以识别的样式，video有很多属性可以用来操作视频，例如autoplay、controls、loop、preload等<br>   autio标签和video标签大致相同，就不介绍了。<br>2）拖放<br>  拖放是H5标准的组成部分，使对象被抓取之后可以拖到另一个位置。而如果想要拖放，必须让元素允许拖放，draggable属性便是用来允许元素拖放的<br>  在拖动时，主要分为三个部分，拖动开始，拖动，放置，而这三个部分都给了一个处理函数<br>  首先，拖动开始的处理函数是ondragstart(event)，通过event可以判断获取当前拖动的元素的各种属性<br>  然后拖动之后，决定要把元素放在哪里便是由ondrageover(event)来进行操作，<br>  拖动过程中，会不断进行防止，这时使用ondrop(event)函数，来处理drop事件<br>3)H5还有一个最主要的区别就是可以用canvas在网页上进行图形绘制，如果想要在网页上进行图形绘制，需要在html上放置一个canvas标签，然后使用javascript对其进行绘制即可。<br>  现贴上一部分绘制线段的代码：</p><pre><code>var cxt=$(&#39;#mycanvas&#39;)[0].getContext(&#39;2d&#39;);cxt.moveTo(20,20);cxt.lineTo(20,30);cxt.lineTo(30,40);cxt.strokeStyle=&#39;#FF0000&#39;;cxt.stroke();cxt.beginPath();cxt.moveTo(100,50);cxt.lineTo(150,150);cxt.strokeStyle=&quot;#111FFF&quot;;cxt.lineWidth=&quot;5&quot;;cxt.stroke();cxt.beginPath();var grd=cxt.createRadialGradient(75,50,5,90,60,100);grd.addColorStop(0,&quot;red&quot;);grd.addColorStop(1,&quot;white&quot;);cxt.arc(50,50,50,0,2*Math.PI);cxt.lineWidth=&quot;1&quot;;cxt.fillStyle=grd;cxt.fill();cxt.stroke();</code></pre><p>其中moveTO是移动到某个位置，lineTo是画线到某个位置,fillStyle设置填充的样式，fill进行填充，stroke开始画线，beginPath重新开始一条路径，arc绘制弧线，linewidth设置线的宽度</p><p>4)H5支持svg格式，SVG格式是指的可伸缩矢量图形，这是一种定义用于网格的基于矢量的图形，它是运用的XMl格式来定义图形的，<br>与其他图像格式相比，SVG可以通过文本编辑器来进行创建和修改，并且其是可伸缩的。</p><p>5)H5提供了两种客户端存储数据的方法：localstorage和sessionstorage，其中localstorage是没有时间限制的数据存储，sessionstorage是针对一个session的数据存储。</p><pre><code>localStorage.lastname=&quot;Smith&quot;;document.write(localStorage.lastname);localStorage.lastname=&quot;AAA&quot;;document.write(localStorage.lastname);console.log(localStorage);sessionStorage.lastname=&quot;Smith&quot;;document.write(sessionStorage.lastname);</code></pre><p>这些storage的使用方法和普通的storage一样，sessionstorage在用户关闭浏览器之后会被删除，而localstorage则会被永久保存。</p><p>6)H5应用程序缓存，通过创建cache manifest文件，可以对网页进行缓存。</p><pre><code>CACHE MANIFEST# 2012-02-21 v1.0.0/theme.css/logo.gif/main.jsNETWORK:login.aspFALLBACK:/html5/ /404.html</code></pre><p>其中CACHE MANIFEST列出了离线缓存的清单，NETWORK列出了需要联网的文件，FALLBACK列出了无法连接互联网时的替代规则<br>7）web worker是后台独立运行的javascript，不会影响页面性能<br>8）H5服务器发送事件允许网页获得来自服务器的更新(server-sent event)<br>首先要判断浏览器是否支持，因此使用typeof(EventSource)!==”undefined”对其进行判断，然后才是获取服务器的更新</p><pre><code>var source=new EventSource(&quot;demo_sse.php&quot;);source.onmessage=function(event)&#123;  document.getElementById(&quot;result&quot;).innerHTML+=event.data + &quot;&lt;br /&gt;&quot;;&#125;;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> HTML5 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue.js的使用</title>
+      <link href="article/20200609161200/"/>
+      <url>article/20200609161200/</url>
+      
+        <content type="html"><![CDATA[<p>vue.js是前端里很火的一个框架，它是一个渐进式Javascript框架，在官网上即可以下载到vue.js的包，将其当作普通的javascript文件进行引入之后即可直接进行vue的开发了，vue的语法和微信小程序之前差不多，之前我已经写过微信小程序了，因此这里就不强调语法什么的了，讲一下vue项目的结构吧，vue项目的搭建需要使用npm去构建vue，然而npm是基于node.js的，因此需要先安装好node.js之后再用npm进行构建vue，这里我是使用的IDEA的环境，因此直接下载了vue的插件，就无需构建了，比较傻瓜式的操作就可以了，考虑到现在我应该先熟悉该怎么使用它，再去学会如何构建它，因此我这里就不讲了，到后面单开一章vue/cli来专门讲解，回到vue，vue项目的目录结构是如下所示：<br>├── README.md            项目介绍<br>├── public<br>|  ├── index.html           入口页面<br>├── package.json          npm包配置文件，里面定义了项目的npm脚本，依赖包等信息<br>├── src               源码目录<br>│  ├── main.js             入口js文件<br>│  ├── app.vue             根组件<br>│  ├── components           公共组件目录<br>│  │  └── title.vue<br>│  ├── assets             资源目录，这里的资源会被wabpack构建<br>│  │  └── images<br>│  │    └── logo.png<br>其中呢，有些人还有build文件夹和config文件夹，不知我这为什么没有，可能是因为vue/cli版本不对吧，这个也放到vue/cli去吧，就像上面写的app.vue是根组件，main.js是入口js文件，运行npm run build之后会出现一个dist文件夹，那里可以用来存放css文件和js文件，src目录用来存放各种源码，components目录专门用来存放组件的，当然，可以在src里面创建自己喜欢的文件夹存放专门的一类文件。<br>vue项目让我感觉有点懵逼的是router路由的设置，不过现在我大概也捋清楚了router的用法了，<br>router一般会单独开一个文件写，而代码如下：</p><pre><code>import Vue from &#39;vue&#39;import VueRouter from &quot;vue-router&quot;;import index from &quot;@/pages/index/index&quot;;import diancan from &quot;@/pages/diancan/diancan&quot;;import purchase from &quot;@/pages/purchase/purchase&quot;;import ucenter from &quot;@/pages/ucenter/ucenter&quot;;Vue.use(VueRouter)const routes = [&#123;    path: &#39;/&#39;,    component: index&#125;,&#123;    path: &#39;/index&#39;,    name: &#39;index&#39;,    component: index,    children: []&#125;,&#123;    path: &#39;/diancan&#39;,    name: &#39;diancan&#39;,    component: diancan&#125;,&#123;    path: &#39;/purchase&#39;,    name: &#39;purchase&#39;,    component: purchase&#125;,&#123;    path: &#39;/ucenter&#39;,    name: &#39;ucenter&#39;,    component: ucenter&#125;];const router = new VueRouter(&#123;    routes&#125;)export default router</code></pre><p>上面由于有嵌套路由，因此使用了vue-router库，而下面呢，是我在写项目时候顺便写的:<br>###动态路线匹配，在cg，我对cg.vue做的是动态路线匹配，其中id是需要穿的参数，而这里是用的json串的格式来进行绑定的。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">而to也变成了 :to，这样才可以使用动态路线匹配</span><br></pre></td></tr></table></figure><h3 id="关于路由问题的思考"><a href="#关于路由问题的思考" class="headerlink" title="关于路由问题的思考"></a>关于路由问题的思考</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、main.js是项目入口文件，所以需要分配路由的话一般都在里面写。</span><br><span class="line">2、App.vue是最开始加载的一个根组件，所以其在网页显示的地址一般都是http:&#x2F;&#x2F;localhost:8080&#x2F;#&#x2F;</span><br><span class="line">3、同级路由之间可以切换，但是从该级别路由进入到下一级路由的组件，该级别的组件仍旧会保留，这点在嵌套路由中可以看出</span><br><span class="line">4、嵌套路由的话，需要使用vue-router插件</span><br></pre></td></tr></table></figure><p>###关于在vue中如何使用插件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">由于之前的路由的话，嵌套路由需要使用vue-router插件，因此是之前已经有使用过了，但是这里再做一次具体的总结：</span><br><span class="line">1、引入插件包</span><br><span class="line">2、调用Vue.use(MyPlugin)以使用插件。</span><br><span class="line">3、这些步骤需要在new Vue(&#123;&#125;)之前完成。</span><br></pre></td></tr></table></figure><p>###如何在vue中引入bootstrap.css</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">只需要将bootstrap的css包里的文件全部放到vue项目的dist&#x2F;css文件夹下，然后在main.js中</span><br><span class="line">使用import引入bootstrap.css即可，代码如下：</span><br><span class="line">import &quot;..&#x2F;dist&#x2F;css&#x2F;bootstrap.css&quot;;</span><br></pre></td></tr></table></figure><p>其余诸如组件间通信，其实和小程序差不多，不过这里还是写一下好了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>原生Ajax的使用</title>
+      <link href="article/20200609144400/"/>
+      <url>article/20200609144400/</url>
+      
+        <content type="html"><![CDATA[<p>  Ajax全称为Asyncronous Javascripts amd XML(即异步的Javascript 和XML)，这是一种无状态刷新技术，可以与服务器交换数据，并且无需重新加载整个网页<br>  Ajax由于是一种无状态刷新技术，所以内容不多，主要是分为两个模块，一个是向服务器发送请求，二是接受服务器发送的数据，当然其实不仅仅是向服务器发送请求，有时候还能够和ASP、PHP等语言结合起来，实现无状态刷新。<br>  一）XMLHttpRequest对象<br>  XMLHttpRequest对象是Ajax的基础，该对象下用于与服务器交互，对象下有一系列的方法来实现数据交互的功能，XMLHttpRequest对象可以用于获取任何类型的数据，而不仅仅只是XML。而创建XMLHttpRequest对象的方法自然就是调用其构造函数,但是有些浏览器却并不支持XMLHttpRequest，因此需要做个兼容，使用window对象去判断XMLHTTPRequest对象是否存在。<br>    var xmlhttp;<br>    if (window.XMLHttpRequest){<br>        xmlhttp=new XMLHttpRequest();<br>    }else {<br>        xmlhttp=new ActiveXObject(“Microsoft.XMLHTTP”);<br>    }<br>  当做完这些时，我们便有了一个XMLHTTPRequest对象，我们可以用这个对象去和服务器进行数据交互。<br>  二）发送请求<br>  当我们需要发送请求时，只需要调用XMLHttpRequest对象下的send方法即可，例如<br>    xmlhttp.send();</p><p>  但是在发送请求之前，我们必须做好一些配置，比如需要知道这个请求的类型，这个请求的是服务器哪个文件去处理的，使用什么方式发送（同步/异步）等等，而这些都要我们进行配置。<br>XMLHTTPRequest对象下的open方法便可以进行这些配置，open方法接受三个参数，第一个是规定请求的类型，第二个是文件在服务器的位置，第三个是是否支持异步传输（true为异步，false是同步）<br>    xmlhttp.open(‘GET’,’js/index.js’,true);<br>   因为POST请求是无法直接在地址上显示的，所有信息都在请求头里，所以XMLHTTPRequest对象还给了一个设置请求头的方法setRequestHeader<br>      xmlhttp.setRequestHeader(‘Content-type’,”applicatin/x-www-form-urlencoded”);<br>   三）接受来自服务器的响应<br>  请求已经发出，那么就需要接受来自服务器的响应，并根据响应做出相应的动作，而XMLHttpRequest对象有responseText和responseXML两个属性，用来接收服务器的响应,例如如下代码：</p><pre><code>document.getElementById(&quot;myDiv&quot;).innerHTML=xmlhttp.responseText;</code></pre><p>  四）响应的状态以及处理<br>  在收到服务器响应时，因为发出的时候有可能是异步处理，所以无法判断到底什么时间服务器才能发送响应回来，因此需要监听服务器响应，当服务器响应有状态时便进行响应操作。<br>  XMLHTTPRequest对象下的onreadystatechange事件可以为我们解决该问题，这个函数可以存储函数，而每当readystate属性发生改变时便会调用该函数。<br> readyState有五个状态，分别是<br>0: 请求未初始化<br>1: 服务器连接已建立<br>2: 请求已接收<br>3: 请求处理中<br>4: 请求已完成，且响应已就绪，<br>而服务器响应也有各种状态，其中主要关注状态为200，这代表着响应是成功的。<br>Ajax高级内容是与ASP/PHP等后端程序结合，但是其实只是换了请求文件而已，其他的大体上还是没有变化的，因此不做赘述。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Ajax </tag>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Node.js的使用</title>
+      <link href="article/20200515115800/"/>
+      <url>article/20200515115800/</url>
+      
+        <content type="html"><![CDATA[<p>Node.js是一个在服务器端运行的JavaScript，基于Google的V8引擎，要想使用Node.js，必须先安装配置好Node.js…<br>其实Node.js主要是用来做后端，和PHP，JSP类似，不同的是，只要熟练Javascript的人利用Node.js就可以做一个后端了。<br>通篇了解了一下，对于Node.js，有几个地方给了我新的启发，一个是EventEmitter，一个是Buffer，先讲EventEmitter吧，EventEmitter就是一个事件处理中心，各种事件可以放到上面进行绑定，而触发了该事件之后可以有相应的处理函数去进行处理，下面贴一下代码，以便更好的理解EventEmitter：</p><pre><code>var event=require(&#39;events&#39;);var eventEmitter=new event.EventEmitter();var connectHandler=function connect()&#123;    console.log(&quot;connected&quot;);    eventEmitter.emit(&#39;data_received&#39;);&#125;;eventEmitter.on(&#39;connect&#39;,connectHandler);eventEmitter.on(&#39;data_received&#39;,function () &#123;    console.log(&quot;data_received&quot;);&#125;);eventEmitter.emit(&#39;connect&#39;);如上面代码所示，eventEmitter上将connect与connectHandler绑定起来，即如果触发了connect事件，则会执行connectHanlder函数。而eventEmitter.emit(&#39;connect&#39;)则是触发connect事件，因此可以看到最后会显示</code></pre><p>  connected<br>  data_received<br>如上的字段。<br>接下来就是Buffer了，Buffer是将一个字符串放到缓存区里面,因为这样当需要操作大量数据的时候可以大量减少所需要的时间,而在缓冲区,我们可以操作正在流式传输的二进制数据或与其交互(因为所有的字符最终都会转化成二进制,而显示的时候一般都是以十六进制显示,所以如果新建一个Buffer之后,会显示十六位的数据,但本质应该还是二进制,而且通过Buffer,我们可以实现一些简单操作,如将一个编码的字符串转换成另一个字符串.Buffer本质上还是个缓存,转换字符编码不过是一个顺带的功能,作为缓存,它需要处理大量的二进制数据,所以不可能频繁向系统申请内存空间 ,只能在新建Buffer的时候就申请好内存空间.<br>如下面代码所示：</p><pre><code>for (var i = 0; i &lt; buf.length; i++) &#123;     console.log(buf[i]);&#125;console.log(buf.toJSON());</code></pre><p>以上就是个人感觉Node.js有些比较难懂的地方了，至于引入模块啊，导出模块啊，什么的，应该很容易就会了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Node.js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Idea 搭建Android环境时出现错误</title>
+      <link href="article/20200424153500/"/>
+      <url>article/20200424153500/</url>
+      
+        <content type="html"><![CDATA[<p><strong>报错</strong><br><em>Cannot convert string value ‘JETPACK_COMPOSE’ to an enum value of type ‘com.android.builder.model.AndroidGradlePluginProjectFlags$BooleanFlag’ (valid case insensitive values: APPLICATION_R_CLASS_CONSTANT_IDS, TEST_R_CLASS_CONSTANT_IDS, TRANSITIVE_R_CLASS)</em><br><a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/360008037240-Gradle-doesn-t-work-anymore-after-IDEA-update-Cannot-convert-string-value-JETPACK-COMPOSE-">关于上述错误的解决方法</a></p><p><a href="https://youtrack.jetbrains.com/issue/IDEA-233929?_ga=2.60600558.217664156.1587711061-2012881944.1587346469">跟踪该问题的进展</a><br><a href="https://youtrack.jetbrains.com/issue/IDEA-233929?_ga=2.60600558.217664156.1587711061-2012881944.1587346469#focus=streamItem-27-4020873.0-0">有关该问题的重要评论</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 错题集 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Git可视化操作</title>
+      <link href="article/20200423141800/"/>
+      <url>article/20200423141800/</url>
+      
+        <content type="html"><![CDATA[<p>最近公司要合作开发，于是乎得有一个共同开发的方法，自然是Git，然而，Git也不是那么好用的，首先就先讲一下可视化该如何操作吧。<br>首先自然是安装Git了，这步操作就不用讲了，就安装个程序而已。。。<br>1.从远程仓库把代码扒下来<br> 首先拿到远程仓库的地址，比如<a href="mailto:&#x67;&#x69;&#x74;&#64;&#101;&#x78;&#97;&#109;&#112;&#x6c;&#101;&#x2e;&#99;&#x6f;&#109;">&#x67;&#x69;&#x74;&#64;&#101;&#x78;&#97;&#109;&#112;&#x6c;&#101;&#x2e;&#99;&#x6f;&#109;</a>/example.git<br> 然后在本地自己想要存放项目的地方新建一个文件夹</p><p><img src="/imgs/4085894745.png" alt="新建文件夹.png"></p><p>   右击鼠标，并点击Git可视化工具，打开Git可视化工具</p><p><img src="/imgs/2946579445.png" alt="右击鼠标.png"></p><p>  而因为没有Git本地仓库的原因，会显示如下图片<br><img src="/imgs/3732966788.png" alt="暂无本地仓库.png"></p><p>  之后我们便要把项目从远程仓库拷贝下来，点击Clone Existing Repository，会出现如下图片</p><p><img src="/imgs/3506613876.png" alt="克隆操作.png"></p><p>  然后我们将需要克隆的远程仓库地址和本地仓库地址配好之后，点击Clone便可以开始克隆了。<br>  克隆成功之后便会出现如下图片，我们这个时候也就可以进行下一步操作了。</p><p> <img src="/imgs/3990802486.png" alt="Git初始化界面.png"></p><p>2.将更改过的代码放到远程仓库<br>  将代码放到远程仓库，你必须要有该权限才行，否则会报错，在有权限之后便可以进行操作了。<br><img src="/imgs/1693622172.png" alt="Git提交.png"></p><p>  首先更改过的代码会出现在上面Unstaged Changes那里，代表已经更改过但是还没有同步到暂存区的文件，而我们要将它同步到暂存区，因此需要点击Staged Changed按钮，这样文件就会从工作区更新到暂存区了，更新到暂存区之后文件会从上面移到下面，下面的是带提交的更改过的文件</p><p>  <img src="/imgs/63672168.png" alt="推到远程.png"></p><p>  将文件移到下面之后便需要将文件提交到本地仓库了，注意，这里要在右边输入提交信息，表示这次改变了什么，如果不输入是会报错的，再之后就可以点击Push将文件从本地仓库推向远程仓库了<br><img src="/imgs/2271909253.png" alt="推送成功.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>毕设初步完成啦</title>
+      <link href="article/20200331210100/"/>
+      <url>article/20200331210100/</url>
+      
+        <content type="html"><![CDATA[<pre><code>经过长久的努力，终于把毕设大概轮廓给理清楚了，之后写的话会好写一点了，之前有那么多的BUG，一个个都找打了一些解决办法，ViewPager在Fragment下使用遇到了麻烦，没办法，只好弃掉，然后是数据库，现在使用的数据库是第二代的数据库了，虽然有优化，但是感觉还是有不足，因为没有发现到底的不足以及修改的方法，就只好先用着，UI的话，尽量模仿B站吧，毕竟是从那里的得到的灵感，姨妈红emmmm....骚的一批，因为是模仿日程表的原因，所以需要有添加任务，删除任务，以及更改任务（更改任务暂时可不做），然后日历方面，暂时有月视图，周视图，日视图，其他的应该没有了。嗯，把所有的再写一遍之后就应该可以了。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新的开始 Wordpress转Typecho</title>
+      <link href="article/20200308193800/"/>
+      <url>article/20200308193800/</url>
+      
+        <content type="html"><![CDATA[<p>由于种种原因，停了一年的博客2333，现在终于又可以开心的玩耍了hhhh<br>     不过呢，由于最近在搞毕设，要写个APP，所以就想着随便搭一个emmmm。。因为之前用过Wordpress，感觉太笨重了，加之Chunlai一直给我推荐Typecho这个框架，所以就准备重新用Typecho框架，知道用什么框架了呢，就可以开始买服务器啦，当然是阿里云的比较好，也懒得去找其他的网站，害怕被坑2333，所以就直接买了个阿里云的服务器，域名就暂时放着，反正域名解析不是很难<br>    买完服务器第一件事就是要搭建环境了，其实阿里云有快速的软件可以直接用，点点点就完事儿了，所以直接用阿里云安装了宝塔面板，宝塔面板是很方便的东西，环境啥的只要点就完事了，所以把php、nginx、mysql都安装就完事了。<br>    安装完服务器，就要正式搭建网站了，这个其实有宝塔面板也不是什么难事，因为可以一键部署，然后就直接安装了Typecho的网站，搭建完成hhhh<br>    但是，问题就来了，我想要把之前的文章也给导入咋办呢，因为我有之前的数据库，所以想着把之前数据库里的数据能不能转过去，不得不说这真是个坑，主要是我的坑2333<br>    有一个软件可以直接把数据库从Wordpress转到Typecho，名字就叫WordpresstoTypecho，下载这个插件之后呢：<br>    第一步就是安装这个插件了，一定要放在Typecho网站下面的usr/plugins/里面，plugins文件夹是专门存放插件的文件夹，放到里面之后就可以在网站里面对插件进行设置了<br>    第二步就是对数据库进行操作了，WordpressToTypecho插件里面要设置Wordpress数据库的相关信息，注意，是Wordpress数据库不是Typecho数据库，因为需要一个Wordpress数据库，所以要先去宝塔面板里新建一个数据库，然后上传WOrdpress数据库覆盖新建的那个数据库，这样，就拥有一个Wordpress数据库，而这个Wordpress数据库的数据库名、用户名以及密码都是新建的数据库的，这个Wordpress数据库的内容都是之前的Wordpress数据库的。<br>    第三步，把这个Wordpress数据库里的数据通过WordpressToTypecho导入到Typecho数据库，在启用插件之后，控制台的下拉菜单会显示“从Wordpress导入到Typecho”，点击就可以进行导入了。导入过程中有可能会出现“Database Query Error”错误，这个时候不要慌，重新打开网站首页，有可能数据已经导入进去了。<br>    而我就比较惨了23333，因为我之前写的文章很多都是PHP的，不知道为什么，代码在文章里面加载的时候不仅会以文本形式加载，而且会执行，这就很难受了，因为有个alert的代码，所以之前打开首页一直跳alert窗口，一晚上都没搞好，直到今天早上才突然想到这个，还以为是数据库其他哪里出了问题呢。。。<br>    既然知道了BUG怎么出的，就好解决了，那就是把有异样效果的那些代码全部调成仅仅会显示，而不会执行的模式，为了保险起见我把所有的代码都设置了，不过我懒就懒得去找代码在哪里，就直接设置整个文章都是了hhh</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP+MYSQL做出分页</title>
+      <link href="article/20180809162000/"/>
+      <url>article/20180809162000/</url>
+      
+        <content type="html"><![CDATA[<pre><code>要做出分页效果呢，大概需要注意一下这几点吧：第一就是当前页码，第二就是当前页码显示的数据要匹配，第三就是最后一页和第一页需要注意了，如果有上一页和下一页的按钮的话，这两个有可能会产生错误下面就把分页的代码贴一下：&lt;code lang=&quot;php&quot;&gt;$Mysql = mysqli_connect(&#39;localhost&#39;,&#39;root&#39;,&#39;&#39;,&#39;test&#39;);mysqli_set_charset($Mysql,&#39;utf8&#39;);$querycreate = &#39;create table if not exists data(    username varchar(50),    password varchar(50),    userage  int(3)    ) &#39;;mysqli_query($Mysql,$querycreate);//将数据分为10份，查询数据库里的东西，然后将总个数除以10$select= &quot;select * from data&quot;;$result = mysqli_query($Mysql,$select);$count = mysqli_num_rows($result);//每页的数据量为10$num = 10;$count_page = ceil($count/$num);//页数if(isset($_GET[&#39;page&#39;]))&#123;    $page = $_GET[&#39;page&#39;]&gt;1 ? (int) $_GET[&#39;page&#39;] : 1;//当前页码    if($page&gt;=$count_page)&#123;        $page = $count_page;    &#125;&#125;$count_page_data =($page -1)*  $num;//当前页之前的数据数//echo $count_page_data.&#39;&lt;br&gt;&#39;.$num;$select_data = &quot;select * from data limit $count_page_data,$num&quot;;$page_data_result = mysqli_query($Mysql,$select_data);while($page_data = mysqli_fetch_assoc($page_data_result))&#123;    echo $page_data[&#39;username&#39;].&#39;    &#39;.$page_data[&#39;password&#39;].&#39;    &#39;.$page_data[&#39;userage&#39;].&#39;&lt;br&gt;&#39;;&#125;echo &#39;&lt;tr&gt;        &lt;td colspan=&quot;5&quot;&gt;        &lt;a href=&quot;index.php?page=1&quot;&gt;首页&lt;/a&gt;        &lt;a href=&quot;index.php?page=&#39;.($page-1).&#39;&quot;&gt;上一页&lt;/a&gt;        &lt;a href=&quot;index.php?page=&#39;.($page+1).&#39;&quot;&gt;下一页&lt;/a&gt;        &lt;a href=&quot;index.php?page=&#39;.$count_page.&#39;&quot;&gt;末页&lt;/a&gt;        当前是第&#39;.$page.&#39;页，共有&#39;.$count_page.&#39;页&lt;/td&gt;&lt;/tr&gt;&#39;;&lt;/code&gt;由上面可以知道，这是最简单也比较常用的一种，其实还有一种就是分组分页，这个以后把这篇博客再更一下吧。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文章 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP列表显示以及批量操作</title>
+      <link href="article/20180808113500/"/>
+      <url>article/20180808113500/</url>
+      
+        <content type="html"><![CDATA[<pre><code>php将用户做出一个后台的用户列表显示，并可以进行批量操作。首先就要将用户打印出来，存放在表格里面&lt;code lang=&quot;php&quot;&gt;$conn = mysqli_connect(&#39;localhost&#39;,&#39;root&#39;,&#39;&#39;,&#39;test&#39;);if (!mysqli_errno($conn)) &#123;   // echo (&quot;&lt;script&gt;alert(&#39;连接成功&#39;)&lt;/script&gt;&quot;);&#125;else&#123;    exit(&quot;&lt;script&gt;alert(&#39;连接失败&#39;);history.back(-1);&lt;/script&gt;&quot;);&#125;mysqli_set_charset($conn,&#39;utf8&#39;);$select=&quot;select * from user order by username  desc &quot;;$result = mysqli_query($conn,$select);$rows=mysqli_num_rows($result);if($result||$rows)&#123;    echo &#39;&lt;form method=&quot;post&quot; action=&quot;ac.php&quot;&gt;&lt;table width=&quot;800px&quot;&gt;&#39;;    while($arr=mysqli_fetch_assoc($result)) &#123;        echo &#39;&lt;tr&gt;&#39;;        echo &quot;&lt;td width=&#39;50px&#39;&gt;&lt;input class=&#39;checkbox&#39; style=&#39;display: none&#39; type=&#39;checkbox&#39; name=&#39;checkbox[]&#39; value=&#39;$arr[username]&#39;/&gt;&quot;.$arr[&#39;username&#39;] . &#39;&lt;/td&gt;&#39;;        echo &#39;&lt;td width=&quot;50px&quot;&gt;&#39; . $arr[&#39;password&#39;] . &#39;&lt;/td&gt;&#39;;        echo &#39;&lt;/tr&gt;&#39;;    &#125;    echo &#39;&lt;/table&gt;&#39;;    echo &#39;&lt;input type=&quot;submit&quot; name=&quot;delete&quot; value=&quot;删除&quot;/&gt;&lt;input type=&quot;button&quot; name=&quot;duoxuan&quot; onclick=&quot;disborn()&quot; value=&quot;多选&quot;/&gt;&lt;input type=&quot;button&quot; name=&quot;quanxuan&quot; onclick=&quot;allcheck()&quot; value=&quot;全选&quot;/&gt; &lt;/form&gt;&#39;;&#125;else&#123;    echo &#39;没有数据&#39;;&#125;?&gt;&lt;/code&gt;然后由于要批量操作，所以还必须有个js去将按钮的效果改变一下,比如点击多选按钮就显示出一个复选框可以选择多个数据进行删除，点击全选就可以全部选择&lt;code lang=&quot;js&quot;&gt;&lt;script type=&quot;text/javascript&quot;&gt;    //获取多选的按钮，判断第一个checkbox是否显示    function disborn() &#123;        var checkbox = document.getElementsByClassName(&#39;checkbox&#39;);        var duoxuan = document.getElementsByName(&#39;duoxuan&#39;);        var quanxuan = document.getElementsByName(&#39;quanxuan&#39;);        if(checkbox[0].style.display==&#39;none&#39;)&#123;            for(var i=0;i&lt;checkbox.length;i++)&#123;                checkbox[i].style.display=&#39;inline&#39;;            &#125;            duoxuan[0].value = &#39;取消多选&#39;;        &#125;else&#123;            for(var i=0;i&lt;checkbox.length;i++)&#123;                checkbox[i].style.display=&#39;none&#39;;                checkbox[i].checked=false;            &#125;            duoxuan[0].value = &#39;多选&#39;;            quanxuan[0].value = &#39;全选&#39;;        &#125;    &#125;    function allcheck()&#123;        var checkbox = document.getElementsByClassName(&#39;checkbox&#39;);        var quanxuan = document.getElementsByName(&#39;quanxuan&#39;);        if(checkbox[0].checked==false)&#123;            for(var i=0;i&lt;checkbox.length;i++)&#123;                checkbox[i].style.display=&#39;inline&#39;;                checkbox[i].checked=true;            &#125;            quanxuan[0].value = &#39;取消全选&#39;;        &#125;else&#123;            for(var i=0;i&lt;checkbox.length;i++)&#123;                checkbox[i].checked=false;            &#125;            quanxuan[0].value = &#39;全选&#39;;        &#125;    &#125;&lt;/script&gt;&lt;/code&gt;最后是响应了，点下删除按钮的话就要删除数据，所以要有个删除功能&lt;code lang=&quot;php&quot;&gt;$mysql = mysqli_connect(&#39;localhost&#39;,&#39;root&#39;,&#39;&#39;,&#39;test&#39;);mysqli_set_charset($mysql,&#39;utf8&#39;);@$arr = $_REQUEST[&#39;checkbox&#39;];if($arr)&#123;    foreach ($arr as $username)&#123;        $delete =&quot;delete from user where username=&#39;$username&#39;&quot;;        $select = &quot;select * from user&quot;;        //echo $delete.&#39;&lt;br&gt;&#39;;        $result = mysqli_query($mysql,$delete);        if($result)&#123;            echo &#39;删除成功&#39;;        &#125;else&#123;            echo &#39;删除失败&#39;;        &#125;    &#125;&#125;else&#123;    echo &#39;No such file&#39;;&#125;&lt;/code&gt;这样，一个最最简单的php用户列表显示以及批量操作就做完了，虽然说这个批量操作只有删除的功能，不过其他的操作也是类似的，所以就不写了。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文章 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP登陆注册功能</title>
+      <link href="article/20180804212000/"/>
+      <url>article/20180804212000/</url>
+      
+        <content type="html"><![CDATA[<pre><code>做一个最简单的登陆注册功能，看一下这个功能是怎么实现的：从原理上来说，其实很简单，就是将用户输入的值进行储存，然后匹配，以此达到注册以及登陆的目的。首先，做一个最简单的登陆注册页面：&lt;code lang=&quot;html&quot;&gt;&lt;section&gt;    &lt;div id=&quot;button&quot;&gt;        &lt;button&gt;login&lt;/button&gt;        &lt;button&gt;register&lt;/button&gt;    &lt;/div&gt;    &lt;div id=&quot;login&quot;&gt;        &lt;form action=&quot;login.php&quot; method=&quot;post&quot;&gt;            账户：&lt;input type=&quot;text&quot; name=&quot;uname&quot; value=&quot;&quot;/&gt;&lt;br/&gt;            密码：&lt;input type=&quot;password&quot; name=&quot;password&quot; value=&quot;&quot;&gt;&lt;br/&gt;            &lt;input type=&quot;submit&quot; value=&quot;登陆&quot;/&gt;        &lt;/form&gt;    &lt;/div&gt;    &lt;div id=&quot;register&quot; style=&quot;display: none;&quot;&gt;        &lt;form action=&quot;register.php&quot; method=&quot;post&quot;&gt;            账户：&lt;input type=&quot;text&quot; name=&quot;uname&quot; value=&quot;&quot;/&gt;&lt;br/&gt;            密码：&lt;input type=&quot;password&quot; name=&quot;password&quot; value=&quot;&quot;&gt;&lt;br/&gt;            确认密码：&lt;input type=&quot;password&quot; name=&quot;repassword&quot; value=&quot;&quot;&gt;&lt;br/&gt;            &lt;input type=&quot;submit&quot; value=&quot;注册&quot;/&gt;        &lt;/form&gt;    &lt;/div&gt;    &lt;script type=&quot;text/javascript&quot;&gt;        var buttons=document.getElementsByTagName(&#39;button&#39;);        var login=document.getElementById(&#39;login&#39;);        var register=document.getElementById(&#39;register&#39;);        buttons[0].onclick=function () &#123;            login.style.display=&#39;block&#39;;            register.style.display=&#39;none&#39;;        &#125;;        buttons[1].onclick=function () &#123;            register.style.display=&#39;block&#39;;            login.style.display=&#39;none&#39;;        &#125;    &lt;/script&gt;&lt;/section&gt;&lt;/code&gt;然后做一个注册功能：&lt;code lang=&quot;php&quot;&gt;if(trim($_POST[&#39;password&#39;])!=trim($_POST[&#39;repassword&#39;])) &#123;        exit(&#39;&lt;script&gt;alert(&quot;密码输入错误，请重新数密码&quot;);history.back(-1);&lt;/script&gt;&#39;);    &#125;    $username=trim($_POST[&#39;uname&#39;]);    $password=md5(trim($_POST[&#39;password&#39;]));    $mysql=mysqli_connect(&#39;localhost&#39;,&#39;root&#39;,&#39;&#39;);   if(mysqli_errno($mysql))&#123;//如果有错误，存在错误号，则输出错误号。       echo mysqli_errno($mysql);       exit;   &#125;   mysqli_select_db($mysql,&#39;test&#39;);   mysqli_set_charset($mysql,&#39;utf8&#39;);    //如果表不存在，则建立数据库表，以及字段    $create=&quot;CREATE TABLE IF NOT EXISTS user(                  username varchar(100) NOT NULL ,                  password varchar(100) NOT NULL                ) &quot;;    mysqli_query($mysql,$create);    //在数据库查询账户名字，看名字是否被注册    $select = &quot;SELECT username FROM user where username=&#39;$username&#39;&quot;;    $rows=mysqli_num_rows( mysqli_query($mysql,$select));    if($rows === 0)&#123;        $insert = &quot;INSERT INTO user(username,password) VALUES(&#39;$username&#39;,&#39;$password&#39;)&quot;;        $query=mysqli_query($mysql,$insert);    &#125;else&#123;        mysqli_close($mysql);        exit(&#39;&lt;script&gt;alert(&quot;用户名已被注册&quot;);history.back(-1);&lt;/script&gt;&#39;);    &#125;&lt;/code&gt;注册功能要注意的是密码的加密，当前我用的是最简单的md5加密方式。最后就是登陆功能了：&lt;code lang=&quot;php&quot;&gt;$username=$_POST[&#39;uname&#39;];$password=md5($_POST[&#39;password&#39;]);$mysql=mysqli_connect(&#39;localhost&#39;,&#39;root&#39;,&#39;&#39;,&#39;test&#39;);$select=&quot;SELECT * FROM user WHERE username=&#39;$username&#39;&quot;;$result= mysqli_query($mysql,$select);$rows=mysqli_num_rows($result);if($rows===0)&#123;    exit(&quot;&lt;script&gt;alert(&#39;用户不存在&#39;);history.back(-1);&quot;);&#125;else&#123;    $row=mysqli_fetch_array($result);    if($password===$row[&#39;password&#39;])&#123;        print_r(&quot;&lt;script&gt;alert(&#39;登陆成功&#39;);&lt;/script&gt;&quot;);    &#125;else&#123;        exit(&#39;登陆失败&#39;);    &#125;&#125;&lt;/code&gt;登陆功能其实就是输入值与数据库里的值进行匹配，如果匹配则登陆，否则不登陆。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文章 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mysql增删改查</title>
+      <link href="article/20180728223300/"/>
+      <url>article/20180728223300/</url>
+      
+        <content type="html"><![CDATA[<pre><code>Mysql比较重要的便是这四个字了，增、删、改、查，所以单独列一个来写好了。接下来时第一个操作——增。&lt;b&gt;增——插入记录&lt;/b&gt;基本语法一：isnert into 表 values（值1，值2，...,值n）；&lt;code lang=&quot;mysql&quot;&gt;insert into user values(0,&#39;张三&#39;,&#39;男&#39;)&lt;/code&gt;说明：向user表中加入一个id为0，名字为张三，性别为男的的一行数据。基本语法二：insert into 表(字段1，字段2，...字段n) values(值1,值2,...,值n);这两个基本语法的区别就是语法一表中有多少个字段就必须要插入多少个值，如果有默认值，不想传，可以写null；但是基本语法二按照输入的字段来输入值，这些值必须填写，其他的字段会自动补充默认值。比如基本语法1：&lt;code lang=&quot;mysql&quot;&gt;insert into user values(0,‘张三&#39;,&#39;男&#39;,null)&lt;/code&gt;基本语法2：&lt;code lang=&quot;mysql&quot;&gt;insert into user(id,name,sex)  values(0,&#39;张三&#39;,&#39;男&#39;)&lt;/code&gt;&lt;b&gt;删——删除记录&lt;/b&gt;基本语法一：delete from 表 [where 条件];&lt;code lang=&quot;mysql&quot;&gt;delete from user where id&gt;10&lt;/code&gt;说明：在user表中删除id&gt;10的所有记录注意：如果没有加上where条件，delete将会清空整个表的记录!!!!!基本语法二：TRUNCATE TABLE 表;&lt;code lang=&quot;mysql&quot;&gt;TRUNCATE TABLE user&lt;/code&gt;说明：清空表的数据，并且让自增的id从1开始自增delete可以返回被删除的记录数，而TRUNCATE TABLE返回的是0，如果表中有自增字段，使用truncate table之后自增字段的初始值恢复为1。&lt;b&gt;改——更新记录&lt;/b&gt;基本语法一：update 表名 set 字段1=值1，字段2=值2，...,字段n=值n where 条件&lt;code lang=&quot;mysql&quot;&gt;update user set name=&#39;Carry&#39;,sex=&#39;female&#39; where id=10&lt;/code&gt;说明：在id为10的地方将name字段改成Carry,sex字段改成female基本语法二：update 表1，表2 set 字段1=值1，字段2=值2，...字段n=值n where 条件&lt;code lang=&quot;mysql&quot;&gt;update money m,user u set m.balance=m.balance*u.age where m.id=u.id&lt;/code&gt;说明：将money表的别名设置为m，user表的设置为u，在m.id=u.id时，将m.balance =m.balance*u.age。&lt;b&gt;查——查询记录&lt;/b&gt;基本语法一（基础查询）：select * from 表；&lt;code lang=&quot;mysql&quot;&gt;select * from money&lt;/code&gt;说明：查询表中所有字段的所有结果基本语法二（指定字段查询）：select 字段 from 表；&lt;code lang=&quot;mysql&quot;&gt;select id,name from money&lt;/code&gt;说明：查询money中id，name字段中的所有结果基本语法三（单个不重复记录字段查询）：select distinct 字段 from 表；&lt;code lang=&quot;mysql&quot;&gt;select distinct age from money&lt;/code&gt;说明：查询表中年龄唯一的所有结果，其实就相当于在指定字段查询的功能上添加了去重功能基本语法四（条件查询）：select 字段 from 表 where 条件；&lt;code lang=&quot;mysql&quot;&gt;select * from money where age=29;说明：查询表中年龄为29的所有结果基本语法五（结果集排序）：select 字段 from 表 order 字段1 排序关键词,字段2 排序关键词，...,字段n 排序关键词&lt;code lang=&quot;mysql&quot;&gt;select id,username,age,balance from money order by balance desc，age asc&lt;/code&gt;说明：在进行指定的条件查询之后产生结果之后集中排序使用order by，其中desc和asc是排序顺序中的关键字。desc表示降序排列，asc表示升序排列，如果不写关键字，默认升序排列。就如上面的就是以banlance为关键字，对id，username，age，balance这四个字段进行降序排序，然后以age为关键字，对这四个字段进行升序排序。但是，age关键字是第二关键字，所以如果balance已经把所有的都排好序之后，如果有balance相同的情况下，这些字段才会根据age排序，如果balance已经将结果排好，则后面的字段都不会生效了。基本语法六（结果集限制）：select 字段 from 表 limit 数量&lt;code lang=&quot;mysql&quot;&gt;select id,name,balance from money limit 5&lt;/code&gt;说明：显示前五个用户&lt;code lang=&quot;mysql&quot;&gt;select id,name,balance from money order by balance desc limit 5&lt;/code&gt;说明：排序后显示前五个用户基本语法七（结果集区间选择）：select 字段 from 表 limit 偏移量，数量&lt;code lang=&quot;mysql&quot;&gt;select id,name,balance from money limit 0,3&lt;/code&gt;说明：从第一个记录开始取三个记录，第一条记录为0，通过这个思路，便可以完成分页的处理。基本语法八（统计类函数使用）：select 函数（字段） from 表&lt;code lang=&quot;mysql&quot;&gt;select count(id) as zongshu from money&lt;/code&gt;说明：查询money表的id总数，常用的函数还有sum，max，min，avg等，而且利用as关键字可以给字段取别名。基本语法九（分组）：select * from 表 group by 字段&lt;code lang=&quot;mysql&quot;&gt;select * from money group by province&lt;/code&gt;说明：将表按照province进行分组基本语法十(在分组基础上进行统计)：select * from 表 group by 字段 with rollup&lt;code lang=&quot;mysql&quot;&gt;select count(province),province from money group by province with rollup&lt;/code&gt;说明：对分组的数再次进行统计，如对province进行分组，然后进行统计基本语法十一（结果再过滤）：select * from 表 group by 字段 having 条件&lt;code lang=&quot;mysql&quot;&gt;select count as result,province from money group by province having result&gt;2&lt;/code&gt;说明：将分组结果中的值按照条件显示出来，如上面的将结果中result的结果显示出来。总结：select 字段集 [as 新字段集] from 表 [group by 字段集 [having 条件]] [where 条件][order 关键字集][limit 条件]&lt;b&gt;MySQL多表联合查询&lt;/b&gt;有很多时候我们都要联合多个表来一起工作，比如在游戏中，人物是一个表，装备是另一个表，但是人物和装备表要联合使用才能发挥作用，而多表联合查询的本质就是：表连接。当需要查询多个表中的字段时，就可以用表连接来实现。表连接分为内连接和外连接。内连接：将两个表中存在联结关系的字段符合联结关系的那些记录形成记录集的联结。基本语法一：select 表1.字段 [as 别名],...,表n.字段 from 表1 [别名语],表n where 条件&lt;code lang=&quot;mysql&quot;&gt;select user.uid,user.name,goods.oid,goods.uid,goods.name from user,goods where user.uid=goods.uid说明：查询商品表中哪些用户购买过商品，并将信息显示出来,其中uid是用来显示购买了商品的uid，而oid才是商品id。基本语法二：select 表1.字段 [as 别名],表n.字段 from 表1 inner join 表n on 条件&lt;code lang=&quot;mysql&quot;&gt;select user.uid,user.name,goods.oid,goods.uid,goods.name from user inner join goods on user.uid=goods.uid外连接：会选出其他不匹配的记录，分为外左联结和外右联结。基本语法：select 表1.字段 [as 别名]，表n.字段 from 表1 left join 表n on 条件&lt;code lang=&quot;mysql&quot;&gt;select * from user left join goods on user.uid=goods.uid&lt;/code&gt;说明：以左边为主，查询哪些用户未购买过商品，并将用户信息显示出来，左连接以左边为主，包含所有的左边表中的记录甚至是右边表中没有和它匹配的记录子查询基本语法：select 字段 from 表 where 字段 in(条件)&lt;code lang=&quot;mysql&quot;&gt;select * from user where uid in(1,3,4)&lt;/code&gt;&lt;code lang=&quot;mysql&quot;&gt;select * from user where uid in(select uid from goods)&lt;/code&gt;说明：按照id查询指定用户 记录联合基本语法：select 语句1 union[all] select 语句2&lt;code lang=&quot;mysql&quot;&gt;select uid from user union select uid from goods&lt;/code&gt;说明：将user表的uid和goods表的uid联合起来，即将商品表中的用户信息和用户表中的用户信息的结果组合在一起</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mysql入门</title>
+      <link href="article/20180726232700/"/>
+      <url>article/20180726232700/</url>
+      
+        <content type="html"><![CDATA[<pre><code>Mysql是学习的重点，这次先写一下mysql的操作，为php操作mysql做个准备....首先，mysql具有五个基本单位，从大到小分别为：数据库服务器、数据库、数据表、数据字段、数据行，数据库服务器就是指用来运行数据库服务的电脑，也可能是多台电脑一起配合来进行存储或者计算，一个服务器里面可以有多个服务器用来存放不同种类的数据，比如装备数据库，物品数据库等等，而一个数据库就像一个excel表格一样，由多个数据表构成，而一个数据表又可以按照横竖划分为数据行和数据列（也叫数据字段），其中数据列划分该列应该存储什么样格式的数据，数据行是真正的数据，每一行都要遵照列的划分去存入数据。  SQL是操作数据库的核心，所以要学会用SQL语句操作数据库，语句按照功能可以分为三种：1.数据库定义语言语句：可以定义不同的数据库、数据表、数据段、数据行以及索引。常用关键字有create、drop、alter。2.数据库操作语言语句：添加、删除、更新和查询数据库记录，并检查数据库的完整性。常用关键字有insert、delete、update、select。3.数据库控制语言语句：控制不同的数据段直接的许可以及访问级别的语句。主要关键字有grant、revoke。可以在命令行里面控制数据库：1.连接数据库：&lt;code lang=&quot;mysql&quot;&gt;mysql -h localhost -u root -p,其中h表示host，u表示user，p表示password&lt;/code&gt;，其实如果进入了mysql命令行的话，就不需要mysql -h了。2.创建数据库：CREATE DATABASE+数据库名，如果已经存在这个数据库就会报错&lt;code lang=&quot;mysql&quot;&gt;CREATE DATABASE UID&lt;/code&gt;3.查看数据库：SHOW DATABASE，可以查看当前服务器的所有数据库&lt;code lang=&quot;mysql&quot;&gt;SHOW DATABASE&lt;/code&gt;4.选中数据库：USE+数据库名，这样你就可以进入数据库中，使用该数据库。&lt;code lang=&quot;mysql&quot;&gt;USE UID&lt;/code&gt;5.查看数据库中的表：SHOW TABLES6.删除数据库：DROP DATABASE+数据库名，数据库删除之后，数据库里面的所有东西也会被删除，所以要做好备份。&lt;b&gt;Mysql数据表操作&lt;/b&gt;:7.创建表：CREATE TABLE+表名（字段名1 字段类型1（字段长度），...，字段名n 字段类型n（字段长度），字段类型有int，float，char（字符），varchar（字符串）&lt;code lang=&quot;mysql&quot;&gt;CREATE TABLE STUDENT(    UID int(8),    USERNAME varchar(10),    USERAGE int(3)    USERBORTH date);&lt;/code&gt;8.查看表字段结构信息：desc+表名，可以查看表的结构。9.查看表的创建SQL语句，查看表创建语句：SHOW CREATE TABLE+表明 \G;其中\G表示使记录可以按照字段竖着排列，对于内容比较长的记录更易于显示，在创建SQL语句中，除了可以看到表定义以外，还可以看到表的engine(存储引擎）、charset（字符集）等信息。10.删除表：DROP TABLE+表名：删除表，表和数据都会丢失。11.指定表引擎和字符集：在创建表的最后，我们常用MylSAM或者lnnoDB引擎。在指定引擎时，我们可以使用：ENGINE=lnnoDB；在指定表默认字符集时我们可以使用：DEFAULT CHARSET=utf8。&lt;b&gt;Mysql数据字段操作（操作列）&lt;/b&gt;：12.修改表字段类型：alter table+表名+modify+字段名+varchar(20);如：&lt;code lang=&quot;mysql&quot;&gt;alter table user modify username varchar(20)&lt;/code&gt;，表示将user表的username字段改成varchar类型。13.增加表字段：alter table+表名+add column+字段名+类型；如：&lt;code lang=&quot;mysql&quot;&gt;alter table user add column age int(3)&lt;/code&gt;;表示将user表增加一列age字段，字段类型为整形，但是这种增加字段会将字段添加在最后一列。14.增加字段时控制字段顺序：其实就是加一个关键字，AFTER就是了，如：alter table user add column age int(3) after username；表示将age字段添加在username字段之后，字段类型为int型，长度为3.15.删除表字段：alter table+表名+drop column+字段+类型，如：alter table user drop column age；表示将user表的age字段删除。16.表字段改名：alter table+表名 change+字段原名+字段新名+字段新类型，如：alter table user change email em varchar（20）；表示在user表中将字段中的email字段改成长度为20的varchar类型的字段，并且新的字段名为em。17.修改表字段排列顺序：在前面所学的增加和修改语句中，最后都可以加一个可选项first|after，如：alter table user modify em varchar(60) first，这样就把em字段移动到了所有字段的最前面了。18.修改表名：alter table+旧表名+rename+新表名，如：alter table user rename new_user，表示将表名由user改成new_user。&lt;b&gt;Mysql数据类型&lt;/b&gt;Mysql数据类型：Mysql数据类型分为五种类型，分别是：数值类型、字符串类型、日期时间类型、复合类型、空间类型，而每个数据类型又可以详细划分：1.数值类型，数值类型其实可以分为两种整形和浮点型，其中整形按照字节长短可以划分为tinyint(1byte)、smallint(2byte)、mediumint(3byte)、int(4byte)、bigint(8byte)，浮点型也可以分为三种，分别是float(m,d)(4byte)、double(m,d)(8byte)、decimal(m,d)，其中decimal叫做定点数，是存储为字符串的浮点数，如果是存在金额、钱精度较高的浮点存储，建议使用decimal这个类型。2.字符类型，字符类型有很多种类型，比如CHAR(定长字符串)、VARCHAR(变长字符串)、TINYBLOB(不超过255个字符的二进制字符串)、BLOB(二进制形式的长文本数据)、TEXT(长文本数据)、MEDIUMBLOB(二进制形式的中等长度文本数据)、MEDUIUMTEXT(中等长度文本数据)、LONGBLOB(二进制形式的极大文本数据)、LONGTEXT(极大文本数据)、VARBINARY(M)(值的长度+1的字节)、BINARY(M)(允许长度0-M个字节的定长字节符串)。其中CHAR类型用于定长字符串，并且必须在圆括号内用一个大小修饰符来定义。比长度大的值将被截短，而比长度小的值将会用空格填补。VARCHAR把这个大小视作值的大小，长度不足的情况下就用空格补足。而VARCHAR类型把他视为最大值并且只是用存储字符串实际需要的长度。text和blob类型对于字段长度要求255个的情况下对于大型数据用于存储文本块或图像、声音等二进制数据类型。但是text和blob在分类和比较上存在区别，blob区分大小写，而text不区分。但是大小写修饰符却不用于他们的子类型。3.时间类型有date(3byte)(格式：2018-07-25)、time(3byte)(格式：11:00:00)、datetime(8byte)(格式：2018-07-25 11:00:00)、timestamp(4byte)(自动存储记录修改的时间)，year(1byte)(年份)。一般大家都喜欢用int来存储时间，插入时插入的unix时间戳，也可以用date函数，再将unix时间戳转成人们可识别的时间。4.复合类型有集合类型(set)和枚举类型(enum),但是一个enum类型只允许从一个集合取得一个值；而set类型允许从一个集合中取得任意多个值。enum因为只允许在集合中取得一个值，有点类似于单选项，它可以从集合中取得一个值或者是null值，除此之外的输入会在这个字段中插入一个空字符串，如果插入值的大小写和集合中不匹配则会转化和集合中一致，enum类型在系统内部可以存储为数字，并且从1开始用数字坐索引。一个ENUM类型最多可以包含2^16个元素，其中一个元素被MySQL保留，用来存储错误信息，这个错误值用索引0或者一个空字符串表示。MySQL认为enum类型集合中出现的值是合法输入，初次之外其他任何输入都将失效。这说明通过搜索包含空字符串或者对应数字为0的行就可以很容易地找到错误记录的位置。与enum类型相同的是，任何试图在set类型字段中插入非预定义的值都会使MySQL插入一个字符串。如果插入一个既有合法元素又有非法元素的记录，MySQL会保留合法的元素，除去非法的元素，而且它还去除了重复的元素，如果要从set类型字段中找出非法的记录只需查找包含空字符串或二进制为0的行。    到这里，所有的字符类型就全讲完了。不过还有一些字符类型的属性需要掌握一下，UNSIGNED(无符号)主要用于整型和浮点类型，使用无符号。即，没有前面的负号-(符号)。ZEROFILL(0填充)可以用来真补输出的值。使用这个修饰符可以阻止MySQL数据库存储赋值。default属性确保在没有任何值可用的情况下，赋予某个常量值，这个值必须是常量，因为MySQL不允许插入或者表达式值。此外，此属性无法用于BLOB或TEXT列。not null属性，如果将一个列定义为not null，将不允许向该列插入null值，一般在重要情况下始终使用not null属性，因为它提供了一个基本验证，确保已经向查询传递了所有必要的值。null属性，当列被指定为null属性时，该列可以表示为空，而不论行中其他列是否已经被填充，一般默认的属性都是NULL，而如果时其他属性则需要在创建语句的后面声明一下。&lt;b&gt;字符集&lt;/b&gt;字符集就是对每种语言常用字符进行的不同的编码，常见编码如ASCII，GBK，unicode，utf-8，实际上我们一般使用gbk_chinese_ci(简体中文，不区分大小写),utf8_general_ci(Unicode,不区分大小写)。&lt;b&gt;Mysql表引擎&lt;/b&gt;基于表的特点可以使用不同的引擎以达到最好的性能，以下是几种引擎：MyISAM 常用。读取效率很高的引擎，表锁(表级锁，加锁会锁住整个表),支持全文索引，操作速度快，常用于读取多的业务，对于这个引擎，mysql数据库只会缓存索引，而数据文件的缓存由操作系统本身来完成。lnnoDB 常用。写入、支持事务处理，行锁设计，支持外键，即默认情况下读取操作是不加锁的，是为了处理巨大数据量时的最大性能设计。事务即是同时操作多个数据，若其中一个数据操作失败，可回滚到操作前，常用于银行等系统中。Archive 不常用。归档引擎，压缩比高达1:10，用于数据归档。NDB 不常用。主要在MySQL集群服务器中使用。&lt;b&gt;索引&lt;/b&gt;索引有四种：基本索引、唯一索引、主键索引、全文索引。添加基本索引：alter table+表 add index(字段)，为表的字段添加基本索引添加唯一索引：alter table+表 add UNIQUE(字段)，为表的字段添加唯一索引添加主键索引：alter table+表 add PRIMARY KEY(字段)，为表的字段添加主键索引添加全局索引：alter table+表 add FULLTEXT(字段)，为表的字段添加全局索引创建表时也可以声明索引，代码如下：&lt;code lang=&quot;mysql&quot;&gt;CREATE TABLE test (     id INT NOT NULL ,      username VARCHAR(20) NOT NULL ,      password INT NOT NULL ,      content INT NOT NULL ,      PRIMARY KEY (id),      INDEX pw (password),      UNIQUE (username),     FULLTEXT (content) ) ENGINE = InnoDB;&lt;/code&gt;&lt;h1&gt;DCL语句&lt;/h1&gt;&lt;b&gt;创建库用户&lt;/b&gt;添加权限基本语法：grant 权限 on 库.表 to &#39;用户&#39;@&#39;主机&#39; identified by &#39;密码&#39;&lt;code lang=&quot;mysql&quot;&gt;grant [all]select,insert on test.* to &#39;root&#39;@&#39;localhost&#39; identified by &#39;&#39;说明:给予root用户在test库里的所有表的select操作和insert操作的权限删除权限基本语法：revoke 权限 on 库.表/[..] from &#39;用户&#39;@&#39;主机&#39; identified by &#39;密码&#39;&lt;code lang=&quot;mysql&quot;&gt;revoke select,insert on test.* from &#39;root&#39;@&#39;localhost&#39; identified by &#39;&#39;&lt;/code&gt;说明：删除root用户在test库里所有表的select操作和insert操作的权限</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP错误处理</title>
+      <link href="article/20180722215000/"/>
+      <url>article/20180722215000/</url>
+      
+        <content type="html"><![CDATA[<pre><code>php.ini配置文件中可以控制php的错误显示状态，php.ini中有一个专门的配置项：display_errors，这个选项设置是否将错误信息输出到网页，或者对用户隐藏隐藏而不显示。如果没有修改服务器php.ini的状态权限时可以使用ini_set()修改，然后用ini_get()获取参数的值。我们要掌握的错误分为七个级别，按照严重级别从高到低分别是：1.E_ERROR  错误，文件直接中断。2.E_WARNING  警告，问题比较严重。但是还会继续向下运行。3.E_NOTIC  提示，有些小问题不会影响程序。常发生在项目未定义。notice一般来说可以不用管，但是有的时候它会影响PHP的执行效率。4.E_PARSE  编译时语法解析错误。解析错误仅仅由分析器产生，一般指的是语法错误。5.E_ALL 所有的错误。6.E_STRICT  启用PHP对代码的修改建议，以确保代码具有最佳的互操作性和向前兼容性。7.E_DEPRECATED  启用后将会对在未来版本中可能无法正常工作的代码给出警告。还有一些错误是只需要了解的错误，是从ERROR、WARNING、NOTICE扩展出来的错误项。比如E_CORE_ERROR、E_CORE_WARNING、E_COMPILE_WARNING这几个都是由于引擎而产生的错误，还有E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE这些用户自定义的错误项。然后error_reporting是错误报告，在php.ini也有一个参数，这个参数决定了php引擎记录、报告、显示哪些错误类型。如果想显示所有错误可以改成：error_reporting =E_ALL，如果显示错误，但是排除提示、兼容性和未来兼容性。可以写为：error_reporting=E_ALL&amp;-E_NOTICE&amp;~E_STRICT&amp;~E_DEPRECATED我们还可以用@屏蔽某一行的错误。有时候我们要收集错误，但是又不能让用户看到，这个时候我们就需要错误记录日志了。将错误收集到日志系统中，我们需要配置php.ini，log_errors调整是否开启日志记录，log_errors_max_len是修改单行错误最大记录长度，error_log配置错误日志记录在什么地方，为此还专门有一个error_log函数，这个函数可以把错误信息发送到服务器的错误日志或者一个文件里。所以error_log()函数有三个参数，错误消息，错误消息类型，存储地址。由于错误类型太多，并且每个人的错误类型有可能不一样，所以我们还可以自定义一个错误处理函数，用户自定义错误经常用到这两个函数：set_error_handle()函数和triggle_error()，第一个函数可以将一个函数绑定为错误处理函数，第二个函数可以使函数产生一个用户级别的错误信息。比如说：&lt;code lang=&quot;php&quot;&gt;//定义一个自定义的错误处理函数function customError($errno, $errstr, $errfile, $errline) &#123;   //输出错误消息   echo &quot;&lt;b&gt;Custom error:&lt;/b&gt; [$errno] $errstr&lt;br /&gt;&quot;;   //输出错误文件和错误行   echo &quot;Error on line $errline in $errfile&lt;br /&gt;&quot;;   echo &quot;Ending Script&quot;;   //中止程序运行   exit;&#125;//使用set_error_handler 绑定用户自定义函数set_error_handler(&quot;customError&quot;);$test=2;//触发自定义错误if ($test &gt; 1) &#123;   trigger_error(&quot;A custom error has been triggered&quot;);&#125;?&gt;&lt;/code&gt;我们可以这样去定义一个错误处理函数，set_error_handle()函数可以接受一个回调函数作为错误处理函数。回调函数就是传入的、后又被调用的函数。这样说可能不太容易理解，以下是为了方便理解的代码：&lt;code lang=&quot;php&quot;&gt;    function fortwo($x)&#123;    return 2*$x;&#125;function forfour($x)&#123;    return 4*$x;&#125;$i=call_user_func(&#39;fortwo&#39;,1);echo &#39;&lt;br/&gt;&#39;.$i;&lt;/code&gt;由上面可知，我们可以设置两个函数，然后通过call_user_func()函数来传入要调用的函数名来调用函数，然后后面输入需要调用的函数所需要的参数，这样就可以随机调用了。以上就是对于php的错误处理了。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP图像处理</title>
+      <link href="article/20180721221200/"/>
+      <url>article/20180721221200/</url>
+      
+        <content type="html"><![CDATA[<pre><code>处理图片的场景由很多，以下是比较常见的几种：1.生成验证码2.图片缩放3.图片水印4.柱状图5.密保口令卡PHP由GD系统来处理图像，它可以创建和处理包括GIF、PNG、JPEG、WBMP、XPM在内的多种格式的图像，并且直接将图像数据流输出到浏览器。如果要进行图像处理，比如有GD库的支持，我们要查看当前机器是否安装了GD扩展，利用phpinfo()函数查看，如果由gd选项，则说明当前机器支持图像处理。如果没有看到也没有搜索到，就需要我们手动将其打开，打开php.ini，在windows中，需要将GD2的DLL文件php_gd2.dll作为一个扩展包含在php.ini中。修改;extension=php_gd2.dll，将前面的分号去掉，然后重启、查看。首先是简单的图形，可以直接用线段画出，并且将其保存为图片，具体如下：（1.使用imagecreate()函数创建一个画布，并返回画布的句柄。（2.使用imagecolorallocate()函数来准备之后需要画画所需要的颜色，并返回颜色的句柄，使用imagecoorallocate()函数是为一副图像分配颜色，但是如果是第一次分配颜色则会将该颜色填充为背景色。（3.在画布中进行填充，可以填充矩形imagefilledrectangle()、画直线imageline()、填充圆imagedfilledellipse()（4.将画好的图片使用imagejpeg()函数将其保存为.jpg格式的图片，并销毁画布资源然后是生成验证码，生成验证码其实就是随机生成字符串，然后将其以图形的形式将其表示出来，具体步骤如下：（1.创建画布（2.生成随机数，这个时候可以利用mt_rand()函数生成随机数字，然后利用ASCII码变成随机字符串，由于0~9的ASCII码在48~57之间、A~Z的ASCII码在65~90之间、a~z的ASCII码在97~122之间，这些字符串中间还有一些空白，所以必须要分开进行，先生成一个随机数判断是在哪个范围，再在此范围里面生成一个字符串的随机ASCII值，最后将ASCII码值转换成字符串利用sprintf将其转化成对应的格式，比如要转化成string类型，则是springf(&#39;%c&#39;.$ascii);，然后将其与之前生成的字符串连接起来，代码如下：&lt;code lang=&quot;php&quot;&gt;$num=4;for($i=0;$i&lt;$num;$i++)&#123;    $rand=mt_rand(0,2);    switch ($rand)&#123;        case 0:            $ascii = mt_rand(48,57);//0-9            break;        case 1:            $ascii = mt_rand(65,90);//A-Z            break;        case 2:            $ascii = mt_rand(97,122);//a-z            break;    &#125;    $randomstr =$randomstr.sprintf(&#39;%c&#39;,$ascii);&#125;&lt;/code&gt;这里有可能会有个提示Notice: Undefined variable: randomstr in F:\html\myself\forpic\index.php on line 48，因为$randomstr是没有定义的变量，虽然一般来说php是不需要定义这个变量的，但是如果环境默认的话，是会显示这个提示的，虽然没有什么大问题，不过还是要将其隐藏起来，这个时候就要根据错误级别来确定是否隐藏，一般实在php.ini里面修改1) error_reporting设置：找到error_reporting = E_ALL修改为error_reporting = E_ALL &amp; ~E_NOTICE2) register_globals设置：找到register_globals = Off修改为register_globals = On或者在php代码中直接使用error_reporting(E_ALL &amp; ~E_NOTICE);（3.在画布中放置干扰元素，比如将画布看起来显得粗糙，添加一些横线什么的，首先需要给画布生成一个随机的背景色，不过为了易于辨识验证码，所以背景需要是浅色调的颜色，所以RGB的值必须都大于120，然后是为干扰像素点生成一个随机颜色。最后是在画布中随机的画上像素点，使用imagesetpixel()函数可以简单方便的画出指定数量的像素点，最后加上字符串，一般是四个字符串，所以要将画布按宽度等分成四份，然后将每个字符串以图像的形式放置，使用imagechar()可以快速的将字符串转化成图像。代码如下：&lt;code lang=&quot;php&quot;&gt;$color = imagecolorallocate($img,mt_rand(130,255),mt_rand(130,255),mt_rand(130,255));//画布底色$pix = imagecolorallocate($img,mt_rand(0,120),mt_rand(0,120),mt_rand(0,120));//随机干扰与元素的颜色for($i=0;$i&lt;50;$i++)&#123;    imagesetpixel($img,mt_rand(0,300),mt_rand(0,200),$pix);&#125;//加上字符串for($i=0;$i&lt;4;$i++)&#123;    $x = floor($width/$num)* $i;    $y = mt_rand(0,$height-15);    imagechar($img,10,$x,$y,$randomstr[$i],$pix);&#125;imagejpeg($img,&#39;identify.jpg&#39;);echo &#39;&lt;img src=&quot;identify.jpg&quot; /&gt;&#39;;imagedestroy($img);&lt;/code&gt;（4.保存图片，销毁资源。图片缩放主要是利用imagecopyresampled()函数和imagecopyresized()函数来进行的，imagecopyresample()函数可以重采样拷贝部分图像并调整大小，而imagecopyresize()可以拷贝部分图像并调整大小。因为是要裁剪或者缩放图片，所以要有来源图片，用imagecreatefromjpeg()函数打开来源图片，然后获取图片参数。然后使用imagecreatetruecolor()来创建一个想要的大小的图片作为目标图片的大小，最后将来源图片进行操作之后放入目标图片，这样就完成了图片的缩放了。代码如下：&lt;code lang=&quot;php&quot;&gt;$image = imagecreatefromjpeg(&#39;demo.jpg&#39;);list($width,$height)=getimagesize(&#39;demo.jpg&#39;);echo $width.&#39; &#39;.$height.&#39;&lt;br&gt;&#39;;$new_img = imagecreatetruecolor(0.1*$width,0.1*$height);$new_img1 = imagecreatetruecolor(0.5*$width,0.5*$height);imagecopyresampled($new_img,$image,0,0,0,0,0.1*$width,0.1*$height,$width,$height);imagecopyresized($new_img1,$image,0,0,0,0,0.5*$width,0.5*$height,$width,$height);//header(&#39;content-type:image/jpeg&#39;);imagejpeg($new_img,&#39;demo2.jpg&#39;);echo &#39;&lt;img src=&quot;demo2.jpg&quot;/&gt;&#39;;imagejpeg($new_img1,&#39;demo3.jpg&#39;);echo &#39;&lt;img src=&quot;demo3.jpg&quot;/&gt;&#39;;&lt;/code&gt;其中imagecopysampled()和imagecopyresiezed()函数具体使用参数为：bool imagecopyresampled ( resource $目标图 , resource $来源图 , int $目标开始的x位置 , int $目标开始的y位置 , int $来源开始的x位置 , int $来源开始的y位置 , int $目标图片的宽 , int $目标图片的高, int $来源图片的宽 , int $来源图片的高 )。然后就是图片水印，图片水印其实只要把想要作为水印的图片进行缩放放到需要水印的图片上，并且设置好透明度使水印不会阻挡源图片的观看，但是要将一张图片合并到另一张图片上需要imagecopymerge()函数将其合并，这里就不贴代码了。接下来就是柱状图和密保口令卡了，柱状图没有教程，所以要自己找，而且看起来比较难，所以就单独作为一个小实践吧，密保口令卡和数据库操作有关，而且也要自己找教程，所以就先放着，等我学完数据库再来搞这个....</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自动更改文字的一个小实践</title>
+      <link href="article/20180715213500/"/>
+      <url>article/20180715213500/</url>
+      
+        <content type="html"><![CDATA[<pre><code>最近突发奇想，想在自己博客上加一个属于自己的一个更改博客的标题，于是乎，当然是自己动手啦，反正操作又不难hhhh..也算是对之前文件操作的一点小总结吧。接下来讲一讲我的步骤。1.首先当然是写一个随机抽取文字的代码啦，先自己写好一个txt文件，然后读取，最后输出到网页。以下就是PHP代码：&lt;code lang=&quot;php&quot;&gt;&lt;?php/** * Created by PhpStorm. * User: lgr * Date: 2018/7/15 * Time: 15:46 *//*1.新建一个txt文件，然后将自己喜欢的文字全部输入进去  2.读取文件，并分组，然后生成一个随机数，随机选择一句话  3.将其输出到网页。  4.每次刷新都重新生成一个随机数，并且将文字输出到网页。*/    $data = &#39;世间文字八万个，唯有情字最gggg杀人。人生但苦无妨，良人当归即好&#39;;    file_put_contents(&#39;words.txt&#39;,$data);    $contain = file_get_contents(&#39;words.txt&#39;);    $contents = explode(&#39;。&#39;,$contain);    $i = rand(0,count($contents)-1);    global $content;    $content = explode(&#39;，&#39;,$contents[$i]);echo $content[0].&#39;&lt;br&gt;&#39;.$content[1];?&gt;&lt;/code&gt;2.在wordpress上找到插入代码的位置，是在header-banner.php文件里。3.把写好的txt文件放入相应的位置以便读取，经过测试，发现文件在www.liugongren.xin这个文件夹里放置才能读取到文件以上就是小实践的步骤了，花了几个小时，做完一件事情，还是挺爽的，虽然还有点小瑕疵，就是应该把原来主题的更改文字变成在文件里加入文字更好的，不过以后再说吧....</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>php文件上传</title>
+      <link href="article/20180712211700/"/>
+      <url>article/20180712211700/</url>
+      
+        <content type="html"><![CDATA[<pre><code>文件上传是通过html表单来上传，表单的格式如下：&lt;code lang=&quot;html&quot;&gt;&lt;form method=&quot;post&quot; action=&quot;upload.php&quot; enctype=&quot;multipart/form-data&quot;&gt;    &lt;input type=&quot;file&quot; name=&quot;upfiles&quot;/&gt;&lt;br/&gt;    文件名:&lt;input type=&quot;text&quot; /&gt;&lt;br/&gt;    &lt;input type=&quot;submit&quot; value=&quot;上传文件&quot;/&gt;&lt;/form&gt;&lt;/code&gt;其中，表单的方法只能用post去上传，而不能用get方法，其次，在发送到服务器之前不能对表单内容进行编码，所以要加入enctype，并且赋值为multipart/form-data。然后，加入上传文件的输入框和提交按钮，最简单的上传文件表单就做好了，接下来便是对上传文件的响应操作了。上传文件时，要分这么几步去走：1.判断是否有错误码。文件能否上传成功和很多因素有关，而我们可以根据系统返回的错误码来进行相应的操作。2.判断文件大小是否超出范围。php.ini会规定文件默认的上传最大值，而我们可以自己去设置它，这个最大值是我们的业务最大值。3.判断后缀名是否与mime类型符合，有时候我们会要指定的类型的文件，比如如果我们要上传图片的话，我们就需要.jpg\.png等格式，而如果不是这个格式的文件，上传的文件就没有意义。4.生成文件名。文件上传成功后，有时候我们不想文件名与原来相同，我们可以去设置它的文件名。比如我们一般用时间加上一些文件主要信息去命名文件，所以我们可以使用date()函数去获取时间，或者我们也可以生成随机文件，比如用mt_rand()函数或者unique()函数。5.判断是否是上传文件，文件上传成功后，系统会将上传的临时文件上传到系统的临时目录中。产生一个临时文件，而我们要将临时文件移动到我们想要的地方以便我们去操作它，而在一个目录下，有很多文件，如何判断文件是不是我们想进行操作的文件呢？？这个时候就需要用到is_upload_file()函数，来判断是否是上传文件。6.移动临时文件到指定位置，当判断好一切错误后，便可以将临时文件移动到指定位置了。移动文件的函数是move_uploaded_file()函数。下面是移动文件的代码：&lt;code lang=&quot;php&quot;&gt;$upfiles = $_FILES[&quot;upfiles&quot;];$name = $upfiles[&quot;name&quot;];$tmp_name = $upfiles[&quot;tmp_name&quot;]; //文件暂时存放路径echo $tmp_name;move_uploaded_file($tmp_name,&quot;F:\\$name&quot;);//将文件从暂时存放路径移动至想要移动到的路径。&lt;/code&gt;其中$_FILES是一个环境变量，当客户端提交之后，会获得一个$_FILES数组，数组里面默认有一下几个值，array(1) &#123; [&quot;upfiles&quot;]=&gt; array(5) &#123;     [&quot;name&quot;]=&gt; string(0) &quot;&quot;     [&quot;type&quot;]=&gt; string(0) &quot;&quot;      [&quot;tmp_name&quot;]=&gt; string(0) &quot;&quot;      [&quot;error&quot;]=&gt; int(4)      [&quot;size&quot;]=&gt; int(0)     &#125; &#125;，其中由于文件有多个，所以在输入框里的name，便是上传文件。而文件名则是[&quot;upfiles&quot;][&quot;name&quot;],依次类推。然后是多文件的上传了，多文件上传和单文件没有太大差别，以下是代码。&lt;code lang=&quot;html&quot;&gt;&lt;form action=&quot;upload.php&quot; enctype=&quot;multipart/form-data&quot; method=&quot;post&quot; name=&quot;uploadfile&quot;&gt;    上传文件：&lt;input type=&quot;file&quot; name=&quot;upfile[]&quot; /&gt;&lt;br&gt;    上传文件：&lt;input type=&quot;file&quot; name=&quot;upfile[]&quot; /&gt;&lt;br&gt;    上传文件：&lt;input type=&quot;file&quot; name=&quot;upfile[]&quot; /&gt;&lt;br&gt;    上传文件：&lt;input type=&quot;file&quot; name=&quot;upfile[]&quot; /&gt;&lt;br&gt;    &lt;input type=&quot;submit&quot; value=&quot;上传&quot; /&gt;&lt;/form&gt;&lt;/code&gt;可以看出，和单文件上传比，name后面多了一个[],这就是多文件的上传了，然后通过$_FILES打印出来后，是如下的数组array(1) &#123; [&quot;upfile&quot;]=&gt; array(5) &#123;     [&quot;name&quot;]=&gt; array(4) &#123;         [0]=&gt; string(14) &quot;th95MGJ3E9.jpg&quot;         [1]=&gt; string(8) &quot;timg.jpg&quot;          [2]=&gt; string(13) &quot;waterfall.jpg&quot;          [3]=&gt; string(6) &quot;th.jpg&quot;      &#125;      [&quot;type&quot;]=&gt; array(4) &#123;         [0]=&gt; string(10) &quot;image/jpeg&quot;          [1]=&gt; string(10) &quot;image/jpeg&quot;          [2]=&gt; string(10) &quot;image/jpeg&quot;          [3]=&gt; string(10) &quot;image/jpeg&quot;      &#125;      [&quot;tmp_name&quot;]=&gt; array(4) &#123;          [0]=&gt; string(25) &quot;C:\wamp64\tmp\php70B4.tmp&quot;          [1]=&gt; string(25) &quot;C:\wamp64\tmp\php70C5.tmp&quot;          [2]=&gt; string(25) &quot;C:\wamp64\tmp\php70D5.tmp&quot;          [3]=&gt; string(25) &quot;C:\wamp64\tmp\php70E6.tmp&quot;      &#125;     [&quot;error&quot;]=&gt; array(4) &#123;          [0]=&gt; int(0)          [1]=&gt; int(0)          [2]=&gt; int(0)          [3]=&gt; int(0)       &#125;       [&quot;size&quot;]=&gt; array(4) &#123;          [0]=&gt; int(19625)           [1]=&gt; int(150629)          [2]=&gt; int(273504)          [3]=&gt; int(17631)       &#125;   &#125; &#125; 由上可知，每一个文件都被存进了数组里，所以需要用一个循环来读取文件信息。如下所示：&lt;code lang=&quot;php&quot;&gt;$upfile= $_FILES[&quot;upfile&quot;]; //var_dump($upfile); for($i=0;$i&lt;count($upfile[&quot;name&quot;]);$i++)&#123;     $name = $upfile[&quot;name&quot;][$i];     $tmp_name = $upfile[&quot;tmp_name&quot;][$i]; //文件暂时存放路径     echo $tmp_name.&#39;&lt;br/&gt;&#39;.$name;     move_uploaded_file($tmp_name,&quot;F:\\$name&quot;);//将文件从暂时存放路径移动至想要移动到的路径。 &#125;&lt;/code&gt;由上可知，用count()函数获取到文件数量，然后用一个for循环将文件移动便可以了，由于是最简单的移动方法，所以没有考虑到一些错误情况。最后是文件的上传进度处理，这个需要session基础,js基础,ajax基础...首先，是修改php配置文件，使其可以显示上传进度，这时需要用到session监控文件上传进度,在php.ini里，找到1.session.upload_progress.enabled，这是是否启用上传进度报告的开关，默认是开启的，但是还是要确认一下2.session.upload_progress.cleanup,是否在上传文件之后即使删除进度数据,默认也是开启的 3.session.upload_progress.prefix=&quot;upload_progress_&quot;,进度数据将存储在_SESSION[session.upload_progress.prefix._POST[session.upload_progress.name]]里面4.session.upload_progress.name=&quot;&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;，如果_POST[session.upload_progress.name]没有被设置，就不会报告进度5.session.upload_progress.freq = &quot;1%&quot;,更新的频率，可以用字节数，也可以用百分比来显示。6.session.upload_progress.min_freq = &quot;1.0&quot;,更新进度的时间间隔（秒级）思路就是获取已上传大小和文件总大小，然后就可以获取百分比了，而且要用定时器，每隔一段时间刷新进度条。php部分代码如下：&lt;code lang=&quot;PHP&quot;&gt;&lt;?php/** * Created by PhpStorm. * User: lgr * Date: 2018/7/11 * Time: 19:58 *//*以下是文件进度处理的代码*/session_start();$i = ini_get(&#39;session.upload_progress.name&#39;);//ajax中我们使用的是get方法，变量名称为ini文件中定义的前缀 拼接 传过来的参数$key = ini_get(&quot;session.upload_progress.prefix&quot;) . $_GET[$i];//判断 SESSION 中是否有上传文件的信息if (!empty($_SESSION[$key])) &#123;    //已上传大小    $current = $_SESSION[$key][&quot;bytes_processed&quot;];    //文件总大小    $total = $_SESSION[$key][&quot;content_length&quot;];    //向 ajax 返回当前的上传进度百分比。    echo $current &lt; $total ? ceil($current / $total * 100) : 100;&#125;else&#123;    echo 100;&#125;var_dump($_SESSION);/*以下是多文件上传的代码*/$upfile= $_FILES[&quot;upfile&quot;];echo &#39;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&#39;;for($i=0;$i&lt;count($upfile[&quot;name&quot;]);$i++)&#123;     $name = $upfile[&quot;name&quot;][$i];     $tmp_name = $upfile[&quot;tmp_name&quot;][$i]; //文件暂时存放路径     //echo $tmp_name.&#39;&lt;br/&gt;&#39;.$name;     move_uploaded_file($tmp_name,&quot;F:\\$name&quot;);//将文件从暂时存放路径移动至想要移动到的路径。 &#125;;&lt;/code&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>php文件系统</title>
+      <link href="article/20180709225900/"/>
+      <url>article/20180709225900/</url>
+      
+        <content type="html"><![CDATA[<pre><code>对文件的操作有三种主要操作，分别是打开文件操作，读写操作，以及关闭文件操作，还有一些次要操作，如删除操作等等，首先，先讲一下打开文件，打开文件操作有一个函数，比如fopen()，写入操作是有fwrite()file_put_content(),file_put_content()函数，其中file_put_contetn()函数如果文件不存在则会创建文件，读取操作有readfile()和file_get_content()函数，其中readfile()函数是直接打印出来，二file_get_content()函数可以赋值给一个变量。关闭操作有fclose()，还有创建临时文件函数tmpfile()，删除文件函数unlink()，以下是一些操作代码。&lt;code lang=&quot;php&quot;&gt;$string = &#39;This is Demo file&#39;;//file_put_contents(&#39;file.txt&#39;,$string);$fp = fopen(&#39;file.txt&#39;,&#39;wr&#39;);fwrite($fp,$string);readfile(&#39;file.txt&#39;);fclose($fp);copy(&#39;file.txt&#39;,&#39;copy.txt&#39;);$copy = &#39;This is copy file&#39;;file_put_contents(&#39;copy.txt&#39;,$copy);echo &#39;&lt;br&gt;&#39;;readfile(&#39;copy.txt&#39;);rename(&#39;copy.txt&#39;,&#39;copy2.txt&#39;);$content = file_get_contents(&#39;copy2.txt&#39;,1024);echo &#39;&lt;br&gt;&#39;.$content;&lt;/code&gt;&lt;blockquote&gt;$string = &#39;This is Demo file&#39;;$fp = fopen(&#39;file.txt&#39;,&#39;wr&#39;);fwrite($fp,$string);readfile(&#39;file.txt&#39;);fclose($fp);copy(&#39;file.txt&#39;,&#39;copy.txt&#39;);$copy = &#39;This is copy file&#39;;file_put_contents(&#39;copy.txt&#39;,$copy);readfile(&#39;copy.txt&#39;);rename(&#39;copy.txt&#39;,&#39;copy2.txt&#39;);$content = file_get_contents(&#39;copy2.txt&#39;,1024);var_dump($content);还有一些函数可以改变文件指针，比如rewind()函数可以将指针指向文件头，fseek()可以使指针向后移动指定字符，fgets()可以读取一行，fgetc()可以读取一个字符，filectime()可以修改文件创建时间，fileatime()可以修改文件上一次访问的时间，filemtime()可以设定文件修改时间。flock()函数可以设定文件锁，LOCK_SH常量可以是获取共享锁定，LOCK_EX可以获得独占锁定，LOCK_UN可以释放锁定。/* * 既然有文件处理函数，那么也会有目录处理函数，如is_dir(),opendir(),readdir()等等。 * filetype可以判断是否是文件，如果是文件，显示文件， * 在Linux下可以使用命令去修改文件权限，而这些操作与linu命令是一样的，如chmod，修改读取模式， * chgrp修改用户组，chown，修改权限，等等。 */$f = &quot;F:/&quot;;if(is_dir($f))&#123;    $contents = opendir($f);   if($contents)&#123;       while(($content = readdir($contents)!==false))&#123;           echo &#39;&lt;br&gt;&#39;.readdir($contents);       &#125;   &#125;   closedir($contents);&#125;//chmod(&#39;1.txt&#39;,u+rwx);chmod(&#39;1.txt&#39;,755);/* * 还有就是文件路径函数了，以下是一些简介，写的累了~~直接贴注释好了... * pathinfo()传入文件路径，返回文件的各个组成部分 * basename()传入文件路径，返回文件名 * dirname()传入文件路径，返回目录名 * parse_url()传入网址路径，解析网址，将其拆解成各个部分。 * http_build_query()传入需要处理的函数，生成url中的query字符串。 * http_build_url()生成一个url。 */$data = [    &#39;username&#39;=&gt;&#39;php&#39;,    &#39;area&#39; =&gt;&#39;hubei&#39;,];echo http_build_query($data);$path_part = pathinfo($f);var_dump($path_part);</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据结构课设--自由选择题目的变更</title>
+      <link href="article/20180704203700/"/>
+      <url>article/20180704203700/</url>
+      
+        <content type="html"><![CDATA[<pre><code>emmm.....自由选择什么的最扎心了，因为我是一个重度的选择困难症患者....首先我选择的是图的遍历题目：图的遍历功能：实现图的深度优先，广度优先遍历算法，并输出原图结构及遍历结果。实现要求：（1）建立图的邻接矩阵或邻接表；（2）实现图的遍历算法。看起来很简单，所以我飞快地写了一段代码...就是创建图的邻接矩阵的算法了。代码如下：&lt;code lang=&quot;c++&quot;&gt;void CreateMap(Map &amp;x) &#123;    cout &lt;&lt; &quot;请输入顶点个数&quot; &lt;&lt; endl;    cin &gt;&gt; x.length;    cout &lt;&lt; &quot;请依次输入顶点&quot; &lt;&lt; endl;    for (int i = 0; i &lt; x.length; i++) &#123;        cin &gt;&gt; x.vec[i];        x.tag[i] = false;    &#125;    cout &lt;&lt; &quot;请输入两个顶点间的距离：如a b 1&quot; &lt;&lt; endl;    char a, b;    int c;    for (int i = 0; i &lt; x.length; i++) &#123;        for (int j = 0; j &lt; x.length; j++) &#123;            if (i == j) &#123;                x.rel[i][j] = 0;            &#125;            else &#123;                x.rel[i][j] = -1; //先假设所有边都是未连接的，则边长度为无限，用-1代表            &#125;        &#125;    &#125;    //如果两个顶点都存在，则将该输入数值放到关系数组里，否则提示关系不存在    while (cin &gt;&gt; a &gt;&gt; b &gt;&gt; c) &#123;        if (a == &#39;#&#39;&amp;&amp;b == &#39;#&#39;) break;        if (findvec(x, a) &amp;&amp; findvec(x, b)) &#123; //如果能找到两条边，则把关系存起来            for (int i = 0; i &lt; x.length; i++) &#123;                if (x.vec[i] == a) &#123;                    for (int j = 0; j &lt; x.length; j++) &#123;                        if (x.vec[j] == b) &#123;                             x.rel[i][j] = c;  //将关系加入数组里                        &#125;                    &#125;                &#125;            &#125;        &#125;        else &#123;            cout &lt;&lt; &quot;顶点不存在&quot; &lt;&lt; endl;        &#125;    &#125;&#125;//图创建完成&lt;/code&gt;但是问题来了，我突然发现我不知道深度遍历和广度遍历到底要输出啥....于是....迫不得已放弃了.....然后我选择了导游图....题目是这样的：公园的导游图问题描述：：给出一张某公园的导游图，游客通过终端询问可知：从某一景点到另一景点的最短路径。游客从公园大门进入，选一条最佳路线，使游客可以不重复地游览各景点，最后回到出口（出口就在入口旁边）。实现要求：初步完成总体设计，搭好框架，确定人机对话的界面，确定函数个数；完成要求：建立一个文件，包括5个景点情况，能完成遍历功能；进一步要求：进一步扩充景点数目，画出景点图，有兴趣的同学可以自己扩充系统功能。乍一看好像还行，emmmm...只要输出一条最佳路线，然后我又开始写....用贪心从最短的路径里选一条不会重复走过景点的...代码如下：&lt;code lang=&quot;c++&quot;&gt;int dfs(Map &amp;x,char start,int road=0) &#123;    int min=MAX,vec_next;    if (isCheck(x)) &#123;        return road;    &#125;    for (int i = 0; i &lt; x.length; i++) &#123;        if (x.vec[i] == start) &#123;            x.tag[i] = true;            for (int j = 0; j &lt; x.length; j++) &#123;                if (x.rel[i][j] !=-1&amp;&amp;x.rel[i][j]!=0&amp;&amp;!x.tag[j]) &#123; //如果当前路径的下一个路径未被标记，且存在路径，则将其入队                        if (min &lt; x.rel[i][j]) &#123;                        min = min;                    &#125;                    else &#123;                        min = x.rel[i][j];                        vec_next = j;                    &#125;                &#125;            &#125;        &#125;    &#125;    x.tag[vec_next] = true;    road += min;    cout &lt;&lt; start &lt;&lt; &quot;——&gt;&quot; &lt;&lt; x.vec[vec_next]&lt;&lt;&quot; &quot;;    dfs(x, x.vec[vec_next], road);&#125;&lt;/code&gt;emmmm....后来发现我想的太简单了...它居然还要一个人机交互界面！！！这玩意儿我没搞过呀....所以不得不浅浅的学了一波c++的MFC编程以及相关的函数什么的。于是我学到了这两个函数：&lt;code lang=&quot;c++&quot;&gt;        CString str;    Count.GetWindowTextW(str);    COUNT.SetWindowTextW(str);&lt;/code&gt;首先，我创建的MFC是基于对话框的，而不是基于多个文档的，其次，我用了一些控件：Button、Edit control、Static Text这三个，然后发现如果从Edit control中输入的数值是CString类型的，如果要将其变成int型的话，需要使用函数__ttoi()，然后我们需要用函数去获取窗口里的值，所以这个方法就是GetWindowTextW();然后我们还要将其显示到另一个窗口，所以就需要用到SetWindowTextW()方法了；最后有一个小问题就是你需要修改一下Static Text的ID，否则无法给它绑定变量，虽然我也不知道为什么，但是这样做就对了....接着，我又发现问题了，因为我又回去看了一遍题目.....突然发现出口在入口旁边！！！所以，上面那个代码没用了....但是一时我又没有想到该去怎么写那个算法，所以不得已...放弃了，时间不是很多了，所以我只好选一个简单的，最后我选了一个拓扑排序，这个比较简单。&lt;b&gt;拓扑排序&lt;/b&gt;接下来就是拓扑排序的内容了:图的算法实现问题描述：图的存储结构的建立和拓扑排序算法。实现要求：（1）建立图的邻接矩阵或邻接表；（2）实现拓扑排序算法。之所以选拓扑排序是有原因的，因为构建图的邻接矩阵的算法我之前已经做了，所以复制一下，根据需求再改一下就可以了。接下来就是拓扑排序的算法了，拓扑排序就是将入度为0的顶点放入队列，但是其实我感觉我的理解也没错，那就是如果没有边指向这个顶点，或者所有指向这个顶点的边的出发顶点都已经被放入队列里了，可以将这个顶点放入队列，这个应该就是算法的实现了。接下来还有一个要考虑的，就是回路的情况，对存放所有节点的数组进行遍历，如果剩下所有的顶点都有边指向这个顶点，或者所有的顶点都是有的指向这个顶点的边的顶点没有放入队列里，那么就是有回路存在了，将有回路存在的情况输出，并将剩下的还未放入队列的顶点输出，证明回路在这些顶点中产生。所以要创建一个函数来判断是否所有的顶点都已经放入队列，在没有所有的顶点都放入队列的情况下就是行拓扑排序。判断是否所有顶点都已入队的函数如下：&lt;code lang=&quot;c++&quot;&gt;bool isCheck(Map &amp;x) &#123; //如果全部的标记都为真，则说明所有顶点都已经被遍历    for (int i = 0; i &lt; x.length; i++) &#123;        if (!x.tag[i]) return false;    &#125;    return true;&#125;还要一个函数用来判断是否所有存在回路。代码如下：&lt;code lang=&quot;c++&quot;&gt;bool isNot(Map &amp;x,int y) &#123; //该函数用来判断当前顶点是否有指针指向它,如果有一个指针指向它，则返回假，否则返回真    for (int i = 0; i &lt; x.length; i++) &#123;        if (i == y) continue;        if (x.rel[i][y] &gt; 0&amp;&amp;!x.tag[i]) &#123;            return false;        &#125;    &#125;    return true;&#125;&lt;/code&gt;接下来就是拓扑排序的函数的代码了：&lt;code lang=&quot;c++&quot;&gt;void DAG(Map &amp;x) &#123; //找出节点没有线指向它的    queue&lt;char&gt; p;    while (!isCheck(x)) &#123;        int tag=false;        for (int i = 0; i &lt; x.length; i++) &#123; //遍历顶点表，如果在剩下的顶点中全部的顶点都有指针指向它，则直接结束执行，并输出            if (x.tag[i] == false &amp;&amp; isNot(x, i)) &#123;  //如果有一个顶点是没有指针指向它的，则将tag改为真                tag = true;            &#125;        &#125;        if (!tag) &#123;            cout &lt;&lt; &quot;剩下的顶点无法进行拓扑排序&quot; &lt;&lt; endl;            cout &lt;&lt; &quot;剩下的顶点是 &quot;;            for (int i = 0; i &lt; x.length; i++) &#123;                if (!x.tag[i]) &#123;                    cout &lt;&lt; x.vec[i] &lt;&lt; &quot; &quot;;                &#125;            &#125;            cout &lt;&lt; endl;            return;        &#125;        for (int i = 0; i &lt; x.length; i++) &#123; //遍历整个顶点表，挑出没有指针指向它的顶点            if (isNot(x, i)) &#123; //如果没有指向当前顶点的指针，并且该顶点没有被标记，则将其放入队列                p.push(x.vec[i]);                x.tag[i] = true;            &#125;        &#125;    &#125;    while (!p.empty()) &#123;        cout &lt;&lt; p.front() &lt;&lt; &quot; &quot;;        p.pop();    &#125;    cout &lt;&lt; endl;&#125;&lt;/code&gt;emmmm....以上就是我做的自由选择的题目了，这个故事告诉我们，一定要好好看题目！！！！不过也还好，写了这么多代码，至少还是加深了对函数的理解和应用，至少个人还是比较满意的。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据结构课设--集合的交、并、差运算</title>
+      <link href="article/20180704194800/"/>
+      <url>article/20180704194800/</url>
+      
+        <content type="html"><![CDATA[<pre><code>集合的交、并、差运算【问题描述】      编制一个能演示执行集合的交、并和差运算的程序。【任务要求】1)集合元素用小写英文字母，执行各种操作应以对话方式执行。2)算法要点：利用单链表表示集合；理解好三种运算的含义【测试数据】自行设定，注意边界等特殊情况。这道题目其实很简单的，只需要思路对了，实际操作都是比较基础的，其中集合的交集运算是将两个集合都有的元素拿到，并集是将两个集合的元素都拿到，并且不重复，所以我们可以先将第一个集合的元素拿到，再将第二个集合中与第一个集合的元素不同的元素拿到，差运算是将第一个集合中不含有第二个集合元素的元素拿到。这三个集合中都有一个共同点，就是要先找出两个集合中都含有的元素，所以可以将其单独封装。代码如下：&lt;code lang=&quot;c++&quot;&gt;void select(Node *a, Node *b) &#123; //挑出两个集合中都有的元素，并标记它    init(a);    init(b);    Node *p, *q;    for (p = a-&gt;next; p != NULL; p = p-&gt;next) &#123;        for (q = b-&gt;next; q != NULL; q = q-&gt;next) &#123;             if (p-&gt;data == q-&gt;data&amp;&amp; p-&gt;tag == false &amp;&amp; q-&gt;tag == false) &#123; //用标记将a,b两个数组中的已经选过的筛掉                p-&gt;tag = q-&gt;tag = true;            &#125;        &#125;    &#125;&#125;&lt;/code&gt;还有就是要用单链表表示集合，所以要构建一个单链表，指针什么的太麻烦了....不过还好这个是简单的....构建单链表的代码如下：&lt;code lang=&quot;c++&quot;&gt;void input(Node *x) &#123;    cout &lt;&lt; &quot;请输入数组长度&quot; &lt;&lt; endl;    cin &gt;&gt; x-&gt;length;    if (x-&gt;length &gt; MAX) &#123;        cout &lt;&lt; &quot;数组长度输入错误请重新输入数组长度&quot; &lt;&lt; endl;        input(x);        return;    &#125;    cout &lt;&lt; &quot;请输入数组的值&quot; &lt;&lt; endl;    Node *p = x;    for (int i = 0; i &lt; x-&gt;length; i++) &#123;            Node *q = new Node();            cin &gt;&gt; q-&gt;data;             p-&gt;next = q;            q-&gt;next = NULL;            p = p-&gt;next;    &#125;&#125;&lt;/code&gt;接下来就是进行交集、并集、差的运算了，不过这三个运算很多代码都是差不多的，会写一个就能写三个的感觉，所以就只贴一个了。代码如下：&lt;code lang=&quot;c++&quot;&gt;void Cross(Node *a, Node *b, Node *c) &#123; //交集运算    cout &lt;&lt; &quot;开始进行集合的交集运算&quot; &lt;&lt; endl;    select(a, b);    Node *C = c;    for (Node *p = a; p != NULL; p = p-&gt;next) &#123;        if (p-&gt;tag) &#123;            Node *q=new Node();            q-&gt;data = p-&gt;data;            q-&gt;next = NULL;            C-&gt;next = q;            C = C-&gt;next;        &#125;    &#125;    C = c;    while (C != NULL) &#123;        cout &lt;&lt; C-&gt;data &lt;&lt; &quot; &quot;;        C = C-&gt;next;    &#125;    cout &lt;&lt; endl &lt;&lt; &quot;交集的交集运算执行完毕&quot; &lt;&lt; endl;&#125;&lt;/code&gt;对了，上面的init函数只是将集合的标记重置一下，除此之外，并没有什么卵用。以上就是比较简单的第一个集合的交、并、差运算了。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>树与二叉树</title>
+      <link href="article/20180615212600/"/>
+      <url>article/20180615212600/</url>
+      
+        <content type="html"><![CDATA[<pre><code>树其实就是一个有n个节点的有限集合，二叉树是树的一种特殊形式，通过树结构可以让我们去解决查找及其排序的一些问题。有关树结构，最主要的就是二叉树的遍历与排序了。其中二叉树的遍历又分为三种操作，先序遍历，中序遍历和后序遍历，但是其实只是把需要进行的操作顺序改变一下，原理基本没有变化，还有第四种操作就是层序遍历。以下是先序遍历创建二叉树的代码：&lt;code lang=&quot;c++&quot;&gt;void CreateBiTree(BiTree *T)&#123;    char ch;    cin &gt;&gt; ch;    if (ch == &#39;#&#39;)        *T = NULL;  //保证是叶结点    else    &#123;        *T = (BiTree)malloc(sizeof(BiTNode));        //if (!*T)        //exit(OVERFLOW); //内存分配失败则退出。        (*T)-&gt;data = ch;//生成结点        CreateBiTree(&amp;(*T)-&gt;lchild);//构造左子树        CreateBiTree(&amp;(*T)-&gt;rchild);//构造右子树    &#125;&#125;&lt;/code&gt;再接下来是二叉树遍历的代码：&lt;code lang=&quot;c++&quot;&gt;void PreOrderTraverse(BiTree T, int level)&#123;    if (T == NULL)        return;    /*此处表示对遍历的树结点进行的操作，根据你自己的要求进行操作，这里只是输出了结点的数据*/    //operation1(T-&gt;data);    operation2(T-&gt;data, level); //输出了层数    PreOrderTraverse(T-&gt;lchild, level + 1);    PreOrderTraverse(T-&gt;rchild, level + 1);&#125;&lt;/code&gt;其中，operation是指当访问结点时，对结点的操作。二叉树是的先序遍历是用递归函数去实现对二叉树的遍历与创建。接下来是二叉树的层序遍历，二叉树的层序遍历需要借助一个队列来进行节点暂时的存储，这个队列需要是BiTree类型的队列，可以借助二叉树的结构体。二叉树节点结构体如下：&lt;code lang=&quot;c++&quot;&gt;struct BiTree&#123;    char data;    BiTree *lchild,*rchild;&#125;;&lt;/code&gt;二叉树层序遍历的函数如下：&lt;code lang=&quot;c++&quot;&gt;void LevelOrder(BiTree root)&#123;    BiTree Q[100],q;    int front,rear;    if(root==NULL) return;    Q[++rear]=root; //将根节点入队    while(front!=rear)&#123; //利用循环进行遍历      q=Q[++front]; //将队首元素出队      visit(q-&gt;data); //访问节点      if(q-&gt;lchild!=NULL) Q[++rear]=q-&gt;lchild; //将左孩入队      if(q-&gt;rchild!=NULL) Q[++rear]=q-&gt;rchild; //将右孩入队&#125;&lt;/code&gt;还有一个线索二叉树，可以说是二叉树的升级版，主要是因为一般二叉树遍历易于查找孩子而不易查找双亲，而且二叉树如果只有n个节点，则会浪费n+1个指针域空间，为此，增加了两个线索参数,ltag,rtag,特意用来判断指针域指示节点是否还有孩子，如果有则ltag/rtag = 0 ，否则为1，若为1，则把节点相应的指针域指向节点的前驱，表示如下：ltag = 0  lch域指示节点的左孩子ltag = 1  lch域指示节点的前驱对于树，有些树不知有两个孩子，要将其转化成二叉树更方便理解与计算，于是就有了孩子兄弟表示法，即左子树为孩子，右子树为兄弟。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>bootstrap补充之表单</title>
+      <link href="article/20180609214000/"/>
+      <url>article/20180609214000/</url>
+      
+        <content type="html"><![CDATA[<pre><code>在bootstrap中还对表单进行了优化，.form-control产生了基础表单，会产生一个全屏宽度的边框，bootstrap的默认表单是垂直显示的&lt;code lang=&quot;html&quot;&gt;&lt;form class=&quot;form-control&quot; role=&quot;form&quot;&gt;        &lt;div class=&quot;form-group&quot;&gt;            &lt;input type=&quot;text&quot;&gt;        &lt;/div&gt;        &lt;div class=&quot;form-group&quot;&gt;            &lt;input type=&quot;email&quot;/&gt;        &lt;/div&gt;     &lt;/form&gt;&lt;/code&gt;如果要让form水平显示，则需要在form上加一个.form-horizontal类，改变form-group的表现形式，就像网格系统中的row有时候，需要将所有的控件在一行全部显示，所以就有了内联表单,在form上加一个.form-inline类，效果和display:inline-block一样有时候我们经常要使用到表单的一系列控件，如input控件(输入框)，select控件(下拉选择框),文本域(textarea),checkbox（复选框）和单选择按钮(radio)，以及按钮(button).表单控件有三种状态，焦点状态(.focus)，禁用状态(.disabled)，和验证状态(.has-success/warning/error)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>bootstrap框架css始解</title>
+      <link href="article/20180609201400/"/>
+      <url>article/20180609201400/</url>
+      
+        <content type="html"><![CDATA[<pre><code>&lt;b&gt;bootstrap中文版官网：&lt;/b&gt;&lt;a href=&quot;http://www.bootcss.com/&quot;&gt;http://www.bootcss.com/&lt;/a&gt;&lt;br&gt;&lt;b&gt;boootstrap官网：&lt;/b&gt;&lt;a href=&quot;http://getbootstrap.com/&quot;&gt;http://getbootstrap.com/&lt;/a&gt;&lt;br&gt;bootstrap是Twitter推出的一个基于jQuery的响应式框架，利用预先定义的css和一些js实现响应式布局，大大简化了布局的时间，同时也规范了代码的命名。以下是css部分的一些了解。要想使用bootstrap框架，需要将bootstrap框架下载，下载后文件夹中有js、fonts、css三个文件夹，其中css和js需要在html中引入，其中bootstrap的js是基于jQuery的，所以在引入bootstrap之前，需要引入适应版本的jQuery，如果jQuery版本太低控制台会报错，引入代码如下:&lt;code lang=&quot;html&quot;&gt;&lt;link href=&quot;css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;    &lt;script src=&quot;jQuery.1.10.2/Content/Scripts/jquery-1.10.2.min.js&quot;&gt;&lt;/script&gt;    &lt;script src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;&lt;/code&gt;然后就可以使用bootstrap了。以下是css部分的的一些了解：bootstrap的调用是根据类来调用的，所以只要在想要的标签后加入对应的类就可以调用了1.字体：关于bootsstrap的字体，由于html本身的字体就有很多选择，如加粗，斜体，等等，所以bootstrap只是加入了一些对应的类以使普通文本也可以变成加粗等变化，如.h1、.h2、.h3让其标签里的字变成h1标题大小,.lead强调文本内容，.text-left/center/right改变文本对齐风格。2.导航，在ul上定义特殊类，变成了导航，首先是加入一个.nav,这是导航的基本样式，接下来，加入一个.nav-tabs/.nav-pills/.nav-justified增加其美观性3.下拉菜单,分为两部分，一个按钮点击显示菜单，一个列表作为菜单，其中还要加入一个事件触发响应器，而在bootstrap中，定义了一个css属性以触发响应，这就是data-toggle属性，data-toggle属性说明响应以什么事件触发，如常用的model，popover，tooltips等事件，&lt;b&gt;但是&lt;/b&gt;~~~~在导航里有个专门的事件对应，那就是dropdown,添加data-toggle=&quot;dropdown&quot;,激活下拉项，还有一个data-target,是指事件的目标，data-toggle和data-target属性是怎么实现的，下次再写一篇，专门讲~~4.栅格系统，在bootstrap的世界中，造物主为每一行都分成了12个基本的等份，而我们可以去分配我们每个组件占了其中多少份，只需要在类中加上col-lg/ms/xl/xs-1~12就可以了，其中lg/xl/ms/xs分别代表了不同的分辨率，bootstrap也是以此来完成它的响应式布局的，col-lg-*是通过css3的@media的媒体查询来判断并完成响应式布局的。5.按钮，html中其实就已经有button组件，所以bootstrap中添加了.btn类让普通的组件也可以变成一个按钮，同时还增加了btn-default/danger等属性来改变其样式6.进度条，bootstrap增加了一个.progress类来创建一个基本样式的进度条，.progress-*来设置不同样式的进度条7.字体图标，bootstap的fonts文件夹中存放了许多存储字体图标的文件，通过.glyphicon使组件具有一个无图标的基本样式，.plyphicon-*使组件具有某种图标</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>眉间雪</title>
+      <link href="article/20180605235400/"/>
+      <url>article/20180605235400/</url>
+      
+        <content type="html"><![CDATA[<iframe src="//player.bilibili.com/player.html?aid=3729680&bvid=BV18s411X7cN&cid=5982257&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="600px" height="500px"> </iframe>]]></content>
+      
+      
+      <categories>
+          
+          <category> 天命风流 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>查找及排序</title>
+      <link href="article/20180605221800/"/>
+      <url>article/20180605221800/</url>
+      
+        <content type="html"><![CDATA[<pre><code>数据结构还真是有点难....emmmm....这次是查找以及排序的数据结构，其中，排序的函数如下，该排序是&lt;b&gt;快速排序&lt;/b&gt;基本思路是:利用递归，遍历数组，并将其分为枢轴的左右两边，然后再将左右两边也分开，所以该递归函数需要传递两个参数，low和high，至于枢轴，枢轴是进行一次排序后，返回的值。&lt;blockquote&gt;int partition(int low,int high) &#123;        //不能取地址，否则会将原来的值覆盖而导致low,high循环一次到相同位置之后无法再循环    int key;    key = a[low];//将子表的第一个记录作为枢轴    while (low&lt; high) &#123;         while (low&lt;high&amp;&amp;a[high]&gt;key) high--;        swap(a[low], a[high]);//将枢轴右边比枢轴小的交换到低端        //谁与谁交换？？high指针所指的比数轴小的数与low指针所指的数交换        while (low &lt; high&amp;&amp;a[low] &lt; key) low++;        swap(a[low], a[high]);//将枢轴左边比枢轴大的交换到高端    &#125;    return low;//此时的low==high，前面的while循环遍历了一遍数组&#125;//一次快速排序的算法,扫描一遍，并返回下一次排序枢轴的位置void Qsort(int low,int high) &#123;    if (low &lt; high) &#123;        int key = partition(low, high);//枢轴        Qsort(low, key);//枢轴左边进行排序        Qsort(key+1, high);//枢轴右边进行排序    &#125;&#125;//快速排序&lt;/blockquote&gt;&lt;b&gt;查找&lt;/b&gt;本次实验用的是二分查找，主要是遍历数组，判断key与middle的大小，并不断调整区间，查找较为简单，以下是二分查找的代码&lt;blockquote&gt;int Search(int key,int n) &#123;    int low = 0,high = n;    while(low &lt;= high) &#123; //等号需存在，因为可能两个指针都指向同一个数，且该数就是需要查找的数的情况        int mid = (low + high) / 2;        if (a[mid] &lt; key) low = mid+1;        if (a[mid] &gt; key) high = mid-1;        if (a[mid] == key) return mid;    &#125;    return -1;&#125;//二分查找&lt;/blockquote&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>二叉树的深度</title>
+      <link href="article/20180518174500/"/>
+      <url>article/20180518174500/</url>
+      
+        <content type="html"><![CDATA[<pre><code>&lt;h1 id=&quot;1-二叉树的深度&quot;&gt;1 二叉树的深度&lt;/h1&gt;&lt;strong&gt;题目：&lt;/strong&gt;输入一个二叉树的根节点，求该树的深度。从根节点到叶子节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度包含的节点数为为树的深度，即二叉树节点的层数。&lt;strong&gt;二叉树的节点定义：&lt;/strong&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;struct&lt;/span&gt; BinaryTreeNode&#123; &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; m_value;BinaryTreeNode* m_pLeft;BinaryTreeNode* m_pRight;&#125;;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP基础，日历表单控件</title>
+      <link href="article/20180517124800/"/>
+      <url>article/20180517124800/</url>
+      
+        <content type="html"><![CDATA[<pre><code>&lt;blockquote&gt;&lt;strong&gt;H5中新增日期时间相关控件的使用&lt;/strong&gt;1.HTML5中新增表单控件2.jQuery datetimepicker插件的使用3.jQuery Time plugin插件的使用&lt;/blockquote&gt;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;meta charset=&quot;UTF-8&quot;&gt;    &lt;title&gt;H5中新增表单控件&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;H5中新增表单日期时间相关的控件&lt;/h1&gt;&lt;form action=&quot;doAction.php&quot; method=&quot;post&quot;&gt;    &lt;input type=&quot;date&quot; name=&quot;datetime&quot; id=&quot;&quot;/&gt;&lt;br&gt;    &lt;input type=&quot;datetime-local&quot; name=&quot;datetime2&quot; id=&quot;&quot;/&gt;&lt;br&gt;    &lt;input type=&quot;month&quot; name=&quot;datetime3&quot; id=&quot;&quot;&gt;&lt;br&gt;    &lt;input type=&quot;week&quot; id=&quot;&quot;&gt;&lt;br&gt;    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;&quot;&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;&lt;strong&gt;在jQuery官网下载，然后再引用插件就可以了&lt;/strong&gt;1.引用css文件  jQuery.datetimepicker.css2.引用js文件   jQuery.js  jQuery.datetimepicker.full.min.js&lt;script type=&quot;text/javascript&quot;&gt;    $(&#39;#datetimepicker&#39;).datetimepicker();&lt;/script&gt;//初始化框架&lt;strong&gt;jQuery Time plugin插件的使用&lt;/strong&gt; &lt;em&gt;引用jQuery.min.js jquery.flipcountdown.js&lt;/em&gt;&lt;script type=&quot;text/javascript&quot;&gt;    $(&#39;#myClockBox1&#39;).flipcountdown();&lt;/script&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP基础，时间函数库</title>
+      <link href="article/20180517124100/"/>
+      <url>article/20180517124100/</url>
+      
+        <content type="html"><![CDATA[<pre><code>date_default_timezone_set($timezone); 动态设置时区,当前页面有效date_default_timezone_get();&lt;strong&gt;亚洲时区&lt;/strong&gt;  PRC 中户人民共和国   Asia/Shanghai1.修改php配置文件，date.timezone = PRC，重启服务器  php.ini2.date_default_timezone_set($timezone); 动态设置时区,当前页面有效3.ini_set():运行时设置PHP的配置选项4.ini_get*(:获得配置选项的值5.strrotime的使用:将英文文本的日期或时间转换成时间戳6.检测闰年  date(&#39;L&#39;);是返回1，不是返回0&lt;strong&gt;时间戳：从一个时间点到当前经历的秒数&lt;/strong&gt;     获取时间戳：time();     将指定日期转换成时间戳：mktime(小时，分钟，秒，月，日，年); strrotime的使用:将英文文本的日期或时间转换成时间戳&lt;strong&gt;微秒及其其他日常时间函数的使用&lt;/strong&gt; * 通过microtime()获取微秒 microtime(微秒，时间戳) * microtime(true) 返回一个四位的浮点数 * 通过微秒实现计算PHP的执行时间 * getdate() 返回信息数组</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>路由器的安装及其配置</title>
+      <link href="article/20180513172236/"/>
+      <url>article/20180513172236/</url>
+      
+        <content type="html"><![CDATA[<p>最近工作室wifi连不上了，直到今天才去弄，其实最初级的话没什么难度，主要是知道了一下几点</p><p>1.路由器长按reset是可以恢复出厂设置的</p><p>2.路由器上会显示你登陆路由的账号密码，用它可以登录</p><p>3.一般的登录ip是192.168.1.1</p><p>4.登陆进去之后初级操作基本无脑的感觉，都会有提示</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于php</title>
+      <link href="article/20180511203500/"/>
+      <url>article/20180511203500/</url>
+      
+        <content type="html"><![CDATA[<pre><code>Emmmmm....有关php的集成环境搭建，比如wampserver和phpstudy，主要是集成了php环境，mysql，apache服务器，这三大块而组成的，其中在搭建环境的时候遇到了很多问题，最主要的问题是对域php的解析不是很懂，所以被卡了很久，接下来又很重要的几点总结：1.浏览器不能解析php，必须在浏览器上输入域名去访问，否则在浏览器上将只会显示代码2.更改网站根目录，需要在httpd.conf、http-vhost.conf、以及config.inc.php上改代码，其中在config.inc.php文件中找到$wwwDir字符，将后面的路径改成需要的路径，其次在http.conf文件中找到documentroot和directory字符将后面的路径改成需要的字符，在http-vhost.conf中也改成路径还可以进行多站点设置，这时需要在http_vhost.conf中添加一个虚拟主机，代码如下：&lt;code&gt;&lt;VirtualHost *:80&gt;    ServerName localhost    ServerAlias localhost    DocumentRoot c:/wamp/www    &lt;Directory  &quot;c:/wamp/www/&quot;&gt;        Options +Indexes +Includes +FollowSymLinks +MultiViews        AllowOverride All        Require local    &lt;/Directory&gt;&lt;/VirtualHost&gt;&lt;VirtualHost *:80&gt;    ServerName website    DocumentRoot F:/html/myself    &lt;Directory  &quot;F:/html/myself&quot;&gt;        Options +Indexes +Includes +FollowSymLinks +MultiViews        AllowOverride All        Require local    &lt;/Directory&gt;&lt;/VirtualHost&gt;&lt;/code&gt;然后在http.conf上给http-vhost.conf的虚拟主机配置好设置，其实只要把原来就有的代码复制一下然后再改一改路径就可以了，代码如下：&lt;code&gt;&lt;Directory &quot;$&#123;INSTALL_DIR&#125;/www/&quot;&gt;    #    # Possible values for the Options directive are &quot;None&quot;, &quot;All&quot;,    # or any combination of:    #   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews    #    # Note that &quot;MultiViews&quot; must be named *explicitly* --- &quot;Options All&quot;    # doesn&#39;t give it to you.    #    # The Options directive is both complicated and important.  Please see    # http://httpd.apache.org/docs/2.4/mod/core.html#options    # for more information.    #    Options +Indexes +FollowSymLinks +Multiviews    #    # AllowOverride controls what directives may be placed in .htaccess files.    # It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:    #   AllowOverride FileInfo AuthConfig Limit    #    AllowOverride all    #    # Controls who can get stuff from this server.    ##   onlineoffline tag - don&#39;t remove    Require local&lt;/Directory&gt;DocumentRoot F:/html/myself    &lt;Directory  &quot;F:/html/myself&quot;&gt;        Options +Indexes +Includes +FollowSymLinks +MultiViews        AllowOverride All        Require local&lt;/Directory&gt;&lt;/code&gt;最后再给电脑添加该站点，找到C:\Windows\System32\drivers\etc\hosts文件，然后加上自己的路径和虚拟主机名就可以了。&lt;code&gt;# localhost name resolution is handled within DNS itself.    127.0.0.1       localhost#    ::1             localhost    127.0.0.1       website&lt;/code&gt;这样就完成了php的多站点设置。然后我们可以自拟定端口号，只要在http.conf里面找到如下代码：&lt;code&gt;#Listen 12.34.56.78:80Listen 0.0.0.0:80Listen [::0]:80&lt;/code&gt;和这段代码：&lt;code&gt;ServerName localhost:80&lt;/code&gt;然后将端口号改成自己想要的端口号就可以了。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>环形队列</title>
+      <link href="article/20180510002000/"/>
+      <url>article/20180510002000/</url>
+      
+        <content type="html"><![CDATA[<pre><code>for(int i = m_iHead; i &amp;lt; m_iHead + m_iQueueLen; ++i) &#123; cout &amp;lt;&amp;lt; m_pQueue[i%m_iQueueCapacity] &amp;lt;&amp;lt; endl; &#125; &#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文章 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
