@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Hokori</title>
+    <link>http://www.yechuchen.cn/</link>
+    
+    <image>
+      <url>https://www.gravatar.com/avatar/c42e35472cfd3b15f1b362feaa9428bc</url>
+      <title>Hokori</title>
+      <link>http://www.yechuchen.cn/</link>
+    </image>
+    
+    <atom:link href="http://www.yechuchen.cn/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>夜初尘的博客是一个基于Hexo框架+GithubPages，并使用了Butterfly主题的博客,Hokori</description>
+    <pubDate>Thu, 31 Oct 2024 07:11:34 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Zotereo使用</title>
+      <link>http://www.yechuchen.cn/article/20231229053804/</link>
+      <guid>http://www.yechuchen.cn/article/20231229053804/</guid>
+      <pubDate>Fri, 29 Dec 2023 05:38:04 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;插件列表&quot;&gt;插件列表&lt;/h1&gt;
+&lt;details class=&quot;folding-tag&quot; &gt;&lt;summary&gt; 本文所有插件均基于Zotero6.30，如果在安装插件时出现如下错误，则是插件版本无法与Zotero版本兼容，请自行找到兼容版本 &lt;/summary&gt;
+</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20231229053804/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>PUG</title>
+      <link>http://www.yechuchen.cn/article/20231222053438/</link>
+      <guid>http://www.yechuchen.cn/article/20231222053438/</guid>
+      <pubDate>Fri, 22 Dec 2023 05:34:38 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;安装&quot;&gt;安装&lt;/h1&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td cla</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20231222053438/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>英语语法</title>
+      <link>http://www.yechuchen.cn/article/20231208115002/</link>
+      <guid>http://www.yechuchen.cn/article/20231208115002/</guid>
+      <pubDate>Fri, 08 Dec 2023 11:50:02 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;句法&quot;&gt;句法&lt;/h1&gt;
+&lt;h2 id=&quot;六大句型&quot;&gt;六大句型&lt;/h2&gt;
+&lt;h3 id=&quot;主谓结构&quot;&gt;主谓结构&lt;/h3&gt;
+&lt;div class=&quot;tabs&quot; id=&quot;主谓结构&quot;&gt;&lt;ul class=&quot;nav-tabs&quot;&gt;&lt;button type=&quot;button&quot; c</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20231208115002/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>现代编码理论</title>
+      <link>http://www.yechuchen.cn/article/20230220132440/</link>
+      <guid>http://www.yechuchen.cn/article/20230220132440/</guid>
+      <pubDate>Mon, 20 Feb 2023 13:24:40 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;编码理论基础&quot;&gt;编码理论基础&lt;/h1&gt;
+&lt;h2 id=&quot;&quot;&gt;-&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;有限域上的循环码&quot;&gt;有限域上的循环码&lt;/h1&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;编码的构成和分类&quot;&gt;编码的构成和分类&lt;/h1&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;自对偶码&quot;&gt;自对</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20230220132440/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>零知识证明</title>
+      <link>http://www.yechuchen.cn/article/20230202073600/</link>
+      <guid>http://www.yechuchen.cn/article/20230202073600/</guid>
+      <pubDate>Thu, 02 Feb 2023 07:36:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;定义&quot;&gt;定义&lt;/h1&gt;
+&lt;div class=&quot;tabs&quot; id=&quot;零知识证明定义&quot;&gt;&lt;ul class=&quot;nav-tabs&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;tab  active&quot; data-href=&quot;零知识证明定义-1&quot;&gt;零知识证</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      <category domain="http://www.yechuchen.cn/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20230202073600/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>数据库</title>
+      <link>http://www.yechuchen.cn/article/20230116091430/</link>
+      <guid>http://www.yechuchen.cn/article/20230116091430/</guid>
+      <pubDate>Mon, 16 Jan 2023 09:14:30 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;数据库模式&quot;&gt;数据库模式&lt;/h1&gt;
+&lt;h2 id=&quot;三级模式-两级映射&quot;&gt;三级模式-两级映射&lt;/h2&gt;
+&lt;h3 id=&quot;外模式&quot;&gt;外模式&lt;/h3&gt;
+&lt;h3 id=&quot;概念模式&quot;&gt;概念模式&lt;/h3&gt;
+&lt;h3 id=&quot;内模式&quot;&gt;内模式&lt;/h3&gt;
+&lt;p&gt;关注于如何存储数据</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20230116091430/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>SEO学习笔记</title>
+      <link>http://www.yechuchen.cn/article/20230116091402/</link>
+      <guid>http://www.yechuchen.cn/article/20230116091402/</guid>
+      <pubDate>Mon, 16 Jan 2023 09:14:02 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;    在做网站的时候，由于各种原因，需要做SEO的处理，因此特意学了一下SEO。&lt;br&gt;
+SEO的&lt;/p&gt;
+&lt;h1 id=&quot;搜索引擎算法&quot;&gt;搜索引擎算法&lt;/h1&gt;
+&lt;h2 id=&quot;爬取&quot;&gt;爬取&lt;/h2&gt;
+&lt;h3 id=&quot;搜索引擎爬虫规则&quot;&gt;搜索引擎爬虫规则&lt;/h3&gt;
+&lt;h</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20230116091402/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>MySQL学习笔记</title>
+      <link>http://www.yechuchen.cn/article/20230116091347/</link>
+      <guid>http://www.yechuchen.cn/article/20230116091347/</guid>
+      <pubDate>Mon, 16 Jan 2023 09:13:47 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;基础操作&quot;&gt;基础操作&lt;/h1&gt;
+&lt;h2 id=&quot;数据库操作&quot;&gt;数据库操作&lt;/h2&gt;
+&lt;h3 id=&quot;创建数据库&quot;&gt;创建数据库&lt;/h3&gt;
+&lt;p&gt;CREATE DATABASE DATABASE_NAME;&lt;br&gt;
+&lt;strong&gt;Example:&lt;/strong&gt;&lt;</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20230116091347/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>操作系统</title>
+      <link>http://www.yechuchen.cn/article/20210601024323/</link>
+      <guid>http://www.yechuchen.cn/article/20210601024323/</guid>
+      <pubDate>Tue, 01 Jun 2021 02:43:23 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;概述&quot;&gt;概述&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;管理系统的硬件、软件、数据资源&lt;/li&gt;
+&lt;li&gt;控制程序运行&lt;/li&gt;
+&lt;li&gt;人机之间的接口&lt;/li&gt;
+&lt;li&gt;应用软件与硬件之间的接口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;系统分类&quot;&gt;系统分类&lt;/h1&gt;
+&lt;h2 i</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/%E8%BD%AF%E8%80%83/">软考</category>
+      
+      <category domain="http://www.yechuchen.cn/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210601024323/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>计算机组成原理</title>
+      <link>http://www.yechuchen.cn/article/20210430001033/</link>
+      <guid>http://www.yechuchen.cn/article/20210430001033/</guid>
+      <pubDate>Fri, 30 Apr 2021 00:10:33 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;数据的表示&quot;&gt;数据的表示&lt;/h1&gt;
+&lt;h2 id=&quot;不同进制的转换&quot;&gt;不同进制的转换&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;其他进制转十进制,使用按权展开法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;kat</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/%E8%BD%AF%E8%80%83/">软考</category>
+      
+      <category domain="http://www.yechuchen.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210430001033/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>nginx黑名单和白名单</title>
+      <link>http://www.yechuchen.cn/article/20210420123951/</link>
+      <guid>http://www.yechuchen.cn/article/20210420123951/</guid>
+      <pubDate>Tue, 20 Apr 2021 12:39:51 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;在解决&lt;a href=&quot;http://www.yechuchen.cn/article/20210420174143/&quot;&gt;禁止ip直接访问网站&lt;/a&gt;的问题的时候，受到群友启发，发现还有个可以禁止ip直接访问网站的办法，那就是网站黑白名单。&lt;/p&gt;
+&lt;h1 id=&quot;Ngin</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/nginx/">nginx</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210420123951/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>禁止ip直接访问网站</title>
+      <link>http://www.yechuchen.cn/article/20210420094143/</link>
+      <guid>http://www.yechuchen.cn/article/20210420094143/</guid>
+      <pubDate>Tue, 20 Apr 2021 09:41:43 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;由于ip暴露出来，很容易使得服务器被攻击，因此需要禁止ip直接访问网站，我从度娘上找到了一些配置，并且试验了一番，特此将其整合一下，以应对各种&lt;/p&gt;
+&lt;h1 id=&quot;禁止ip访问，报错处理&quot;&gt;禁止ip访问，报错处理&lt;/h1&gt;
+&lt;p&gt;有时候我们需要直接对通过ip进行访问的网</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/nginx/">nginx</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210420094143/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>mysql远程连接</title>
+      <link>http://www.yechuchen.cn/article/20210415090826/</link>
+      <guid>http://www.yechuchen.cn/article/20210415090826/</guid>
+      <pubDate>Thu, 15 Apr 2021 09:08:26 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;mysql远程连接需要进行配置&lt;/p&gt;
+&lt;h1 id=&quot;Mysql配置&quot;&gt;Mysql配置&lt;/h1&gt;
+&lt;p&gt;进入命令行&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;sp</description>
+        
+      
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/Mysql/">Mysql</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210415090826/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>PHP配置mysql扩展</title>
+      <link>http://www.yechuchen.cn/article/20210415065242/</link>
+      <guid>http://www.yechuchen.cn/article/20210415065242/</guid>
+      <pubDate>Thu, 15 Apr 2021 06:52:42 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;在安装完php后，因为要安装wordpress的原因，需要安装php的mysql扩展，但是mysql扩展又有区别，且安装过程碰到了些问题，因此特意记录一下。&lt;/p&gt;
+&lt;h1 id=&quot;安装mysqli扩展&quot;&gt;安装mysqli扩展&lt;/h1&gt;
+&lt;h2 id=&quot;生成configur</description>
+        
+      
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/PHP/">PHP</category>
+      
+      <category domain="http://www.yechuchen.cn/tags/Mysql/">Mysql</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210415065242/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>axios下载文件</title>
+      <link>http://www.yechuchen.cn/article/20210412091907/</link>
+      <guid>http://www.yechuchen.cn/article/20210412091907/</guid>
+      <pubDate>Mon, 12 Apr 2021 09:19:07 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;axios文件下载文件&quot;&gt;axios文件下载文件&lt;/h1&gt;
+&lt;h2 id=&quot;POST方式&quot;&gt;POST方式&lt;/h2&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;s</description>
+        
+      
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/%E5%89%8D%E7%AB%AF/">前端</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210412091907/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>网站跨域问题</title>
+      <link>http://www.yechuchen.cn/article/20210412063342/</link>
+      <guid>http://www.yechuchen.cn/article/20210412063342/</guid>
+      <pubDate>Mon, 12 Apr 2021 06:33:42 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;网站报错&quot;&gt;网站报错&lt;/h1&gt;
+&lt;p&gt;当发生跨域问题时，会出现如下错误：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1</description>
+        
+      
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/%E5%89%8D%E7%AB%AF/">前端</category>
+      
+      <category domain="http://www.yechuchen.cn/tags/%E9%94%99%E9%A2%98%E9%9B%86/">错题集</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210412063342/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>一些有用的链接</title>
+      <link>http://www.yechuchen.cn/article/20210412004458/</link>
+      <guid>http://www.yechuchen.cn/article/20210412004458/</guid>
+      <pubDate>Mon, 12 Apr 2021 00:44:58 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;Idea历史版本官网链接&quot;&gt;Idea历史版本官网链接&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.jetbrains.com/idea/download/other.html&quot;&gt;https://www.jetbrains.com/idea/downl</description>
+        
+      
+      
+      
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210412004458/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Markdown学习笔记</title>
+      <link>http://www.yechuchen.cn/article/20210411061934/</link>
+      <guid>http://www.yechuchen.cn/article/20210411061934/</guid>
+      <pubDate>Sun, 11 Apr 2021 06:19:34 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;    新博客需要用Markdown语言来进行书写，刚好md文件一般都是用来写文档的，见猎心喜之下，顺便学一下Markdown到底应该怎么写，而不是像之前一样，连格式都不知道是怎么样的，就瞎写了。Markdown的教程网上有很多，而我是基于&lt;a href=&quot;https://</description>
+        
+      
+      
+      
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210411061934/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>typecho转hexo</title>
+      <link>http://www.yechuchen.cn/article/20210410122943/</link>
+      <guid>http://www.yechuchen.cn/article/20210410122943/</guid>
+      <pubDate>Sat, 10 Apr 2021 12:29:43 GMT</pubDate>
+      
+        
+        
+      <description>&lt;pre&gt;&lt;code&gt;	人生的意义可能就在于折腾吧，从wordpress转到了typecho，跌跌撞撞的又从typecho又转到了hexo。至于为什么要
+转hexo呢，一是因为喜欢折腾，二是刚好在学SEO的时候突然想到了这玩意儿，那就顺便玩玩咯，不过u1s1，弄完之后，再
+加上个</description>
+        
+      
+      
+      
+      
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210410122943/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>window用wsl安装centos</title>
+      <link>http://www.yechuchen.cn/article/20210108085300/</link>
+      <guid>http://www.yechuchen.cn/article/20210108085300/</guid>
+      <pubDate>Fri, 08 Jan 2021 08:53:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;云服务器性能不够，装个PHP都卡死，但是又不想开虚拟机，因为虚拟机图形界面的话，也会很卡，不过前几天看到可以用wsl在windows下面安装一个linux系统，而且还可以优化一下没用的cmd。。因此特意学了一下如何配置wsl。该文章是基于下面的文章来写的：&lt;br&gt;
+&lt;a h</description>
+        
+      
+      
+      
+      
+      <category domain="http://www.yechuchen.cn/categories/%E6%96%87%E7%AB%A0/">文章</category>
+      
+      
+      <category domain="http://www.yechuchen.cn/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</category>
+      
+      
+      <comments>http://www.yechuchen.cn/article/20210108085300/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

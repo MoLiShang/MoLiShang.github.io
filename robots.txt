@@ -1,0 +1,14 @@
+# welcome to : www.yechuchen.cn
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /about/
+Allow: /article/
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /lib/
+Sitemap: http://www.yechuchen.cn/sitemap.xml
